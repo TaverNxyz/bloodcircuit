@@ -13,6 +13,18 @@ import InitialTerminal from "@/components/InitialTerminal";
 
 const products = [
   {
+    id: "rust",
+    name: "Application Status",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Advanced external cheat for Rust",
+    features: ["Aimbot", "ESP", "Item ESP"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
+  },
+  {
     id: "apex",
     name: "Apex External",
     prices: {
@@ -47,18 +59,6 @@ const products = [
     description: "Premium external cheat for Fortnite",
     features: ["Aimbot", "ESP", "Radar"],
     videoUrl: "https://streamable.com/e/lwokde"
-  },
-  {
-    id: "rust",
-    name: "Application Status",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Advanced external cheat for Rust",
-    features: ["Aimbot", "ESP", "Item ESP"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   }
 ];
 
@@ -68,7 +68,6 @@ const MainContent = () => {
   const [showInitialTerminal, setShowInitialTerminal] = useState(false);
 
   useEffect(() => {
-    // Only show terminal if this is the first visit from browser (no history)
     const isFirstVisit = !localStorage.getItem('visited') && window.history.length <= 2;
     
     if (isFirstVisit) {
@@ -76,7 +75,6 @@ const MainContent = () => {
       return;
     }
 
-    // Show loading spinner briefly for subsequent navigation
     const loadingTime = 800;
     setTimeout(() => {
       setIsLoading(false);
@@ -95,6 +93,10 @@ const MainContent = () => {
     return <LoadingSpinner />;
   }
 
+  // Find the status product and other products
+  const statusProduct = products.find(p => p.id === "rust");
+  const otherProducts = products.filter(p => p.id !== "rust");
+
   return (
     <>
       <div className="relative min-h-screen bg-transparent">
@@ -102,11 +104,10 @@ const MainContent = () => {
           <ParticlesBackground />
         </div>
 
-        {/* Hero Section with Text Above Video */}
         <div className="relative pt-20">
           <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none">
             <div className="text-center p-8">
-              <h1 className="text-6xl font-bold mb-4 font-['Metal_Mania'] bg-gradient-to-r from-[#F97316] via-[#FEC6A1] to-[#F97316] text-transparent bg-clip-text animate-pulse">
+              <h1 className="text-6xl font-bold mb-4 font-['Metal_Mania'] bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] text-transparent bg-clip-text animate-pulse">
                 Provide Yourself The Power
               </h1>
               <p className="text-xl text-[#9b87f5] font-['JetBrains_Mono']">
@@ -121,19 +122,25 @@ const MainContent = () => {
         </div>
 
         <div className="container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
+          {/* Status box centered at the top */}
+          {statusProduct && (
+            <div className="max-w-md mx-auto mb-12">
+              <ProductCard product={statusProduct} />
+            </div>
+          )}
+          
+          {/* Other products in a row below */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {otherProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
 
-        {/* Payment Ribbon */}
         <div className="fixed bottom-0 left-0 right-0">
           <PaymentRibbon />
         </div>
 
-        {/* Header */}
         <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4">
           <Logo />
           <div className="flex items-center gap-4">
@@ -164,7 +171,6 @@ const MainContent = () => {
   );
 };
 
-// Main Index component
 const Index = () => {
   useEffect(() => {
     const cleanup = initScrollOpacity();
