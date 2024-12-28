@@ -35,7 +35,7 @@ const LoadingSpinner = () => {
         <div className="p-6 space-y-4">
           {/* Blinking cursor effect */}
           <div className="flex items-center gap-2">
-            <span className="text-[#1EAEDB] animate-pulse">></span>
+            <span className="text-[#1EAEDB] animate-pulse">{'>'}</span>
             <span className="text-[#F2FCE2]">{text}</span>
             <span className="w-2 h-5 bg-[#1EAEDB] animate-pulse"></span>
           </div>
