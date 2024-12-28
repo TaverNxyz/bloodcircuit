@@ -27,11 +27,11 @@ const PaymentRibbon = () => {
 
   return (
     <>
-      <div className="relative w-full bg-[#0A0A0A] py-3 flex justify-between items-center px-4 overflow-hidden">
+      <div className="relative w-full bg-[#0A0A0A] py-3 flex justify-between items-center px-4 overflow-hidden border-t border-[#222]">
         <Button 
           variant="ghost" 
           size="sm"
-          onClick={() => setDialogOpen(true)}
+          onClick={copyPaymentInfo}
           className="text-white hover:bg-white/10 z-10"
         >
           <Copy className="mr-2 h-4 w-4" />
@@ -39,11 +39,21 @@ const PaymentRibbon = () => {
         </Button>
 
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-          <div ref={scrollRef} className="flex animate-scroll whitespace-nowrap opacity-60">
+          <div 
+            ref={scrollRef} 
+            className="flex whitespace-nowrap opacity-80 animate-[scroll_20s_linear_infinite] hover:pause"
+            style={{
+              willChange: 'transform',
+              backfaceVisibility: 'hidden'
+            }}
+          >
             {[...Array(2)].map((_, groupIndex) => (
               <div key={groupIndex} className="flex gap-12 mx-8">
                 {PAYMENT_METHODS.map((method, index) => (
-                  <span key={`${groupIndex}-${index}`} className="text-sm font-medium text-white/80">
+                  <span 
+                    key={`${groupIndex}-${index}`} 
+                    className="text-sm font-medium text-white/90 tracking-wide"
+                  >
                     {method.text}
                   </span>
                 ))}

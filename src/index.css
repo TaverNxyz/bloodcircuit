@@ -75,7 +75,7 @@
   animation: loading-shine 1.5s infinite;
 }
 
-/* Animated background opacity control - removed opacity changes */
+/* Animated background opacity control */
 .animated-bg {
   transition: opacity 0.3s ease-in-out;
 }
@@ -87,6 +87,21 @@
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50%));
+  }
+}
+
+/* Pause animation on hover */
+.hover\:pause:hover {
+  animation-play-state: paused;
 }
 
 /* Page transitions */
