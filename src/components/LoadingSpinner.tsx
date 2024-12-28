@@ -11,6 +11,7 @@ const LoadingSpinner = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [completedLines, setCompletedLines] = useState<string[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
   
   useEffect(() => {
     const visited = sessionStorage.getItem('visited');
@@ -37,14 +38,16 @@ const LoadingSpinner = () => {
       return () => clearTimeout(timer);
     }
 
-    // Don't proceed if all lines are complete
+    // Don't start typing if we're already typing
+    if (isTyping) return;
+
+    // If we've completed all lines
     if (currentLine >= terminalLines.length) {
       if (!isComplete) {
         setIsComplete(true);
-        // Wait 2 seconds after last line before showing button
         const timer = setTimeout(() => {
           setShowButton(true);
-        }, 2000);
+        }, 3000); // Wait 3 seconds before showing button
         return () => clearTimeout(timer);
       }
       return;
@@ -54,25 +57,26 @@ const LoadingSpinner = () => {
     
     // If current line is complete
     if (text === currentText) {
-      // Add the completed line to our array
       setCompletedLines(prev => [...prev, currentText]);
+      setIsTyping(false);
       
-      // Wait 2 seconds before starting next line
+      // Wait 3 seconds before starting next line
       const lineTimer = setTimeout(() => {
         setCurrentLine(prev => prev + 1);
         setText('');
-      }, 2000);
+      }, 3000);
       
       return () => clearTimeout(lineTimer);
     }
 
-    // Type each character with a 200ms delay
+    // Start typing the next character
+    setIsTyping(true);
     const charTimer = setTimeout(() => {
-      setText(text + currentText[text.length]);
-    }, 200);
+      setText(prev => prev + currentText[prev.length]);
+    }, 300); // Type each character with a 300ms delay
 
     return () => clearTimeout(charTimer);
-  }, [text, currentLine, isFirstVisit, terminalLines, isComplete]);
+  }, [text, currentLine, isFirstVisit, terminalLines, isComplete, isTyping]);
 
   if (!showTerminal) return null;
 
@@ -88,17 +92,15 @@ const LoadingSpinner = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
       <div className="w-full max-w-3xl p-8 font-mono">
         <TerminalWindow>
-          {/* Show completed lines */}
           {completedLines.map((line, index) => (
             <div key={index} className="mb-2">
               <TerminalLine text={line} />
             </div>
           ))}
-          {/* Show current typing line */}
           {currentLine < terminalLines.length && (
             <TerminalLine 
               text={text} 
-              isTyping={true}
+              isTyping={isTyping}
             />
           )}
         </TerminalWindow>
