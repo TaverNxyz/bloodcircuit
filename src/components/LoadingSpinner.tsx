@@ -39,7 +39,7 @@ const LoadingSpinner = () => {
     if (isComplete) {
       const timer = setTimeout(() => {
         setShowButton(true);
-      }, 500);
+      }, 1000);
       return () => clearTimeout(timer);
     }
 
@@ -53,13 +53,13 @@ const LoadingSpinner = () => {
       const lineTimer = setTimeout(() => {
         setCurrentLine(prev => prev + 1);
         setText('');
-      }, 1000);
+      }, 1500); // Increased from 1000ms to 1500ms
       return () => clearTimeout(lineTimer);
     }
 
     const charTimer = setTimeout(() => {
       setText(text + currentText[text.length]);
-    }, 100);
+    }, 150); // Increased from 100ms to 150ms for slower typing
 
     return () => clearTimeout(charTimer);
   }, [text, currentLine, isFirstVisit, terminalLines, isComplete]);
