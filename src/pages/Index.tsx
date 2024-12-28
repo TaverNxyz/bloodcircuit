@@ -50,7 +50,7 @@ const products = [
   },
   {
     id: "rust",
-    name: "Rust External",
+    name: "Application Status",
     prices: {
       daily: 7,
       weekly: 25,

@@ -35,7 +35,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     navigate(`/product/${product.id}`);
   };
 
-  // Special handling for Rust External card
+  // Special handling for Application Status card
   if (product.id === "rust") {
     return (
       <Card className="relative overflow-hidden group bg-[#0A0A0A]/80 border-[#222] hover:border-[#1EAEDB] transition-all duration-300">
@@ -52,7 +52,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </Button>
             <Button 
               className="w-full bg-[#9b87f5] hover:bg-[#9b87f5]/80 text-white"
-              onClick={() => console.log("Checking UDP Status")}
+              onClick={() => window.open('https://undetect.net/status', '_blank')}
             >
               Check UDP Status
             </Button>
