@@ -4,8 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from './ui/button';
 
 const videos = [
-  { id: 1, url: 'https://streamable.com/lwokde' },
-  { id: 2, url: 'https://streamable.com/yd3tbf' }
+  { id: 1, url: 'https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=0&controls=0&showinfo=0&rel=0' }
 ];
 
 const MediaCarousel = () => {
@@ -15,18 +14,19 @@ const MediaCarousel = () => {
   const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <div className="relative max-w-[1200px] mx-auto">
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
+    <div className="relative w-full h-[80vh] mx-auto">
+      <div className="overflow-hidden h-full" ref={emblaRef}>
+        <div className="flex h-full">
           {videos.map((video) => (
-            <div className="flex-[0_0_100%] min-w-0" key={video.id}>
-              <div className="aspect-video">
+            <div className="flex-[0_0_100%] min-w-0 h-full" key={video.id}>
+              <div className="relative w-full h-full">
                 <iframe
-                  src={`${video.url}?autoplay=0&muted=1`}
-                  className="w-full h-full"
+                  src={video.url}
+                  className="w-full h-full object-cover"
                   allow="autoplay; fullscreen"
                   frameBorder="0"
                 />
+                <div className="absolute inset-0 bg-black/30" />
               </div>
             </div>
           ))}
@@ -37,6 +37,7 @@ const MediaCarousel = () => {
         onClick={scrollPrev} 
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75"
         size="icon"
+        variant="ghost"
       >
         <ChevronLeft className="h-6 w-6" />
       </Button>
@@ -45,6 +46,7 @@ const MediaCarousel = () => {
         onClick={scrollNext}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75"
         size="icon"
+        variant="ghost"
       >
         <ChevronRight className="h-6 w-6" />
       </Button>
