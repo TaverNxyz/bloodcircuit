@@ -4,7 +4,8 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from './ui/button';
 
 const videos = [
-  { id: 1, url: 'https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=0&controls=0&showinfo=0&rel=0' }
+  { id: 1, url: 'https://streamable.com/e/web' },
+  { id: 2, url: 'https://streamable.com/e/apex' }
 ];
 
 const MediaCarousel = () => {

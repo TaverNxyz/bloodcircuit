@@ -13,70 +13,80 @@ const products = [
     price: 299.99,
     description: "Advanced external toolkit for enhanced gameplay",
     features: ["Aimbot", "ESP", "Radar Hack"],
-    imageUrl: "/lovable-uploads/cf921485-2679-4705-8c58-08fce6ebce08.png"
+    imageUrl: "/lovable-uploads/cf921485-2679-4705-8c58-08fce6ebce08.png",
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "security-suite",
     name: "Security Suite",
     price: 299.99,
     description: "Enterprise-grade security solution",
-    features: ["Firewall Protection", "Malware Detection", "Real-time Monitoring"]
+    features: ["Firewall Protection", "Malware Detection", "Real-time Monitoring"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "cloud-platform",
     name: "Cloud Platform",
     price: 199.99,
     description: "Scalable cloud computing solution",
-    features: ["Auto-scaling", "Load Balancing", "24/7 Support"]
+    features: ["Auto-scaling", "Load Balancing", "24/7 Support"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "database-manager",
     name: "Database Manager",
     price: 149.99,
     description: "Advanced database management system",
-    features: ["Data Encryption", "Backup Solutions", "Performance Optimization"]
+    features: ["Data Encryption", "Backup Solutions", "Performance Optimization"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "developer-tools",
     name: "Developer Tools",
     price: 99.99,
     description: "Essential development toolkit",
-    features: ["Code Analysis", "Debug Tools", "Version Control"]
+    features: ["Code Analysis", "Debug Tools", "Version Control"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "system-optimizer",
     name: "System Optimizer",
     price: 79.99,
     description: "System performance enhancement",
-    features: ["Memory Management", "Process Optimization", "Disk Cleanup"]
+    features: ["Memory Management", "Process Optimization", "Disk Cleanup"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "encryption-pack",
     name: "Encryption Pack",
     price: 129.99,
     description: "Advanced data encryption tools",
-    features: ["AES Encryption", "Key Management", "Secure File Transfer"]
+    features: ["AES Encryption", "Key Management", "Secure File Transfer"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "performance-suite",
     name: "Performance Suite",
     price: 169.99,
     description: "Complete performance optimization",
-    features: ["System Analysis", "Resource Management", "Performance Monitoring"]
+    features: ["System Analysis", "Resource Management", "Performance Monitoring"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "analytics-platform",
     name: "Analytics Platform",
     price: 249.99,
     description: "Comprehensive data analytics",
-    features: ["Data Visualization", "Predictive Analytics", "Custom Reports"]
+    features: ["Data Visualization", "Predictive Analytics", "Custom Reports"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "team-collaboration",
     name: "Team Collaboration",
     price: 189.99,
     description: "Team productivity tools",
-    features: ["Project Management", "Real-time Communication", "File Sharing"]
+    features: ["Project Management", "Real-time Communication", "File Sharing"],
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   }
 ];
 
