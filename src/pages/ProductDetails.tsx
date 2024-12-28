@@ -1,12 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, Gauge, Zap, Lock, LineChart, Trophy } from 'lucide-react';
-import ProductFeatureCard from '@/components/product/ProductFeatureCard';
-import ProductHero from '@/components/product/ProductHero';
-import ProductMediaCarousel from '@/components/product/ProductMediaCarousel';
 import ParticlesBackground from '@/components/ParticlesBackground';
-import VideoPlayer from '@/components/product/VideoPlayer';
+import ProductHero from '@/components/product/ProductHero';
+import ProductFeatures from '@/components/product/ProductFeatures';
+import ProductMedia from '@/components/product/ProductMedia';
 import { useState } from 'react';
 
 const ProductDetails = () => {
@@ -42,74 +39,7 @@ const ProductDetails = () => {
           </TabsList>
 
           <TabsContent value="features" className="mt-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <ProductFeatureCard
-                icon={Shield}
-                title="Enhanced Security"
-                description="Advanced protection system for secure gameplay"
-                features={[
-                  "HWID Protection",
-                  "Anti-Detection",
-                  "Memory Encryption",
-                  "Secure Updates"
-                ]}
-              />
-              <ProductFeatureCard
-                icon={Gauge}
-                title="Optimized Engine"
-                description="High performance with minimal system impact"
-                features={[
-                  "Low Latency",
-                  "Smooth Operation",
-                  "Resource Efficient",
-                  "Background Processing"
-                ]}
-              />
-              <ProductFeatureCard
-                icon={Zap}
-                title="Fast Updates"
-                description="Quick updates and automatic feature adjustments"
-                features={[
-                  "Auto-Updates",
-                  "Feature Sync",
-                  "Quick Patches",
-                  "Version Control"
-                ]}
-              />
-              <ProductFeatureCard
-                icon={Lock}
-                title="Secure Access"
-                description="Multi-layer security and encrypted connections"
-                features={[
-                  "Encrypted Data",
-                  "Protected Sessions",
-                  "Secure Login",
-                  "Safe Connections"
-                ]}
-              />
-              <ProductFeatureCard
-                icon={LineChart}
-                title="Live Analytics"
-                description="Real-time performance tracking and analysis"
-                features={[
-                  "Performance Stats",
-                  "System Monitor",
-                  "Usage Metrics",
-                  "Resource Tracking"
-                ]}
-              />
-              <ProductFeatureCard
-                icon={Trophy}
-                title="Premium Support"
-                description="24/7 dedicated support and maintenance"
-                features={[
-                  "24/7 Support",
-                  "Expert Help",
-                  "Priority Service",
-                  "Quick Response"
-                ]}
-              />
-            </div>
+            <ProductFeatures />
           </TabsContent>
 
           <TabsContent value="documentation">
@@ -131,26 +61,12 @@ const ProductDetails = () => {
           </TabsContent>
         </Tabs>
 
-        <div className="space-y-8">
-          <h2 className="text-3xl font-bold text-center">Product Media</h2>
-          <ProductMediaCarousel images={productMedia} />
-          {product.videoUrl && (
-            <>
-              <Button 
-                onClick={() => setShowVideo(true)}
-                className="mx-auto block"
-              >
-                Watch Demo Video
-              </Button>
-              {showVideo && (
-                <VideoPlayer
-                  videoUrl={product.videoUrl}
-                  onClose={() => setShowVideo(false)}
-                />
-              )}
-            </>
-          )}
-        </div>
+        <ProductMedia 
+          media={productMedia}
+          videoUrl={product.videoUrl}
+          showVideo={showVideo}
+          onShowVideo={setShowVideo}
+        />
       </div>
     </div>
   );

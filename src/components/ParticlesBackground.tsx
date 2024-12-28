@@ -19,10 +19,7 @@ const ParticlesBackground = () => {
       loaded={particlesLoaded}
       className="fixed inset-0 -z-10"
       options={{
-        fullScreen: {
-          enable: true,
-          zIndex: -1
-        },
+        fullScreen: false,
         particles: {
           number: {
             value: 104,
