@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { Check, Clock, Copy, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
-import { toast } from './ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { CRYPTO_DETAILS, CryptoType } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
 
 interface TransactionTrackerProps {
   address: string;
@@ -16,29 +17,37 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const [progress, setProgress] = useState(0);
   const [confirmations, setConfirmations] = useState(0);
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
+  const { toast } = useToast();
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          clearInterval(timer);
-          setStatus('completed');
-          return 100;
+    // Subscribe to payment status updates from Supabase
+    const channel = supabase
+      .channel('payment-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'orders',
+          filter: `address=eq.${address}`
+        },
+        (payload: any) => {
+          if (payload.new.status === 'confirming') {
+            setStatus('confirming');
+            setConfirmations(payload.new.confirmations);
+            setProgress(60);
+          } else if (payload.new.status === 'completed') {
+            setStatus('completed');
+            setProgress(100);
+          }
         }
-        const newProgress = oldProgress + 10;
-        if (newProgress === 60) {
-          setStatus('confirming');
-          setConfirmations(Math.floor(CRYPTO_DETAILS[cryptoType].confirmations / 2));
-        }
-        if (newProgress === 80) {
-          setConfirmations(CRYPTO_DETAILS[cryptoType].confirmations);
-        }
-        return newProgress;
-      });
-    }, 1000);
+      )
+      .subscribe();
 
-    return () => clearInterval(timer);
-  }, [cryptoType]);
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [address]);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
