@@ -31,7 +31,7 @@ const LoadingSpinner = () => {
       const timer = setTimeout(() => {
         sessionStorage.setItem('visited', 'true');
         setShowTerminal(false);
-      }, 2000); // Hold for 2 seconds after completion
+      }, 2000);
       return () => clearTimeout(timer);
     }
 
@@ -40,20 +40,20 @@ const LoadingSpinner = () => {
       return;
     }
 
-    const textInterval = setInterval(() => {
-      const currentText = terminalLines[currentLine];
-      if (text.length < currentText.length) {
-        setText(currentText.slice(0, text.length + 1));
-      } else {
-        clearInterval(textInterval);
-        setTimeout(() => {
-          setCurrentLine(prev => prev + 1);
-          setText('');
-        }, 1000); // Increased delay between lines to 1 second
-      }
-    }, 100); // Slowed down typing speed to 100ms per character
+    const currentText = terminalLines[currentLine];
+    if (text === currentText) {
+      const lineTimer = setTimeout(() => {
+        setCurrentLine(prev => prev + 1);
+        setText('');
+      }, 1000);
+      return () => clearTimeout(lineTimer);
+    }
 
-    return () => clearInterval(textInterval);
+    const charTimer = setTimeout(() => {
+      setText(text + currentText[text.length]);
+    }, 100);
+
+    return () => clearTimeout(charTimer);
   }, [text, currentLine, isFirstVisit, terminalLines, isComplete]);
 
   if (!showTerminal) return null;
