@@ -35,12 +35,12 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#0A0A0A] text-white border-[#222] sm:max-w-md">
-        <DialogHeader className="relative">
+        <DialogHeader>
           <DialogTitle>Select Payment Method</DialogTitle>
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
             onClick={() => onOpenChange(false)}
           >
             <X className="h-4 w-4" />
