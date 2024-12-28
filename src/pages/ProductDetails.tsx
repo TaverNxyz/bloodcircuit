@@ -5,7 +5,7 @@ import { Shield, Gauge, Zap, Lock, LineChart, Trophy } from 'lucide-react';
 import ProductFeatureCard from '@/components/product/ProductFeatureCard';
 import ProductHero from '@/components/product/ProductHero';
 import ProductMediaCarousel from '@/components/product/ProductMediaCarousel';
-import AnimatedBackground from '@/components/AnimatedBackground';
+import ParticlesBackground from '@/components/ParticlesBackground';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -19,7 +19,7 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <AnimatedBackground />
+      <ParticlesBackground />
       
       <div className="container mx-auto px-4 py-16 space-y-16 relative z-10">
         <ProductHero 

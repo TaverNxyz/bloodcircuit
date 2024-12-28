@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
-import AnimatedBackground from "@/components/AnimatedBackground";
+import ParticlesBackground from "@/components/ParticlesBackground";
 import TransactionTracker from "@/components/TransactionTracker";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -30,9 +30,9 @@ const Payment = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
-      <AnimatedBackground />
+      <ParticlesBackground />
       
-      <div className="container mx-auto px-4 py-16 animate-fade-in">
+      <div className="container mx-auto px-4 py-16 animate-fade-in relative z-10">
         <div className="max-w-2xl mx-auto space-y-8">
           <Button
             variant="ghost"
