@@ -94,8 +94,8 @@ const MainContent = () => {
       <div className="relative pt-20">
         <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none">
           <div className="text-center p-8">
-            <h1 className="text-6xl font-bold mb-4 font-['Metal_Mania'] bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] text-transparent bg-clip-text animate-pulse">
-              Provide Yourself The Power
+            <h1 className="text-6xl font-bold mb-4 font-['Exo_2'] bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] text-transparent bg-clip-text animate-pulse">
+              Uneven The Odds
             </h1>
             <p className="text-xl text-[#9b87f5] font-['JetBrains_Mono']">
               Exclusive Affiliation with Exodus and Undetect.net Projects
