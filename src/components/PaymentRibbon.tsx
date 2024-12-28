@@ -15,14 +15,8 @@ const PaymentRibbon = () => {
     }
   }, []);
 
-  const paymentMethods = [
-    { text: "PayPal: undetect.pay@gmail.com" },
-    { text: "BTC: bc1qe7zzyk3264fwya3y0wj4x4wy6tvd86cf46e39u" },
-    { text: "LTC: ltc1quu6df4vvum7640sfywjsxvvcsh5ax9pwq4dsu9" },
-  ];
-
   const copyPaymentInfo = () => {
-    const info = paymentMethods.map(m => m.text).join('\n');
+    const info = PAYMENT_METHODS.map(m => m.text).join('\n');
     navigator.clipboard.writeText(info);
     toast({
       title: "Copied payment information",
@@ -44,10 +38,10 @@ const PaymentRibbon = () => {
         </Button>
 
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-          <div ref={scrollRef} className="flex animate-scroll whitespace-nowrap">
+          <div ref={scrollRef} className="flex animate-scroll whitespace-nowrap opacity-60">
             {[...Array(2)].map((_, groupIndex) => (
-              <div key={groupIndex} className="flex gap-8 mx-4">
-                {paymentMethods.map((method, index) => (
+              <div key={groupIndex} className="flex gap-12 mx-8">
+                {PAYMENT_METHODS.map((method, index) => (
                   <span key={`${groupIndex}-${index}`} className="text-sm font-medium text-white/80">
                     {method.text}
                   </span>
