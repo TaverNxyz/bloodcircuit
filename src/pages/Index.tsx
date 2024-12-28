@@ -10,6 +10,7 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import InitialTerminal from "@/components/InitialTerminal";
+import { initScrollOpacity } from "@/utils/scrollOpacity";
 
 const products = [
   {
