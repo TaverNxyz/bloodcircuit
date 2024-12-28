@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import PaymentRibbon from "@/components/PaymentRibbon";
 import ProductCard from "@/components/ProductCard";
 import MediaCarousel from "@/components/MediaCarousel";
@@ -8,7 +8,97 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { initScrollOpacity } from "@/utils/scrollOpacity";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
+// Wrap the main content in a component to use with Suspense
+const MainContent = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); // 3 second delay to show loading animation
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    throw new Promise((resolve) => setTimeout(resolve, 3000));
+  }
+
+  return (
+    <>
+      <div className="relative min-h-screen bg-transparent">
+        <div className="animated-bg">
+          <AnimatedBackground />
+        </div>
+
+        {/* Hero Section with Text Above Video */}
+        <div className="relative pt-20">
+          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+            <div className="text-center bg-black/50 p-8 rounded-lg backdrop-blur-sm">
+              <h1 className="text-6xl font-bold text-white mb-4 font-[Orbitron]">
+                Provide Yourself The Power
+              </h1>
+              <p className="text-xl text-gray-300">
+                Exclusive Affiliation with Exodus and Undetect.net Projects
+              </p>
+            </div>
+          </div>
+          
+          <div className="relative w-full h-screen">
+            <MediaCarousel />
+          </div>
+        </div>
+
+        {/* Products Grid */}
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+
+        {/* Payment Ribbon */}
+        <div className="fixed bottom-0 left-0 right-0">
+          <PaymentRibbon />
+        </div>
+
+        {/* Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4">
+          <Logo />
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="text-white hover:bg-white/10"
+            >
+              <a 
+                href="https://discord.gg/xNxWc96GMr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="h-5 w-5" />
+              </a>
+            </Button>
+            <Button 
+              onClick={() => navigate('/cart')}
+              className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
+            >
+              Cart
+            </Button>
+          </div>
+        </header>
+      </div>
+    </>
+  );
+};
+
+// Keep the products array
 const products = [
   {
     id: "apex",
@@ -61,79 +151,17 @@ const products = [
   }
 ];
 
+// Main Index component
 const Index = () => {
-  const navigate = useNavigate();
-
   useEffect(() => {
     const cleanup = initScrollOpacity();
     return cleanup;
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-transparent">
-      <div className="animated-bg">
-        <AnimatedBackground />
-      </div>
-
-      {/* Hero Section with Text Above Video */}
-      <div className="relative pt-20">
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="text-center bg-black/50 p-8 rounded-lg backdrop-blur-sm">
-            <h1 className="text-6xl font-bold text-white mb-4 font-[Orbitron]">
-              Provide Yourself The Power
-            </h1>
-            <p className="text-xl text-gray-300">
-              Exclusive Affiliation with Exodus and Undetect.net Projects
-            </p>
-          </div>
-        </div>
-        
-        <div className="relative w-full h-screen">
-          <MediaCarousel />
-        </div>
-      </div>
-
-      {/* Products Grid */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </div>
-
-      {/* Payment Ribbon */}
-      <div className="fixed bottom-0 left-0 right-0">
-        <PaymentRibbon />
-      </div>
-
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4">
-        <Logo />
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            asChild
-            className="text-white hover:bg-white/10"
-          >
-            <a 
-              href="https://discord.gg/xNxWc96GMr" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="h-5 w-5" />
-            </a>
-          </Button>
-          <Button 
-            onClick={() => navigate('/cart')}
-            className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-          >
-            Cart
-          </Button>
-        </div>
-      </header>
-    </div>
+    <Suspense fallback={<LoadingSpinner />}>
+      <MainContent />
+    </Suspense>
   );
 };
 
