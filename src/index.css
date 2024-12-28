@@ -117,14 +117,6 @@
   }
 }
 
-/* Add this script to handle scroll-based opacity */
-@script {
-  window.addEventListener('scroll', () => {
-    const scrollPercentage = Math.min(window.scrollY / 500, 1);
-    document.documentElement.style.setProperty('--scroll-opacity', `${1 - (scrollPercentage * 0.9)}`);
-  });
-}
-
 @keyframes loading-shine {
   0% {
     transform: translateX(-100%);
