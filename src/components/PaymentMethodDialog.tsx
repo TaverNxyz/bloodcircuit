@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Bitcoin, CreditCard, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -66,6 +66,7 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
             <span>Pay with PayPal</span>
           </Button>
         </div>
+        <DialogClose />
       </DialogContent>
     </Dialog>
   );
