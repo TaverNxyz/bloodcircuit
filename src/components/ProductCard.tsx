@@ -46,7 +46,6 @@ const ProductCard = memo(({ product }: ProductCardProps) => {
       });
       return;
     }
-    console.log('Navigating to checkout with:', { productId: product.id, plan });
     navigate(`/checkout/${product.id}?plan=${plan}`);
   };
 

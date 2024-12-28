@@ -23,6 +23,10 @@ const ProductContent = ({
 }: ProductContentProps) => {
   const [selectedPlan, setSelectedPlan] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
 
+  const handlePurchase = () => {
+    onPurchase(selectedPlan);
+  };
+
   return (
     <div className="p-6">
       <h3 className="text-2xl font-bold text-[#1EAEDB] mb-2">{name}</h3>
@@ -35,7 +39,7 @@ const ProductContent = ({
       />
 
       <ProductActions
-        onPurchase={() => onPurchase(selectedPlan)}
+        onPurchase={handlePurchase}
         onViewDetails={onViewDetails}
       />
     </div>

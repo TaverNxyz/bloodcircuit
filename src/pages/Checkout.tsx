@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -15,13 +15,18 @@ const Checkout = () => {
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
   const [showTerminal, setShowTerminal] = useState(true);
 
+  useEffect(() => {
+    if (!productId || !plan) {
+      toast({
+        title: "Invalid Parameters",
+        description: "Missing required checkout parameters. Redirecting to home...",
+        variant: "destructive"
+      });
+      navigate('/');
+    }
+  }, [productId, plan, navigate]);
+
   if (!productId || !plan) {
-    toast({
-      title: "Invalid Parameters",
-      description: "Missing required checkout parameters. Redirecting to home...",
-      variant: "destructive"
-    });
-    navigate('/');
     return null;
   }
 
