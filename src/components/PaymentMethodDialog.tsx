@@ -2,8 +2,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Bitcoin, CreditCard, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "./ui/use-toast";
+import { PAYMENT_METHODS } from "@/lib/constants";
 
 interface PaymentMethodDialogProps {
   open: boolean;
@@ -15,35 +15,15 @@ interface PaymentMethodDialogProps {
 const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMethodDialogProps) => {
   const navigate = useNavigate();
 
-  const handleBillgangPayment = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        toast({
-          title: "Authentication required",
-          description: "Please sign in to make a purchase",
-          variant: "destructive"
-        });
-        navigate('/auth');
-        return;
-      }
-
-      const { data, error } = await supabase.functions.invoke('billgang-payment', {
-        body: { productId, plan }
-      });
-
-      if (error) throw error;
-
-      // Redirect to Billgang checkout
-      window.location.href = data.url;
-    } catch (error) {
-      console.error('Payment error:', error);
+  const handlePayPalPayment = () => {
+    const paypalLink = PAYMENT_METHODS.find(m => m.text.startsWith("PayPal"))?.text.split(": ")[1];
+    if (paypalLink) {
+      window.open(`https://${paypalLink}`, '_blank');
       toast({
-        title: "Payment Error",
-        description: "Failed to initialize payment. Please try again.",
-        variant: "destructive"
+        title: "PayPal Payment",
+        description: "Please complete your payment through PayPal and contact support with your transaction ID."
       });
+      onOpenChange(false);
     }
   };
 
@@ -80,10 +60,10 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
           <Button
             variant="outline"
             className="flex items-center gap-2 h-16"
-            onClick={handleBillgangPayment}
+            onClick={handlePayPalPayment}
           >
             <CreditCard className="h-5 w-5" />
-            <span>Pay with Card</span>
+            <span>Pay with PayPal</span>
           </Button>
         </div>
       </DialogContent>
