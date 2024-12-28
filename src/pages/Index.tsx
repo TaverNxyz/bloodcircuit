@@ -16,21 +16,15 @@ const MainContent = () => {
 
   useEffect(() => {
     const isFirstVisit = !sessionStorage.getItem('visited');
-    const loadingTime = isFirstVisit ? 2000 : 800;
+    const loadingTime = isFirstVisit ? 2500 : 800;
     
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
     }, loadingTime);
-
-    return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    throw new Promise((resolve) => {
-      const isFirstVisit = !sessionStorage.getItem('visited');
-      const loadingTime = isFirstVisit ? 2000 : 800;
-      setTimeout(resolve, loadingTime);
-    });
+    return <LoadingSpinner />;
   }
 
   return (

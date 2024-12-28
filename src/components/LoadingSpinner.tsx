@@ -28,8 +28,8 @@ const LoadingSpinner = () => {
     }
 
     if (currentLine >= terminalLines.length) {
-      sessionStorage.setItem('visited', 'true');
       const timer = setTimeout(() => {
+        sessionStorage.setItem('visited', 'true');
         setShowTerminal(false);
       }, 800);
       return () => clearTimeout(timer);
