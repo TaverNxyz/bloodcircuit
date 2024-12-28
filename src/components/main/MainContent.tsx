@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, LogOut } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import PaymentRibbon from "@/components/PaymentRibbon";
@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import MediaCarousel from "@/components/MediaCarousel";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 const products = [
   {
@@ -62,12 +63,21 @@ const products = [
 const MainContent = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, signOut } = useAuth();
 
   const handleDiscordClick = () => {
     toast({
       title: "Opening Discord",
       description: "Redirecting you to our community..."
     });
+  };
+
+  const handleAuthClick = () => {
+    if (user) {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
   };
 
   const { statusProduct, otherProducts } = {
@@ -139,6 +149,19 @@ const MainContent = () => {
             className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
           >
             Cart
+          </Button>
+          <Button
+            onClick={handleAuthClick}
+            className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
+          >
+            {user ? (
+              <>
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </>
+            ) : (
+              'Sign In'
+            )}
           </Button>
         </div>
       </header>
