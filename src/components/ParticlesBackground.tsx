@@ -68,7 +68,7 @@ const ParticlesBackground = () => {
           }
         },
         background: {
-          color: "transparent",
+          color: "#0A0A0A",
           position: "50% 50%",
           repeat: "no-repeat",
           size: "cover"
