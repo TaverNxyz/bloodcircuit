@@ -8,7 +8,7 @@ interface TerminalLineProps {
 
 const TerminalLine = ({ text, isTyping, cursorVisible }: TerminalLineProps) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center text-[#FF6B00]">
       <span className="mr-2">$</span>
       <span>{text}</span>
       {(isTyping || cursorVisible) && (

@@ -8,20 +8,23 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    // First line with 3 second display
-    setTimeout(() => {
+    const timer1 = setTimeout(() => {
       setCurrentLine(1);
-      
-      // Second line after 3 seconds
-      setTimeout(() => {
-        setCurrentLine(2);
-        
-        // Show button after another 3 seconds
-        setTimeout(() => {
-          setShowButton(true);
-        }, 3000);
-      }, 3000);
-    }, 3000);
+    }, 1000);
+
+    const timer2 = setTimeout(() => {
+      setCurrentLine(2);
+    }, 4000);
+
+    const timer3 = setTimeout(() => {
+      setShowButton(true);
+    }, 7000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, []);
 
   const handleEvolve = () => {
@@ -30,7 +33,7 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
   };
 
   const lines = [
-    '',
+    'INITIALIZING SYSTEM...',
     'INITIALIZING KERNEL...',
     'LOADING COMPLETE'
   ];
@@ -40,11 +43,9 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
       <div className="w-full max-w-3xl p-8 font-mono">
         <TerminalWindow>
           {lines.slice(0, currentLine + 1).map((line, index) => (
-            line && (
-              <div key={index} className="mb-2">
-                <TerminalLine text={line} />
-              </div>
-            )
+            <div key={index} className="mb-2">
+              <TerminalLine text={line} />
+            </div>
           ))}
         </TerminalWindow>
 
