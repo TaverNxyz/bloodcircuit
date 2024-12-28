@@ -3,48 +3,77 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Skeleton } from "@/components/ui/skeleton";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import LoadingSpinner from "./components/LoadingSpinner";
 import Index from "./pages/Index";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
+import { ErrorBoundary } from "react-error-boundary";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
+      retry: 1,
+      refetchOnWindowFocus: false,
     },
   },
 });
 
-const PageLoader = () => (
-  <div className="w-full max-w-2xl mx-auto p-8 space-y-6 animate-pulse">
-    <Skeleton className="h-8 w-3/4" />
-    <Skeleton className="h-64 w-full" />
-    <div className="space-y-2">
-      <Skeleton className="h-4 w-full" />
-      <Skeleton className="h-4 w-5/6" />
-      <Skeleton className="h-4 w-4/6" />
+const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+const ErrorFallback = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="text-center space-y-4">
+        <h2 className="text-2xl font-bold text-red-500">Something went wrong</h2>
+        <button 
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+        >
+          Try again
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout/:productId" element={<Checkout />} />
-            <Route path="/payment/:productId" element={<Payment />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <BrowserRouter>
+          <Suspense fallback={<LoadingSpinner />}>
+            <PageWrapper>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout/:productId" element={<Checkout />} />
+                <Route path="/payment/:productId" element={<Payment />} />
+              </Routes>
+            </PageWrapper>
+          </Suspense>
+        </BrowserRouter>
+        <Toaster />
+        <Sonner />
+      </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
 );
