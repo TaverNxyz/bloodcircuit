@@ -6,9 +6,12 @@ import ProductFeatureCard from '@/components/product/ProductFeatureCard';
 import ProductHero from '@/components/product/ProductHero';
 import ProductMediaCarousel from '@/components/product/ProductMediaCarousel';
 import ParticlesBackground from '@/components/ParticlesBackground';
+import VideoPlayer from '@/components/product/VideoPlayer';
+import { useState } from 'react';
 
 const ProductDetails = () => {
   const { productId } = useParams();
+  const [showVideo, setShowVideo] = useState(false);
   
   const product = products.find(p => p.id === productId);
   
@@ -16,11 +19,14 @@ const ProductDetails = () => {
     return <div>Product not found</div>;
   }
 
-  // Create an images array from the product data
-  const productImages = product.imageUrl ? [product.imageUrl] : [];
+  // Create media array from product data
+  const productMedia = [
+    ...(product.imageUrl ? [product.imageUrl] : []),
+    '/lovable-uploads/46a28158-90ea-447e-a139-3e0903d35c88.png'
+  ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground relative">
       <ParticlesBackground />
       
       <div className="container mx-auto px-4 py-16 space-y-16 relative z-10">
@@ -126,7 +132,26 @@ const ProductDetails = () => {
           </TabsContent>
         </Tabs>
 
-        <ProductMediaCarousel images={productImages} />
+        <div className="space-y-8">
+          <h2 className="text-3xl font-bold text-center">Product Media</h2>
+          <ProductMediaCarousel images={productMedia} />
+          {product.videoUrl && (
+            <>
+              <Button 
+                onClick={() => setShowVideo(true)}
+                className="mx-auto block"
+              >
+                Watch Demo Video
+              </Button>
+              {showVideo && (
+                <VideoPlayer
+                  url={product.videoUrl}
+                  onClose={() => setShowVideo(false)}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
