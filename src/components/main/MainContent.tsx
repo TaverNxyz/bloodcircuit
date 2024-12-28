@@ -93,13 +93,16 @@ const MainContent = () => {
 
       <div className="relative pt-20">
         <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 backdrop-blur-sm bg-background/80">
-          <div className="flex items-center gap-4">
+          <div className="w-[200px]">
+            {/* Spacer div with fixed width */}
+          </div>
+          <div className="flex items-center gap-4 flex-grow justify-center">
             <Logo />
             <span className="text-3xl font-bold font-['Exo_2'] bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] text-transparent bg-clip-text animate-pulse">
               Uneven The Odds
             </span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 w-[200px]">
             <Button
               variant="ghost"
               size="sm"
