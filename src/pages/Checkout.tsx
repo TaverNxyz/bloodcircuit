@@ -1,11 +1,8 @@
+import { useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import { toast } from "@/hooks/use-toast";
-import { useState } from 'react';
-import TransactionTracker from '@/components/TransactionTracker';
-import PaymentDialog from '@/components/PaymentDialog';
-import { CryptoType, PAYMENT_METHODS } from '@/lib/constants';
+import PaymentMethodDialog from "@/components/PaymentMethodDialog";
 
 const Checkout = () => {
   const { productId } = useParams();
@@ -15,13 +12,10 @@ const Checkout = () => {
   const [orderNumber] = useState(() => Math.floor(Math.random() * 1000000));
   const [receiptNumber] = useState(() => Math.floor(Math.random() * 1000000));
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
-  const [selectedCrypto] = useState<CryptoType>("BTC");
 
-  // Extract the address from PAYMENT_METHODS
-  const getAddress = (crypto: CryptoType) => {
-    const method = PAYMENT_METHODS.find(m => m.text.startsWith(crypto));
-    return method ? method.text.split(': ')[1] : '';
-  };
+  if (!productId || !plan) {
+    return <div>Invalid checkout parameters</div>;
+  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -67,18 +61,14 @@ const Checkout = () => {
               </Button>
             </div>
           </div>
-
-          <TransactionTracker 
-            address={getAddress(selectedCrypto)}
-            amount={0.5}
-            cryptoType={selectedCrypto}
-          />
         </div>
       </div>
 
-      <PaymentDialog 
+      <PaymentMethodDialog 
         open={showPaymentMethods} 
-        onOpenChange={setShowPaymentMethods} 
+        onOpenChange={setShowPaymentMethods}
+        productId={productId}
+        plan={plan}
       />
     </div>
   );
