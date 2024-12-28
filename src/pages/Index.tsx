@@ -10,21 +10,27 @@ import { MessageCircle } from "lucide-react";
 import { initScrollOpacity } from "@/utils/scrollOpacity";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-// Wrap the main content in a component to use with Suspense
 const MainContent = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const isFirstVisit = !sessionStorage.getItem('visited');
+    const loadingTime = isFirstVisit ? 2000 : 800;
+    
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500); // Reduced time for initial load
+    }, loadingTime);
 
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    throw new Promise((resolve) => setTimeout(resolve, 2500));
+    throw new Promise((resolve) => {
+      const isFirstVisit = !sessionStorage.getItem('visited');
+      const loadingTime = isFirstVisit ? 2000 : 800;
+      setTimeout(resolve, loadingTime);
+    });
   }
 
   return (
