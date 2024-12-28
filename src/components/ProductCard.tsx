@@ -20,13 +20,26 @@ interface ProductCardProps {
   }
 }
 
+const FALLBACK_IMAGES = [
+  'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
+  'https://images.unsplash.com/photo-1518770660439-4636190af475',
+  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
+  'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
+];
+
 const ProductCard = ({ product }: ProductCardProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
+  const [imgError, setImgError] = useState(false);
   const navigate = useNavigate();
 
   const handlePurchase = () => {
     navigate(`/checkout/${product.id}?plan=${selectedPlan}`);
+  };
+
+  const getFallbackImage = () => {
+    const index = Math.floor(Math.random() * FALLBACK_IMAGES.length);
+    return `${FALLBACK_IMAGES[index]}?auto=format&fit=crop&w=800&q=80`;
   };
 
   return (
@@ -51,20 +64,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         ) : (
           <>
-            {product.imageUrl && (
-              <div className="w-full h-full">
-                <img 
-                  src={product.imageUrl} 
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/placeholder.png'; // Fallback image
-                  }}
-                />
-              </div>
-            )}
+            <div className="w-full h-full bg-card">
+              <img 
+                src={imgError ? getFallbackImage() : (product.imageUrl || getFallbackImage())}
+                alt={product.name}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                onError={() => setImgError(true)}
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
             {product.videoUrl && (
               <Button
