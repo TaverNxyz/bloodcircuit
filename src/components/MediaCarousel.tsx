@@ -4,7 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from './ui/button';
 
 const videos = [
-  { id: 1, url: 'https://streamable.com/e/web' },
+  { id: 1, url: 'https://streamable.com/e/yd3tbf' },
   { id: 2, url: 'https://streamable.com/e/apex' }
 ];
 
@@ -27,7 +27,6 @@ const MediaCarousel = () => {
                   allow="autoplay; fullscreen"
                   frameBorder="0"
                 />
-                <div className="absolute inset-0 bg-black/30" />
               </div>
             </div>
           ))}

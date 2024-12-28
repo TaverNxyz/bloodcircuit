@@ -17,75 +17,27 @@ const products = [
     videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
-    id: "security-suite",
-    name: "Security Suite",
-    price: 299.99,
-    description: "Enterprise-grade security solution",
-    features: ["Firewall Protection", "Malware Detection", "Real-time Monitoring"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "cloud-platform",
-    name: "Cloud Platform",
+    id: "hwid",
+    name: "HWID Serializer",
     price: 199.99,
-    description: "Scalable cloud computing solution",
-    features: ["Auto-scaling", "Load Balancing", "24/7 Support"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
+    description: "Advanced HWID spoofer and serializer",
+    features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
+    videoUrl: "https://www.youtube.com/embed/pBkpHgDdcps"
   },
   {
-    id: "database-manager",
-    name: "Database Manager",
-    price: 149.99,
-    description: "Advanced database management system",
-    features: ["Data Encryption", "Backup Solutions", "Performance Optimization"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "developer-tools",
-    name: "Developer Tools",
-    price: 99.99,
-    description: "Essential development toolkit",
-    features: ["Code Analysis", "Debug Tools", "Version Control"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "system-optimizer",
-    name: "System Optimizer",
-    price: 79.99,
-    description: "System performance enhancement",
-    features: ["Memory Management", "Process Optimization", "Disk Cleanup"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "encryption-pack",
-    name: "Encryption Pack",
-    price: 129.99,
-    description: "Advanced data encryption tools",
-    features: ["AES Encryption", "Key Management", "Secure File Transfer"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "performance-suite",
-    name: "Performance Suite",
-    price: 169.99,
-    description: "Complete performance optimization",
-    features: ["System Analysis", "Resource Management", "Performance Monitoring"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "analytics-platform",
-    name: "Analytics Platform",
+    id: "fortnite",
+    name: "Fortnite External",
     price: 249.99,
-    description: "Comprehensive data analytics",
-    features: ["Data Visualization", "Predictive Analytics", "Custom Reports"],
+    description: "Premium external cheat for Fortnite",
+    features: ["Aimbot", "ESP", "Radar"],
     videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
-    id: "team-collaboration",
-    name: "Team Collaboration",
-    price: 189.99,
-    description: "Team productivity tools",
-    features: ["Project Management", "Real-time Communication", "File Sharing"],
+    id: "rust",
+    name: "Rust External",
+    price: 299.99,
+    description: "Advanced external cheat for Rust",
+    features: ["Aimbot", "ESP", "Item ESP"],
     videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   }
 ];
@@ -100,12 +52,28 @@ const Index = () => {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4">
         <Logo />
-        <Button 
-          onClick={() => navigate('/products')}
-          className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-        >
-          Products
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="text-white hover:bg-white/10"
+          >
+            <a 
+              href="https://discord.gg/xNxWc96GMr" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <MessageCircle className="h-5 w-5" />
+            </a>
+          </Button>
+          <Button 
+            onClick={() => navigate('/products')}
+            className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
+          >
+            Products
+          </Button>
+        </div>
       </header>
 
       {/* Hero Video Section */}
@@ -113,8 +81,8 @@ const Index = () => {
         <MediaCarousel />
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="text-center">
-            <h1 className="text-6xl font-bold text-white mb-4">Secure & Reliable</h1>
-            <p className="text-xl text-gray-300">Experience seamless integration and superior performance</p>
+            <h1 className="text-6xl font-bold text-white mb-4">Provide Yourself The Power</h1>
+            <p className="text-xl text-gray-300">Exclusive Affiliation with Exodus and Undetect.net Projects</p>
           </div>
         </div>
       </div>
