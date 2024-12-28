@@ -34,7 +34,7 @@ const products = [
     },
     description: "Advanced HWID spoofer and serializer",
     features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
-    videoUrl: "https://streamable.com/e/lwokde?autoplay=0"
+    videoUrl: "https://www.youtube.com/embed/pBkpHgDdcps"
   },
   {
     id: "fortnite",
