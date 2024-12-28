@@ -19,7 +19,6 @@ const ProductDetails = () => {
     return <div>Product not found</div>;
   }
 
-  // Create media array from product data
   const productMedia = [
     ...(product.imageUrl ? [product.imageUrl] : []),
     '/lovable-uploads/46a28158-90ea-447e-a139-3e0903d35c88.png'
@@ -145,7 +144,7 @@ const ProductDetails = () => {
               </Button>
               {showVideo && (
                 <VideoPlayer
-                  url={product.videoUrl}
+                  videoUrl={product.videoUrl}
                   onClose={() => setShowVideo(false)}
                 />
               )}
