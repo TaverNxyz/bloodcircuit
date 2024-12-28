@@ -35,6 +35,34 @@ const ProductCard = ({ product }: ProductCardProps) => {
     navigate(`/product/${product.id}`);
   };
 
+  // Special handling for Rust External card
+  if (product.id === "rust") {
+    return (
+      <Card className="relative overflow-hidden group bg-[#0A0A0A]/80 border-[#222] hover:border-[#1EAEDB] transition-all duration-300">
+        <div className="p-6 space-y-4">
+          <h3 className="text-2xl font-bold text-[#1EAEDB] mb-2">{product.name}</h3>
+          <p className="text-gray-400 mb-4 line-clamp-2">{product.description}</p>
+          
+          <div className="flex flex-col gap-4">
+            <Button 
+              className="w-full bg-[#F97316] hover:bg-[#F97316]/80 text-white"
+              onClick={() => console.log("Checking Exo Status")}
+            >
+              Check Exo Status
+            </Button>
+            <Button 
+              className="w-full bg-[#9b87f5] hover:bg-[#9b87f5]/80 text-white"
+              onClick={() => console.log("Checking UDP Status")}
+            >
+              Check UDP Status
+            </Button>
+          </div>
+        </div>
+      </Card>
+    );
+  }
+
+  // Default card rendering for other products
   return (
     <Card className="relative overflow-hidden group bg-[#0A0A0A]/80 border-[#222] hover:border-[#1EAEDB] transition-all duration-300">
       <div className="relative aspect-[4/3] overflow-hidden">
