@@ -68,10 +68,10 @@ const MainContent = () => {
   const [showInitialTerminal, setShowInitialTerminal] = useState(false);
 
   useEffect(() => {
-    const isFirstVisit = !sessionStorage.getItem('visited');
+    // Only show terminal if this is the first visit from browser (no history)
+    const isFirstVisit = !localStorage.getItem('visited') && window.history.length <= 2;
     
-    // Show terminal only on first visit or page refresh
-    if (isFirstVisit || performance.navigation.type === 1) {
+    if (isFirstVisit) {
       setShowInitialTerminal(true);
       return;
     }
@@ -85,6 +85,7 @@ const MainContent = () => {
 
   if (showInitialTerminal) {
     return <InitialTerminal onComplete={() => {
+      localStorage.setItem('visited', 'true');
       setShowInitialTerminal(false);
       setIsLoading(false);
     }} />;
