@@ -4,9 +4,9 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from './ui/button';
 
 const videos = [
-  { id: 1, url: 'https://streamable.com/e/yd3tbf?autoplay=1&loop=0' },
-  { id: 2, url: 'https://streamable.com/e/lwokde?autoplay=0' },
-  { id: 3, url: 'https://streamable.com/e/apex' }
+  { id: 1, url: 'https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1' },
+  { id: 2, url: 'https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1' },
+  { id: 3, url: 'https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1' }
 ];
 
 const MediaCarousel = () => {

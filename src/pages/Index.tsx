@@ -22,7 +22,7 @@ const products = [
     },
     description: "Advanced external toolkit for enhanced gameplay",
     features: ["Aimbot", "ESP", "Radar Hack"],
-    videoUrl: "https://streamable.com/e/yd3tbf?autoplay=1&loop=0"
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1"
   },
   {
     id: "hwid",
@@ -34,7 +34,7 @@ const products = [
     },
     description: "Advanced HWID spoofer and serializer",
     features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
-    videoUrl: "https://streamable.com/e/lwokde?autoplay=0"
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1"
   },
   {
     id: "fortnite",
@@ -46,7 +46,7 @@ const products = [
     },
     description: "Premium external cheat for Fortnite",
     features: ["Aimbot", "ESP", "Radar"],
-    videoUrl: "https://streamable.com/e/apex"
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1"
   },
   {
     id: "rust",
@@ -58,7 +58,7 @@ const products = [
     },
     description: "Advanced external cheat for Rust",
     features: ["Aimbot", "ESP", "Item ESP"],
-    videoUrl: "https://streamable.com/e/apex"
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw?autoplay=1"
   }
 ];
 
