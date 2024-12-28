@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
+import ProductDetails from "./pages/ProductDetails";
 import { ErrorBoundary } from "react-error-boundary";
 
 const queryClient = new QueryClient({
@@ -67,6 +68,7 @@ const App = () => (
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout/:productId" element={<Checkout />} />
                 <Route path="/payment/:productId" element={<Payment />} />
+                <Route path="/product/:productId" element={<ProductDetails />} />
               </Routes>
             </PageWrapper>
           </Suspense>
