@@ -15,7 +15,6 @@ const LoadingSpinner = () => {
 
   const terminalLines = [
     'INITIALIZING KERNEL...',
-    '[SUCCESS] YOU ARE NOW UNRIVALED',
     'LOADING COMPLETE'
   ];
   
@@ -31,7 +30,7 @@ const LoadingSpinner = () => {
       const timer = setTimeout(() => {
         sessionStorage.setItem('visited', 'true');
         setShowTerminal(false);
-      }, 800);
+      }, 2000); // Hold for 2 seconds at the end
       return () => clearTimeout(timer);
     }
 
@@ -46,7 +45,7 @@ const LoadingSpinner = () => {
           setText('');
         }, 500);
       }
-    }, 50);
+    }, 30); // Faster typing speed
 
     return () => clearInterval(textInterval);
   }, [text, currentLine, isFirstVisit, terminalLines]);

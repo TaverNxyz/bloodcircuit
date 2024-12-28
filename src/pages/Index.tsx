@@ -16,7 +16,7 @@ const MainContent = () => {
 
   useEffect(() => {
     const isFirstVisit = !sessionStorage.getItem('visited');
-    const loadingTime = isFirstVisit ? 2500 : 800;
+    const loadingTime = isFirstVisit ? 1500 : 800;
     
     setTimeout(() => {
       setIsLoading(false);
@@ -36,12 +36,12 @@ const MainContent = () => {
 
         {/* Hero Section with Text Above Video */}
         <div className="relative pt-20">
-          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-            <div className="text-center bg-black/50 p-8 rounded-lg backdrop-blur-sm">
-              <h1 className="text-6xl font-bold text-white mb-4 font-[Orbitron]">
+          <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none">
+            <div className="text-center p-8">
+              <h1 className="text-6xl font-bold mb-4 font-['Metal_Mania'] bg-gradient-to-r from-[#F97316] via-[#FEC6A1] to-[#F97316] text-transparent bg-clip-text animate-pulse">
                 Provide Yourself The Power
               </h1>
-              <p className="text-xl text-gray-300">
+              <p className="text-xl text-[#9b87f5] font-['JetBrains_Mono']">
                 Exclusive Affiliation with Exodus and Undetect.net Projects
               </p>
             </div>
@@ -52,7 +52,6 @@ const MainContent = () => {
           </div>
         </div>
 
-        {/* Products Grid */}
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => (
