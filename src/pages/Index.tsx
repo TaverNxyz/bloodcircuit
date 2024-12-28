@@ -2,7 +2,7 @@ import { useEffect, useState, Suspense } from 'react';
 import PaymentRibbon from "@/components/PaymentRibbon";
 import ProductCard from "@/components/ProductCard";
 import MediaCarousel from "@/components/MediaCarousel";
-import AnimatedBackground from "@/components/AnimatedBackground";
+import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,58 @@ import { MessageCircle } from "lucide-react";
 import { initScrollOpacity } from "@/utils/scrollOpacity";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import InitialTerminal from "@/components/InitialTerminal";
+
+const products = [
+  {
+    id: "apex",
+    name: "Apex External",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Advanced external toolkit for enhanced gameplay",
+    features: ["Aimbot", "ESP", "Radar Hack"],
+    imageUrl: "/lovable-uploads/cf921485-2679-4705-8c58-08fce6ebce08.png",
+    videoUrl: "https://streamable.com/e/yd3tbf?autoplay=1&loop=0"
+  },
+  {
+    id: "hwid",
+    name: "HWID Serializer",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 35
+    },
+    description: "Advanced HWID spoofer and serializer",
+    features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
+    videoUrl: "https://streamable.com/e/lwokde?autoplay=0"
+  },
+  {
+    id: "fortnite",
+    name: "Fortnite External",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Premium external cheat for Fortnite",
+    features: ["Aimbot", "ESP", "Radar"],
+    videoUrl: "https://streamable.com/e/apex"
+  },
+  {
+    id: "rust",
+    name: "Rust External",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Advanced external cheat for Rust",
+    features: ["Aimbot", "ESP", "Item ESP"],
+    videoUrl: "https://streamable.com/e/apex"
+  }
+];
 
 const MainContent = () => {
   const navigate = useNavigate();
@@ -47,7 +99,7 @@ const MainContent = () => {
     <>
       <div className="relative min-h-screen bg-transparent">
         <div className="animated-bg">
-          <AnimatedBackground />
+          <ParticlesBackground />
         </div>
 
         {/* Hero Section with Text Above Video */}
@@ -111,59 +163,6 @@ const MainContent = () => {
     </>
   );
 };
-
-// Keep the products array
-const products = [
-  {
-    id: "apex",
-    name: "Apex External",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Advanced external toolkit for enhanced gameplay",
-    features: ["Aimbot", "ESP", "Radar Hack"],
-    imageUrl: "/lovable-uploads/cf921485-2679-4705-8c58-08fce6ebce08.png",
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "hwid",
-    name: "HWID Serializer",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 35
-    },
-    description: "Advanced HWID spoofer and serializer",
-    features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
-    videoUrl: "https://www.youtube.com/embed/pBkpHgDdcps"
-  },
-  {
-    id: "fortnite",
-    name: "Fortnite External",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Premium external cheat for Fortnite",
-    features: ["Aimbot", "ESP", "Radar"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "rust",
-    name: "Rust External",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Advanced external cheat for Rust",
-    features: ["Aimbot", "ESP", "Item ESP"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  }
-];
 
 // Main Index component
 const Index = () => {

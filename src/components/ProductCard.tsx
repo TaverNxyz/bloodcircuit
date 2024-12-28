@@ -37,11 +37,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card className="relative overflow-hidden group bg-[#0A0A0A]/80 border-[#222] hover:border-[#1EAEDB] transition-all duration-300">
-      <div className="relative aspect-[4/3] overflow-hidden cursor-pointer" onClick={handleViewDetails}>
-        {showVideo ? (
-          <VideoPlayer 
-            videoUrl={product.videoUrl!} 
-            onClose={() => setShowVideo(false)} 
+      <div className="relative aspect-[4/3] overflow-hidden">
+        {product.videoUrl ? (
+          <iframe 
+            src={product.videoUrl}
+            className="w-full h-full object-cover"
+            allow="autoplay; fullscreen"
+            frameBorder="0"
           />
         ) : (
           <ProductImage

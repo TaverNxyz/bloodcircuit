@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import { loadFull } from "tsparticles-engine";
 import type { Engine } from "tsparticles-engine";
 
 const ParticlesBackground = () => {
@@ -17,6 +17,7 @@ const ParticlesBackground = () => {
           enable: true,
           zIndex: -1
         },
+        fpsLimit: 120,
         particles: {
           number: {
             value: 80,
@@ -26,7 +27,7 @@ const ParticlesBackground = () => {
             }
           },
           color: {
-            value: "#ffffff"
+            value: "#1EAEDB"
           },
           shape: {
             type: "circle"
@@ -42,7 +43,7 @@ const ParticlesBackground = () => {
           line_linked: {
             enable: true,
             distance: 150,
-            color: "#ffffff",
+            color: "#1EAEDB",
             opacity: 0.4,
             width: 1
           },
@@ -66,7 +67,6 @@ const ParticlesBackground = () => {
             resize: true
           }
         },
-        retina_detect: true,
         background: {
           color: "#0A0A0A",
           position: "50% 50%",
@@ -74,7 +74,7 @@ const ParticlesBackground = () => {
           size: "cover"
         }
       }}
-      className="absolute inset-0"
+      className="fixed inset-0 -z-10"
     />
   );
 };
