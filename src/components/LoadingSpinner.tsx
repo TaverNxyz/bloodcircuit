@@ -10,6 +10,7 @@ const LoadingSpinner = () => {
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [completedLines, setCompletedLines] = useState<string[]>([]);
   
   useEffect(() => {
     const visited = sessionStorage.getItem('visited');
@@ -36,30 +37,39 @@ const LoadingSpinner = () => {
       return () => clearTimeout(timer);
     }
 
-    if (isComplete) {
-      const timer = setTimeout(() => {
-        setShowButton(true);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-
+    // Don't proceed if all lines are complete
     if (currentLine >= terminalLines.length) {
-      setIsComplete(true);
+      if (!isComplete) {
+        setIsComplete(true);
+        // Wait 2 seconds after last line before showing button
+        const timer = setTimeout(() => {
+          setShowButton(true);
+        }, 2000);
+        return () => clearTimeout(timer);
+      }
       return;
     }
 
     const currentText = terminalLines[currentLine];
+    
+    // If current line is complete
     if (text === currentText) {
+      // Add the completed line to our array
+      setCompletedLines(prev => [...prev, currentText]);
+      
+      // Wait 2 seconds before starting next line
       const lineTimer = setTimeout(() => {
         setCurrentLine(prev => prev + 1);
         setText('');
-      }, 1500); // Increased from 1000ms to 1500ms
+      }, 2000);
+      
       return () => clearTimeout(lineTimer);
     }
 
+    // Type each character with a 200ms delay
     const charTimer = setTimeout(() => {
       setText(text + currentText[text.length]);
-    }, 150); // Increased from 100ms to 150ms for slower typing
+    }, 200);
 
     return () => clearTimeout(charTimer);
   }, [text, currentLine, isFirstVisit, terminalLines, isComplete]);
@@ -78,11 +88,13 @@ const LoadingSpinner = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
       <div className="w-full max-w-3xl p-8 font-mono">
         <TerminalWindow>
-          {terminalLines.slice(0, currentLine).map((line, index) => (
+          {/* Show completed lines */}
+          {completedLines.map((line, index) => (
             <div key={index} className="mb-2">
               <TerminalLine text={line} />
             </div>
           ))}
+          {/* Show current typing line */}
           {currentLine < terminalLines.length && (
             <TerminalLine 
               text={text} 
