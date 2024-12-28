@@ -2,6 +2,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Bitcoin, CreditCard, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "./ui/use-toast";
 
 interface PaymentMethodDialogProps {
   open: boolean;
@@ -12,6 +14,38 @@ interface PaymentMethodDialogProps {
 
 const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMethodDialogProps) => {
   const navigate = useNavigate();
+
+  const handleBillgangPayment = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "Authentication required",
+          description: "Please sign in to make a purchase",
+          variant: "destructive"
+        });
+        navigate('/auth');
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('billgang-payment', {
+        body: { productId, plan }
+      });
+
+      if (error) throw error;
+
+      // Redirect to Billgang checkout
+      window.location.href = data.url;
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Payment Error",
+        description: "Failed to initialize payment. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
 
   const handleCryptoPayment = (type: "BTC" | "LTC") => {
     navigate(`/payment/${productId}?plan=${plan}&method=${type}`);
@@ -46,10 +80,10 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
           <Button
             variant="outline"
             className="flex items-center gap-2 h-16"
-            disabled
+            onClick={handleBillgangPayment}
           >
             <CreditCard className="h-5 w-5" />
-            <span>Credit Card (Coming Soon)</span>
+            <span>Pay with Card</span>
           </Button>
         </div>
       </DialogContent>
