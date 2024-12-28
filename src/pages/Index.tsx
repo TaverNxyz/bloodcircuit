@@ -22,7 +22,7 @@ const products = [
     },
     description: "Advanced external toolkit for enhanced gameplay",
     features: ["Aimbot", "ESP", "Radar Hack"],
-    videoUrl: "https://streamable.com/e/lwokde?autoplay=0"
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   },
   {
     id: "hwid",
