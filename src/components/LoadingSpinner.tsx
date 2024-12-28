@@ -2,64 +2,76 @@ import { useEffect, useState } from 'react';
 
 const LoadingSpinner = () => {
   const [text, setText] = useState('');
-  const loadingText = 'INITIALIZING SYSTEM';
-  const dots = '...';
+  const [currentLine, setCurrentLine] = useState(0);
+  const [showTerminal, setShowTerminal] = useState(true);
+  
+  const terminalLines = [
+    'INITIALIZING KERNEL...',
+    'ESTABLISHING SECURE CONNECTION...',
+    'BYPASSING FIREWALL PROTOCOLS...',
+    'ACCESSING MAINFRAME...',
+    'DECRYPTING NEURAL NETWORKS...',
+    'INJECTING QUANTUM ALGORITHMS...',
+    'OVERRIDING SYSTEM ARCHITECTURE...',
+    'IMPLEMENTING ZERO-DAY EXPLOITS...',
+    'EXECUTING KERNEL MANIPULATION...',
+    'BECOMING UNRIVALED...',
+    '[SUCCESS] YOU ARE NOW UNRIVALED'
+  ];
   
   useEffect(() => {
-    let currentIndex = 0;
-    let dotIndex = 0;
-    
+    if (currentLine >= terminalLines.length) {
+      const timer = setTimeout(() => {
+        setShowTerminal(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+
     const textInterval = setInterval(() => {
-      if (currentIndex <= loadingText.length) {
-        setText(loadingText.slice(0, currentIndex) + dots.slice(0, dotIndex + 1));
-        currentIndex++;
+      const currentText = terminalLines[currentLine];
+      if (text.length < currentText.length) {
+        setText(currentText.slice(0, text.length + 1));
+      } else {
+        clearInterval(textInterval);
+        setTimeout(() => {
+          setCurrentLine(prev => prev + 1);
+          setText('');
+        }, 500);
       }
-      dotIndex = (dotIndex + 1) % 3;
-    }, 100);
+    }, 50);
 
     return () => clearInterval(textInterval);
-  }, []);
+  }, [text, currentLine]);
+
+  if (!showTerminal) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
-      <div className="min-h-[200px] w-full max-w-md bg-[#000000] p-8 font-mono">
-        {/* Terminal window frame */}
-        <div className="w-full bg-[#1A1F2C] rounded-lg shadow-xl overflow-hidden border border-[#403E43]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+      <div className="w-full max-w-3xl p-8 font-mono">
+        <div className="w-full bg-black rounded-lg shadow-xl overflow-hidden border border-[#FF6B00]">
           {/* Terminal header */}
-          <div className="bg-[#222222] px-4 py-2 flex items-center gap-2">
+          <div className="bg-[#1A1A1A] px-4 py-2 flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500"></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="ml-2 text-sm text-gray-400">Terminal</span>
+            <span className="ml-2 text-sm text-[#FF6B00]">Terminal</span>
           </div>
           
           {/* Terminal content */}
-          <div className="p-6 space-y-4">
-            {/* Blinking cursor effect */}
-            <div className="flex items-center gap-2">
-              <span className="text-[#1EAEDB] animate-pulse">{'>'}</span>
-              <span className="text-[#F2FCE2]">{text}</span>
-              <span className="w-2 h-5 bg-[#1EAEDB] animate-pulse"></span>
-            </div>
-            
-            {/* Loading bar */}
-            <div className="w-full bg-[#222222] rounded-full h-2 overflow-hidden">
-              <div 
-                className="h-full bg-[#1EAEDB] rounded-full animate-[loading_2s_ease-in-out_infinite]"
-                style={{
-                  width: '100%',
-                }}
-              ></div>
-            </div>
-            
-            {/* Status messages */}
-            <div className="text-xs text-[#C8C8C9] space-y-1">
-              <p className="animate-pulse">Establishing secure connection...</p>
-              <p className="animate-pulse delay-100">Verifying credentials...</p>
-              <p className="animate-pulse delay-200">Loading resources...</p>
-              <p className="animate-pulse delay-300">Initializing modules...</p>
-              <p className="animate-pulse delay-400">Checking system integrity...</p>
-            </div>
+          <div className="p-6 bg-black text-[#FF6B00] font-mono">
+            {terminalLines.slice(0, currentLine).map((line, index) => (
+              <div key={index} className="mb-2">
+                <span className="mr-2">$</span>
+                <span>{line}</span>
+              </div>
+            ))}
+            {currentLine < terminalLines.length && (
+              <div className="flex items-center">
+                <span className="mr-2">$</span>
+                <span>{text}</span>
+                <span className="w-2 h-5 bg-[#FF6B00] ml-1 animate-pulse"></span>
+              </div>
+            )}
           </div>
         </div>
       </div>

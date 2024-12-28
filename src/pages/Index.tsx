@@ -16,16 +16,15 @@ const MainContent = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading delay
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // 3 second delay to show loading animation
+    }, 6000); // Increased to 6 seconds to show full terminal sequence
 
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    throw new Promise((resolve) => setTimeout(resolve, 3000));
+    throw new Promise((resolve) => setTimeout(resolve, 6000));
   }
 
   return (
