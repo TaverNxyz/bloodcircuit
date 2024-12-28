@@ -46,7 +46,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <div className="flex flex-col gap-4">
             <Button 
               className="w-full bg-[#F97316] hover:bg-[#F97316]/80 text-white"
-              onClick={() => console.log("Checking Exo Status")}
+              onClick={() => window.open('https://exodus.fun/status', '_blank')}
             >
               Check Exo Status
             </Button>
