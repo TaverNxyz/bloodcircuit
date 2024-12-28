@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import TerminalWindow from './terminal/TerminalWindow';
 import TerminalLine from './terminal/TerminalLine';
 import EvolveButton from './terminal/EvolveButton';
+import ParticlesBackground from './ParticlesBackground';
 
 const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
   const [currentLine, setCurrentLine] = useState(0);
@@ -39,8 +40,9 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
-      <div className="w-full max-w-3xl p-8 font-mono">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <ParticlesBackground />
+      <div className="w-full max-w-3xl p-8 font-mono relative z-10">
         <TerminalWindow>
           {lines.slice(0, currentLine + 1).map((line, index) => (
             <div key={index} className="mb-2">

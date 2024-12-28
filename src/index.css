@@ -75,20 +75,9 @@
   animation: loading-shine 1.5s infinite;
 }
 
-/* Animated background opacity control */
+/* Animated background opacity control - removed opacity changes */
 .animated-bg {
   transition: opacity 0.3s ease-in-out;
-}
-
-.animated-bg:hover {
-  opacity: 0.1;
-}
-
-/* Add scroll-based opacity */
-@media (min-width: 768px) {
-  .animated-bg {
-    opacity: var(--scroll-opacity, 1);
-  }
 }
 
 @keyframes loading-shine {
