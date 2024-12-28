@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ParticlesBackground from '@/components/ParticlesBackground';
 import ProductHero from '@/components/product/ProductHero';
@@ -7,14 +8,76 @@ import ProductMedia from '@/components/product/ProductMedia';
 import ReturnHomeButton from "@/components/ReturnHomeButton";
 import { useState } from 'react';
 
+const products = [
+  {
+    id: "apex",
+    name: "Apex External",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Advanced external toolkit for enhanced gameplay with real-time ESP and aim assistance",
+    features: ["Aimbot", "ESP", "Radar Hack"],
+    imageUrl: "/lovable-uploads/cf921485-2679-4705-8c58-08fce6ebce08.png",
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw",
+    category: "game"
+  },
+  {
+    id: "hwid",
+    name: "HWID Serializer",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 35
+    },
+    description: "Professional HWID spoofer with advanced serial management and anti-detection features",
+    features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
+    videoUrl: "https://www.youtube.com/embed/pBkpHgDdcps",
+    category: "tool"
+  },
+  {
+    id: "fortnite",
+    name: "UDP EFT External",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Premium external cheat for Escape from Tarkov with advanced ESP and radar features",
+    features: ["Aimbot", "ESP", "Radar"],
+    videoUrl: "https://streamable.com/e/lwokde",
+    category: "game"
+  },
+  {
+    id: "rust",
+    name: "Application Status",
+    prices: {
+      daily: 7,
+      weekly: 25,
+      monthly: 65
+    },
+    description: "Real-time status checker for Exodus and UDP applications",
+    features: ["Status Check", "Real-time Updates"],
+    category: "status"
+  }
+];
+
 const ProductDetails = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [showVideo, setShowVideo] = useState(false);
   
   const product = products.find(p => p.id === productId);
   
+  useEffect(() => {
+    if (!product) {
+      navigate('/');
+    }
+  }, [product, navigate]);
+
   if (!product) {
-    return <div>Product not found</div>;
+    return null;
   }
 
   const productMedia = [
@@ -63,67 +126,17 @@ const ProductDetails = () => {
           </TabsContent>
         </Tabs>
 
-        <ProductMedia 
-          media={productMedia}
-          videoUrl={product.videoUrl}
-          showVideo={showVideo}
-          onShowVideo={setShowVideo}
-        />
+        {product.category !== 'status' && (
+          <ProductMedia 
+            media={productMedia}
+            videoUrl={product.videoUrl}
+            showVideo={showVideo}
+            onShowVideo={setShowVideo}
+          />
+        )}
       </div>
     </div>
   );
 };
-
-const products = [
-  {
-    id: "apex",
-    name: "Apex External",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Advanced external toolkit for enhanced gameplay",
-    features: ["Aimbot", "ESP", "Radar Hack"],
-    imageUrl: "/lovable-uploads/cf921485-2679-4705-8c58-08fce6ebce08.png",
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "hwid",
-    name: "HWID Serializer",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 35
-    },
-    description: "Advanced HWID spoofer and serializer",
-    features: ["HWID Spoofing", "Serial Management", "Anti-Detection"],
-    videoUrl: "https://www.youtube.com/embed/pBkpHgDdcps"
-  },
-  {
-    id: "fortnite",
-    name: "Fortnite External",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Premium external cheat for Fortnite",
-    features: ["Aimbot", "ESP", "Radar"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  },
-  {
-    id: "rust",
-    name: "Rust External",
-    prices: {
-      daily: 7,
-      weekly: 25,
-      monthly: 65
-    },
-    description: "Advanced external cheat for Rust",
-    features: ["Aimbot", "ESP", "Item ESP"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
-  }
-];
 
 export default ProductDetails;
