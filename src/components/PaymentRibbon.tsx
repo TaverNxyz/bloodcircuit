@@ -32,7 +32,7 @@ const PaymentRibbon = () => {
           variant="ghost" 
           size="sm"
           onClick={copyPaymentInfo}
-          className="text-white hover:bg-white/10 z-10"
+          className="text-white hover:bg-[#9b87f5]/20 bg-[#9b87f5]/10 z-10"
         >
           <Copy className="mr-2 h-4 w-4" />
           Copy Payment Info
