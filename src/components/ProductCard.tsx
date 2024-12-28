@@ -2,12 +2,17 @@ import { useState } from 'react';
 import { Play, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
   product: {
     id: string;
     name: string;
-    price: number;
+    prices: {
+      daily: number;
+      weekly: number;
+      monthly: number;
+    };
     description: string;
     features: string[];
     imageUrl?: string;
@@ -17,6 +22,12 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [showVideo, setShowVideo] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
+  const navigate = useNavigate();
+
+  const handlePurchase = () => {
+    navigate(`/checkout/${product.id}?plan=${selectedPlan}`);
+  };
 
   return (
     <Card className="relative overflow-hidden group bg-[#0A0A0A]/80 border-[#222] hover:border-[#1EAEDB] transition-all duration-300">
@@ -65,14 +76,37 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <div className="p-6">
         <h3 className="text-2xl font-bold text-[#1EAEDB] mb-2">{product.name}</h3>
         <p className="text-gray-400 mb-4 line-clamp-2">{product.description}</p>
-        <div className="flex justify-between items-center">
-          <span className="text-2xl font-bold text-white">${product.price}</span>
-          <Button 
-            className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
+        
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          <Button
+            variant={selectedPlan === 'daily' ? 'default' : 'outline'}
+            onClick={() => setSelectedPlan('daily')}
+            className="w-full"
           >
-            View Product
+            ${product.prices.daily}/day
+          </Button>
+          <Button
+            variant={selectedPlan === 'weekly' ? 'default' : 'outline'}
+            onClick={() => setSelectedPlan('weekly')}
+            className="w-full"
+          >
+            ${product.prices.weekly}/week
+          </Button>
+          <Button
+            variant={selectedPlan === 'monthly' ? 'default' : 'outline'}
+            onClick={() => setSelectedPlan('monthly')}
+            className="w-full"
+          >
+            ${product.prices.monthly}/month
           </Button>
         </div>
+
+        <Button 
+          className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
+          onClick={handlePurchase}
+        >
+          Purchase
+        </Button>
       </div>
     </Card>
   );
