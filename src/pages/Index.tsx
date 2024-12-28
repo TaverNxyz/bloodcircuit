@@ -38,7 +38,7 @@ const products = [
   },
   {
     id: "fortnite",
-    name: "Fortnite External",
+    name: "UDP EFT External",
     prices: {
       daily: 7,
       weekly: 25,
@@ -46,7 +46,7 @@ const products = [
     },
     description: "Premium external cheat for Fortnite",
     features: ["Aimbot", "ESP", "Radar"],
-    videoUrl: "https://streamable.com/e/apex"
+    videoUrl: "https://streamable.com/e/lwokde"
   },
   {
     id: "rust",
@@ -58,7 +58,7 @@ const products = [
     },
     description: "Advanced external cheat for Rust",
     features: ["Aimbot", "ESP", "Item ESP"],
-    videoUrl: "https://streamable.com/e/apex"
+    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
   }
 ];
 
