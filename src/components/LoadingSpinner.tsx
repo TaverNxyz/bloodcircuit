@@ -5,6 +5,7 @@ const LoadingSpinner = () => {
   const [currentLine, setCurrentLine] = useState(0);
   const [showTerminal, setShowTerminal] = useState(true);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
+  const [isComplete, setIsComplete] = useState(false);
   
   useEffect(() => {
     const visited = sessionStorage.getItem('visited');
@@ -26,12 +27,17 @@ const LoadingSpinner = () => {
       return () => clearTimeout(timer);
     }
 
-    if (currentLine >= terminalLines.length) {
+    if (isComplete) {
       const timer = setTimeout(() => {
         sessionStorage.setItem('visited', 'true');
         setShowTerminal(false);
-      }, 2000); // Hold for 2 seconds at the end
+      }, 2000); // Hold for 2 seconds after completion
       return () => clearTimeout(timer);
+    }
+
+    if (currentLine >= terminalLines.length) {
+      setIsComplete(true);
+      return;
     }
 
     const textInterval = setInterval(() => {
@@ -45,10 +51,10 @@ const LoadingSpinner = () => {
           setText('');
         }, 500);
       }
-    }, 30); // Faster typing speed
+    }, 30); // Fast typing speed
 
     return () => clearInterval(textInterval);
-  }, [text, currentLine, isFirstVisit, terminalLines]);
+  }, [text, currentLine, isFirstVisit, terminalLines, isComplete]);
 
   if (!showTerminal) return null;
 
