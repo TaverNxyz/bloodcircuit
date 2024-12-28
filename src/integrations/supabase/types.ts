@@ -9,6 +9,167 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      asset_purchases: {
+        Row: {
+          amount: number
+          asset_id: string
+          buyer_id: string
+          created_at: string
+          id: string
+          status: string
+        }
+        Insert: {
+          amount: number
+          asset_id: string
+          buyer_id: string
+          created_at?: string
+          id?: string
+          status?: string
+        }
+        Update: {
+          amount?: number
+          asset_id?: string
+          buyer_id?: string
+          created_at?: string
+          id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "asset_purchases_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "asset_purchases_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      asset_reviews: {
+        Row: {
+          asset_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          reviewer_id: string
+        }
+        Insert: {
+          asset_id: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          reviewer_id: string
+        }
+        Update: {
+          asset_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "asset_reviews_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "asset_reviews_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assets: {
+        Row: {
+          category_id: string
+          created_at: string
+          creator_id: string
+          description: string | null
+          downloads: number | null
+          file_path: string | null
+          id: string
+          preview_path: string | null
+          price: number
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category_id: string
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          downloads?: number | null
+          file_path?: string | null
+          id?: string
+          preview_path?: string | null
+          price: number
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          downloads?: number | null
+          file_path?: string | null
+          id?: string
+          preview_path?: string | null
+          price?: number
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assets_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           amount: number
@@ -54,24 +215,39 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string
+          creator_bio: string | null
+          creator_website: string | null
           discord_id: string | null
           id: string
+          is_creator: boolean | null
+          total_earnings: number | null
+          total_sales: number | null
           updated_at: string
           username: string | null
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string
+          creator_bio?: string | null
+          creator_website?: string | null
           discord_id?: string | null
           id: string
+          is_creator?: boolean | null
+          total_earnings?: number | null
+          total_sales?: number | null
           updated_at?: string
           username?: string | null
         }
         Update: {
           avatar_url?: string | null
           created_at?: string
+          creator_bio?: string | null
+          creator_website?: string | null
           discord_id?: string | null
           id?: string
+          is_creator?: boolean | null
+          total_earnings?: number | null
+          total_sales?: number | null
           updated_at?: string
           username?: string | null
         }
