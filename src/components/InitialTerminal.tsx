@@ -40,8 +40,10 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <ParticlesBackground />
+    <div className="fixed inset-0 flex items-center justify-center bg-transparent">
+      <div className="absolute inset-0 z-0">
+        <ParticlesBackground />
+      </div>
       <div className="w-full max-w-3xl p-8 font-mono relative z-10">
         <TerminalWindow>
           {lines.slice(0, currentLine + 1).map((line, index) => (
@@ -50,7 +52,6 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
             </div>
           ))}
         </TerminalWindow>
-
         {showButton && <EvolveButton onClick={handleEvolve} />}
       </div>
     </div>
