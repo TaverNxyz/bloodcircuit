@@ -3,6 +3,7 @@ import { Copy, MessageCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import PaymentDialog from "./PaymentDialog";
+import { PAYMENT_METHODS } from "@/lib/constants";
 
 const PaymentRibbon = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
