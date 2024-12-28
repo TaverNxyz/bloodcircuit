@@ -23,10 +23,10 @@ const Logo = () => {
   return (
     <div 
       ref={ref}
-      className="relative text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-orange-500 to-blue-500 animate-pulse hover:animate-none transition-all duration-300"
+      className="relative text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-gray-200 to-red-600 animate-pulse hover:animate-none transition-all duration-300 font-['Metal_Mania']"
       style={{ '--x': '50%', '--y': '50%' } as React.CSSProperties}
     >
-      ExploitExhibition
+      BloodCircuit
     </div>
   );
 };
