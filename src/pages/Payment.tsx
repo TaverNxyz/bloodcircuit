@@ -8,7 +8,7 @@ import { PAYMENT_METHODS, CryptoType } from "@/lib/constants";
 import ReturnHomeButton from "@/components/ReturnHomeButton";
 
 const Payment = () => {
-  const { productId } = useParams();
+  const { id: productId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const plan = searchParams.get('plan');
@@ -17,7 +17,6 @@ const Payment = () => {
   useEffect(() => {
     if (!productId || !plan || !method || !['BTC', 'LTC'].includes(method)) {
       navigate('/');
-      return;
     }
   }, [productId, plan, method, navigate]);
 
