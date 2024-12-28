@@ -63,7 +63,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#050505]">
+    <div className="relative min-h-screen bg-transparent">
       <AnimatedBackground />
 
       {/* Hero Section with Text Above Video */}
