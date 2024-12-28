@@ -28,8 +28,10 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
   };
 
   const handleCryptoPayment = (type: "BTC" | "LTC") => {
-    navigate(`/payment/${productId}?plan=${plan}&method=${type}`);
-    onOpenChange(false);
+    const searchParams = new URLSearchParams();
+    searchParams.append('plan', plan);
+    searchParams.append('method', type);
+    navigate(`/payment/${productId}?${searchParams.toString()}`);
   };
 
   return (

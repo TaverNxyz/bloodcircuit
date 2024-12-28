@@ -17,6 +17,7 @@ const Payment = () => {
   useEffect(() => {
     if (!productId || !plan || !method || !['BTC', 'LTC'].includes(method)) {
       navigate('/');
+      return;
     }
   }, [productId, plan, method, navigate]);
 
