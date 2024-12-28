@@ -3,19 +3,21 @@ import { Check, Clock, Copy, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 import { toast } from './ui/use-toast';
+import { CRYPTO_DETAILS, CryptoType } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 interface TransactionTrackerProps {
   address: string;
   amount: number;
-  currency: string;
+  cryptoType: CryptoType;
 }
 
-const TransactionTracker = ({ address, amount, currency }: TransactionTrackerProps) => {
+const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerProps) => {
   const [progress, setProgress] = useState(0);
+  const [confirmations, setConfirmations] = useState(0);
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
 
   useEffect(() => {
-    // Simulate transaction progress
     const timer = setInterval(() => {
       setProgress((oldProgress) => {
         if (oldProgress === 100) {
@@ -24,13 +26,19 @@ const TransactionTracker = ({ address, amount, currency }: TransactionTrackerPro
           return 100;
         }
         const newProgress = oldProgress + 10;
-        if (newProgress === 60) setStatus('confirming');
+        if (newProgress === 60) {
+          setStatus('confirming');
+          setConfirmations(Math.floor(CRYPTO_DETAILS[cryptoType].confirmations / 2));
+        }
+        if (newProgress === 80) {
+          setConfirmations(CRYPTO_DETAILS[cryptoType].confirmations);
+        }
         return newProgress;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [cryptoType]);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
@@ -41,21 +49,26 @@ const TransactionTracker = ({ address, amount, currency }: TransactionTrackerPro
   };
 
   return (
-    <div className="space-y-6 p-6 bg-[#0A0A0A] rounded-lg border border-[#222]">
+    <div className="space-y-6 p-6 bg-[#0A0A0A] rounded-lg border border-[#222] animate-fade-in">
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-white">Payment Details</h3>
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">{CRYPTO_DETAILS[cryptoType].icon}</span>
+          <h3 className="text-lg font-semibold text-white">
+            {CRYPTO_DETAILS[cryptoType].name} Payment
+          </h3>
+        </div>
         <p className="text-sm text-gray-400">
-          Send exactly {amount} {currency} to the address below
+          Send exactly {amount} {cryptoType} to the address below
         </p>
       </div>
 
-      <div className="flex items-center justify-between p-3 bg-[#111] rounded-lg">
-        <code className="text-sm text-[#1EAEDB]">{address}</code>
+      <div className="flex items-center justify-between p-3 bg-[#111] rounded-lg group hover:bg-[#151515] transition-colors">
+        <code className="text-sm text-[#1EAEDB] break-all">{address}</code>
         <Button
           variant="ghost"
           size="sm"
           onClick={copyAddress}
-          className="text-white hover:bg-white/10"
+          className="text-white hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"
         >
           <Copy className="h-4 w-4" />
         </Button>
@@ -66,7 +79,7 @@ const TransactionTracker = ({ address, amount, currency }: TransactionTrackerPro
           <span className="text-gray-400">Transaction Status</span>
           <span className="text-white">
             {status === 'pending' && 'Waiting for payment'}
-            {status === 'confirming' && 'Confirming transaction'}
+            {status === 'confirming' && `${confirmations}/${CRYPTO_DETAILS[cryptoType].confirmations} confirmations`}
             {status === 'completed' && 'Payment completed'}
           </span>
         </div>
@@ -77,7 +90,10 @@ const TransactionTracker = ({ address, amount, currency }: TransactionTrackerPro
         {status === 'pending' && <Clock className="h-4 w-4 text-yellow-500" />}
         {status === 'confirming' && <Clock className="h-4 w-4 text-blue-500 animate-spin" />}
         {status === 'completed' && <Check className="h-4 w-4 text-green-500" />}
-        <span className="text-gray-400">
+        <span className={cn(
+          "text-gray-400",
+          status === 'confirming' && "animate-pulse"
+        )}>
           {status === 'pending' && 'Awaiting payment...'}
           {status === 'confirming' && 'Confirming on blockchain...'}
           {status === 'completed' && 'Transaction confirmed!'}
@@ -90,13 +106,13 @@ const TransactionTracker = ({ address, amount, currency }: TransactionTrackerPro
         asChild
       >
         <a 
-          href="https://etherscan.io" 
-          target="_blank" 
+          href={CRYPTO_DETAILS[cryptoType].explorer}
+          target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2"
         >
           <ExternalLink className="h-4 w-4" />
-          View on Explorer
+          View on {CRYPTO_DETAILS[cryptoType].name} Explorer
         </a>
       </Button>
     </div>

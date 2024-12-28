@@ -5,6 +5,7 @@ import { toast } from "@/hooks/use-toast";
 import { useState } from 'react';
 import TransactionTracker from '@/components/TransactionTracker';
 import PaymentDialog from '@/components/PaymentDialog';
+import { CryptoType, PAYMENT_METHODS } from '@/lib/constants';
 
 const Checkout = () => {
   const { productId } = useParams();
@@ -14,12 +15,19 @@ const Checkout = () => {
   const [orderNumber] = useState(() => Math.floor(Math.random() * 1000000));
   const [receiptNumber] = useState(() => Math.floor(Math.random() * 1000000));
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  const [selectedCrypto] = useState<CryptoType>("BTC");
+
+  // Extract the address from PAYMENT_METHODS
+  const getAddress = (crypto: CryptoType) => {
+    const method = PAYMENT_METHODS.find(m => m.text.startsWith(crypto));
+    return method ? method.text.split(': ')[1] : '';
+  };
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
       <AnimatedBackground />
       
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 animate-fade-in">
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="bg-[#0A0A0A] p-8 rounded-lg border border-[#222]">
             <h1 className="text-3xl font-bold mb-8">Order Summary</h1>
@@ -61,9 +69,9 @@ const Checkout = () => {
           </div>
 
           <TransactionTracker 
-            address="0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+            address={getAddress(selectedCrypto)}
             amount={0.5}
-            currency="ETH"
+            cryptoType={selectedCrypto}
           />
         </div>
       </div>
