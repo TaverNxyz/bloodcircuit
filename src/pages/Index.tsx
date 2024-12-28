@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PaymentRibbon from "@/components/PaymentRibbon";
 import ProductCard from "@/components/ProductCard";
 import MediaCarousel from "@/components/MediaCarousel";
@@ -6,6 +7,7 @@ import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
+import { initScrollOpacity } from "@/utils/scrollOpacity";
 
 const products = [
   {
@@ -62,9 +64,16 @@ const products = [
 const Index = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const cleanup = initScrollOpacity();
+    return cleanup;
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-transparent">
-      <AnimatedBackground />
+      <div className="animated-bg">
+        <AnimatedBackground />
+      </div>
 
       {/* Hero Section with Text Above Video */}
       <div className="relative pt-20">

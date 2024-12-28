@@ -52,11 +52,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
         ) : (
           <>
             {product.imageUrl && (
-              <img 
-                src={product.imageUrl} 
-                alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
+              <div className="w-full h-full">
+                <img 
+                  src={product.imageUrl} 
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.png'; // Fallback image
+                  }}
+                />
+              </div>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
             {product.videoUrl && (
