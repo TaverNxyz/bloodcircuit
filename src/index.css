@@ -6,32 +6,23 @@
   :root {
     --background: 222 47% 11%;
     --foreground: 0 0% 100%;
-
     --card: 240 13% 13%;
     --card-foreground: 0 0% 100%;
-
     --popover: 222 47% 11%;
     --popover-foreground: 0 0% 100%;
-
     --primary: 199 85% 48%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 240 5% 25%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 240 5% 25%;
     --muted-foreground: 240 5% 65%;
-
     --accent: 199 85% 48%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 240 5% 26%;
     --input: 240 5% 26%;
     --ring: 199 85% 48%;
-
     --radius: 0.5rem;
   }
 
@@ -44,11 +35,66 @@
   }
 }
 
+@keyframes slide-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes slide-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px);
+    opacity: 0;
+  }
+}
+
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-1 * var(--scroll-width) / 2));
+    transform: translateX(calc(-1 * var(--scroll-width)));
+  }
+}
+
+.animate-scroll {
+  --scroll-width: 2000px;
+  animation: scroll 20s linear infinite;
+}
+
+/* Loading animation */
+.loading-tech {
+  @apply relative overflow-hidden;
+}
+
+.loading-tech::after {
+  content: '';
+  @apply absolute inset-0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(30, 174, 219, 0.2),
+    transparent
+  );
+  animation: loading-shine 1.5s infinite;
+}
+
+@keyframes loading-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
