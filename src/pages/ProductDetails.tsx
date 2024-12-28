@@ -10,12 +10,14 @@ import ParticlesBackground from '@/components/ParticlesBackground';
 const ProductDetails = () => {
   const { productId } = useParams();
   
-  // Find the product based on the ID
   const product = products.find(p => p.id === productId);
   
   if (!product) {
     return <div>Product not found</div>;
   }
+
+  // Create an images array from the product data
+  const productImages = product.imageUrl ? [product.imageUrl] : [];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -124,7 +126,7 @@ const ProductDetails = () => {
           </TabsContent>
         </Tabs>
 
-        <ProductMediaCarousel images={product.images || []} />
+        <ProductMediaCarousel images={productImages} />
       </div>
     </div>
   );

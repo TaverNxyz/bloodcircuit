@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import ParticlesBackground from "@/components/ParticlesBackground";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import PaymentMethodDialog from "@/components/PaymentMethodDialog";
 import PaymentTerminal from "@/components/PaymentTerminal";
 
@@ -9,41 +9,51 @@ const Checkout = () => {
   const { productId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const plan = searchParams.get('plan');
+  const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  const [showTerminal, setShowTerminal] = useState(true);
 
   if (!productId || !plan) {
-    return null;
+    return <div>Invalid checkout parameters</div>;
   }
 
-  const handlePaymentMethodSelect = (method: string) => {
-    navigate(`/payment/${productId}?plan=${plan}&method=${method}`);
-  };
+  if (showTerminal) {
+    return <PaymentTerminal onComplete={() => setShowTerminal(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
-      <ParticlesBackground />
+      <AnimatedBackground />
       
-      <div className="container mx-auto px-4 py-16 animate-fade-in relative z-10">
+      <div className="container mx-auto px-4 py-16 animate-fade-in">
         <div className="max-w-2xl mx-auto space-y-8">
-          <Button
-            variant="ghost"
-            className="text-white hover:bg-white/10"
-            onClick={() => navigate(-1)}
-          >
-            Back to Products
-          </Button>
+          <div className="bg-[#0A0A0A] p-8 rounded-lg border border-[#222]">
+            <h1 className="text-3xl font-bold mb-8">Order Summary</h1>
+            
+            <div className="space-y-4 mb-8">
+              <div className="flex justify-between items-center p-4 bg-[#111] rounded-lg">
+                <span>Product ID:</span>
+                <span className="font-mono">{productId}</span>
+              </div>
+              <div className="flex justify-between items-center p-4 bg-[#111] rounded-lg">
+                <span>Plan:</span>
+                <span className="uppercase">{plan}</span>
+              </div>
+            </div>
 
-          <PaymentTerminal
-            productId={productId}
-            plan={plan}
-            onProceed={() => setShowPaymentDialog(true)}
-          />
+            <Button 
+              className="w-full"
+              onClick={() => setShowPaymentMethods(true)}
+            >
+              Proceed to Payment
+            </Button>
+          </div>
 
           <PaymentMethodDialog
-            open={showPaymentDialog}
-            onOpenChange={setShowPaymentDialog}
-            onSelect={handlePaymentMethodSelect}
+            open={showPaymentMethods}
+            onOpenChange={setShowPaymentMethods}
+            productId={productId}
+            plan={plan}
           />
         </div>
       </div>
