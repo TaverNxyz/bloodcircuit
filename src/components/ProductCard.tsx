@@ -5,6 +5,7 @@ import VideoPlayer from './product/VideoPlayer';
 import ProductImage from './product/ProductImage';
 import ProductContent from './product/ProductContent';
 import StatusCard from './product/StatusCard';
+import { toast } from './ui/use-toast';
 
 interface ProductCardProps {
   product: {
@@ -37,6 +38,14 @@ const ProductCard = memo(({ product }: ProductCardProps) => {
   }
 
   const handlePurchase = (plan: 'daily' | 'weekly' | 'monthly') => {
+    if (!plan) {
+      toast({
+        title: "Error",
+        description: "Please select a plan before proceeding",
+        variant: "destructive"
+      });
+      return;
+    }
     console.log('Navigating to checkout with:', { productId: product.id, plan });
     navigate(`/checkout/${product.id}?plan=${plan}`);
   };

@@ -5,6 +5,7 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import PaymentMethodDialog from "@/components/PaymentMethodDialog";
 import PaymentTerminal from "@/components/PaymentTerminal";
 import ReturnHomeButton from "@/components/ReturnHomeButton";
+import { toast } from "@/components/ui/use-toast";
 
 const Checkout = () => {
   const { productId } = useParams();
@@ -15,7 +16,13 @@ const Checkout = () => {
   const [showTerminal, setShowTerminal] = useState(true);
 
   if (!productId || !plan) {
-    return <div>Invalid checkout parameters</div>;
+    toast({
+      title: "Invalid Parameters",
+      description: "Missing required checkout parameters. Redirecting to home...",
+      variant: "destructive"
+    });
+    navigate('/');
+    return null;
   }
 
   if (showTerminal) {
@@ -49,7 +56,7 @@ const Checkout = () => {
             </div>
 
             <Button 
-              className="w-full"
+              className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
               onClick={() => setShowPaymentMethods(true)}
             >
               Proceed to Payment
