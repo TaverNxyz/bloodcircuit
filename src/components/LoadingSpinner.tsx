@@ -5,7 +5,7 @@ import EvolveButton from './terminal/EvolveButton';
 
 const LoadingSpinner = () => {
   const [showTerminal, setShowTerminal] = useState(true);
-  const [lines, setLines] = useState<string[]>([]);
+  const [currentLine, setCurrentLine] = useState(0);
   const [showButton, setShowButton] = useState(false);
   
   useEffect(() => {
@@ -15,18 +15,20 @@ const LoadingSpinner = () => {
       return;
     }
 
-    // Simple sequential timing for lines
+    // First line with 3 second display
     setTimeout(() => {
-      setLines(['INITIALIZING KERNEL...']);
+      setCurrentLine(1);
       
+      // Second line after 3 seconds
       setTimeout(() => {
-        setLines(['INITIALIZING KERNEL...', 'LOADING COMPLETE']);
+        setCurrentLine(2);
         
+        // Show button after another 3 seconds
         setTimeout(() => {
           setShowButton(true);
-        }, 2000);
-      }, 2000);
-    }, 1000);
+        }, 3000);
+      }, 3000);
+    }, 3000);
   }, []);
 
   const handleEvolve = () => {
@@ -42,14 +44,22 @@ const LoadingSpinner = () => {
     );
   }
 
+  const lines = [
+    '',
+    'INITIALIZING KERNEL...',
+    'LOADING COMPLETE'
+  ];
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
       <div className="w-full max-w-3xl p-8 font-mono">
         <TerminalWindow>
-          {lines.map((line, index) => (
-            <div key={index} className="mb-2">
-              <TerminalLine text={line} />
-            </div>
+          {lines.slice(0, currentLine + 1).map((line, index) => (
+            line && (
+              <div key={index} className="mb-2">
+                <TerminalLine text={line} />
+              </div>
+            )
           ))}
         </TerminalWindow>
 
