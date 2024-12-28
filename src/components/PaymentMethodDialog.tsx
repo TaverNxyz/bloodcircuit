@@ -35,17 +35,24 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#0A0A0A] text-white border-[#222] sm:max-w-md">
-        <DialogHeader>
+        <DialogHeader className="relative">
           <DialogTitle>Select Payment Method</DialogTitle>
-          <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
+          <DialogClose asChild>
+            <Button
+              variant="ghost"
+              className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-white/10"
+              onClick={() => onOpenChange(false)}
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </Button>
           </DialogClose>
         </DialogHeader>
+        
         <div className="grid gap-4">
           <Button
             variant="outline"
-            className="flex items-center gap-2 h-16"
+            className="flex items-center gap-2 h-16 hover:bg-white/10"
             onClick={() => handleCryptoPayment("BTC")}
           >
             <Bitcoin className="h-5 w-5" />
@@ -54,7 +61,7 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
           
           <Button
             variant="outline"
-            className="flex items-center gap-2 h-16"
+            className="flex items-center gap-2 h-16 hover:bg-white/10"
             onClick={() => handleCryptoPayment("LTC")}
           >
             <Wallet className="h-5 w-5" />
@@ -63,7 +70,7 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
 
           <Button
             variant="outline"
-            className="flex items-center gap-2 h-16"
+            className="flex items-center gap-2 h-16 hover:bg-white/10"
             onClick={handlePayPalPayment}
           >
             <CreditCard className="h-5 w-5" />
