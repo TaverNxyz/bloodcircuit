@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
 
 const LoadingSpinner = () => {
   const [text, setText] = useState('');
@@ -6,6 +8,7 @@ const LoadingSpinner = () => {
   const [showTerminal, setShowTerminal] = useState(true);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   
   useEffect(() => {
     const visited = sessionStorage.getItem('visited');
@@ -18,6 +21,11 @@ const LoadingSpinner = () => {
     'INITIALIZING KERNEL...',
     'LOADING COMPLETE'
   ];
+
+  const handleEvolve = () => {
+    sessionStorage.setItem('visited', 'true');
+    setShowTerminal(false);
+  };
   
   useEffect(() => {
     if (!isFirstVisit) {
@@ -29,9 +37,8 @@ const LoadingSpinner = () => {
 
     if (isComplete) {
       const timer = setTimeout(() => {
-        sessionStorage.setItem('visited', 'true');
-        setShowTerminal(false);
-      }, 2000);
+        setShowButton(true);
+      }, 500);
       return () => clearTimeout(timer);
     }
 
@@ -93,6 +100,17 @@ const LoadingSpinner = () => {
             )}
           </div>
         </div>
+
+        {showButton && (
+          <div className="flex justify-center mt-8 animate-fade-in">
+            <Button
+              onClick={handleEvolve}
+              className="bg-[#FF6B00] hover:bg-[#FF6B00]/90 text-white px-8 py-6 text-lg font-bold rounded-lg transition-all duration-300 hover:scale-105"
+            >
+              Evolve <ChevronRight className="ml-2 h-6 w-6" />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
