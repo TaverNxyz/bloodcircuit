@@ -4,9 +4,11 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 interface ProductMediaProps {
   media: string[];
   videoUrl?: string;
+  showVideo?: boolean;
+  onShowVideo?: (show: boolean) => void;
 }
 
-const ProductMedia = ({ media, videoUrl }: ProductMediaProps) => {
+const ProductMedia = ({ media, videoUrl, showVideo = false, onShowVideo }: ProductMediaProps) => {
   return (
     <div className="space-y-8">
       <h2 className="text-3xl font-bold text-center">Product Media</h2>
