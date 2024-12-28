@@ -49,9 +49,9 @@ const LoadingSpinner = () => {
         setTimeout(() => {
           setCurrentLine(prev => prev + 1);
           setText('');
-        }, 500);
+        }, 1000); // Increased delay between lines to 1 second
       }
-    }, 30); // Fast typing speed
+    }, 100); // Slowed down typing speed to 100ms per character
 
     return () => clearInterval(textInterval);
   }, [text, currentLine, isFirstVisit, terminalLines, isComplete]);
