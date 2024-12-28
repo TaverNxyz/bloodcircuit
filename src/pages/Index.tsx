@@ -9,19 +9,35 @@ import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { initScrollOpacity } from "@/utils/scrollOpacity";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import InitialTerminal from "@/components/InitialTerminal";
 
 const MainContent = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [showInitialTerminal, setShowInitialTerminal] = useState(false);
 
   useEffect(() => {
     const isFirstVisit = !sessionStorage.getItem('visited');
-    const loadingTime = isFirstVisit ? 1500 : 800;
     
+    // Show terminal only on first visit or page refresh
+    if (isFirstVisit || performance.navigation.type === 1) {
+      setShowInitialTerminal(true);
+      return;
+    }
+
+    // Show loading spinner briefly for subsequent navigation
+    const loadingTime = 800;
     setTimeout(() => {
       setIsLoading(false);
     }, loadingTime);
   }, []);
+
+  if (showInitialTerminal) {
+    return <InitialTerminal onComplete={() => {
+      setShowInitialTerminal(false);
+      setIsLoading(false);
+    }} />;
+  }
 
   if (isLoading) {
     return <LoadingSpinner />;
