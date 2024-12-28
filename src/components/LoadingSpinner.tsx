@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import TerminalWindow from './terminal/TerminalWindow';
+import TerminalLine from './terminal/TerminalLine';
+import EvolveButton from './terminal/EvolveButton';
 
 const LoadingSpinner = () => {
   const [text, setText] = useState('');
@@ -76,41 +77,21 @@ const LoadingSpinner = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
       <div className="w-full max-w-3xl p-8 font-mono">
-        <div className="w-full bg-black rounded-lg shadow-xl overflow-hidden border border-[#FF6B00]">
-          <div className="bg-[#1A1A1A] px-4 py-2 flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="ml-2 text-sm text-[#FF6B00]">Terminal</span>
-          </div>
-          
-          <div className="p-6 bg-black text-[#FF6B00] font-mono">
-            {terminalLines.slice(0, currentLine).map((line, index) => (
-              <div key={index} className="mb-2">
-                <span className="mr-2">$</span>
-                <span>{line}</span>
-              </div>
-            ))}
-            {currentLine < terminalLines.length && (
-              <div className="flex items-center">
-                <span className="mr-2">$</span>
-                <span>{text}</span>
-                <span className="w-2 h-5 bg-[#FF6B00] ml-1 animate-pulse"></span>
-              </div>
-            )}
-          </div>
-        </div>
+        <TerminalWindow>
+          {terminalLines.slice(0, currentLine).map((line, index) => (
+            <div key={index} className="mb-2">
+              <TerminalLine text={line} />
+            </div>
+          ))}
+          {currentLine < terminalLines.length && (
+            <TerminalLine 
+              text={text} 
+              isTyping={true}
+            />
+          )}
+        </TerminalWindow>
 
-        {showButton && (
-          <div className="flex justify-center mt-8 animate-fade-in">
-            <Button
-              onClick={handleEvolve}
-              className="bg-[#FF6B00] hover:bg-[#FF6B00]/90 text-white px-8 py-6 text-lg font-bold rounded-lg transition-all duration-300 hover:scale-105"
-            >
-              Evolve <ChevronRight className="ml-2 h-6 w-6" />
-            </Button>
-          </div>
-        )}
+        {showButton && <EvolveButton onClick={handleEvolve} />}
       </div>
     </div>
   );
