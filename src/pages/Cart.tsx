@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import { toast } from "@/hooks/use-toast";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -38,7 +39,6 @@ const Cart = () => {
             <Button
               className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE]"
               onClick={() => {
-                // Handle checkout logic here
                 toast({
                   title: "Order Placed",
                   description: `Your order #${orderNumber} has been placed successfully.`
