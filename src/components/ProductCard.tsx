@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -22,7 +22,7 @@ interface ProductCardProps {
   }
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = memo(({ product }: ProductCardProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
   const navigate = useNavigate();
@@ -111,6 +111,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </div>
     </Card>
   );
-};
+});
 
 export default ProductCard;

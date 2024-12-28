@@ -1,13 +1,13 @@
-import { useEffect, useState, Suspense } from 'react';
+import { Suspense, useState, useEffect, useMemo, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { MessageCircle } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import PaymentRibbon from "@/components/PaymentRibbon";
 import ProductCard from "@/components/ProductCard";
 import MediaCarousel from "@/components/MediaCarousel";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { MessageCircle } from "lucide-react";
-import { initScrollOpacity } from "@/utils/scrollOpacity";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import InitialTerminal from "@/components/InitialTerminal";
 
@@ -64,8 +64,23 @@ const products = [
 
 const MainContent = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [showInitialTerminal, setShowInitialTerminal] = useState(false);
+
+  // Memoize filtered products
+  const { statusProduct, otherProducts } = useMemo(() => ({
+    statusProduct: products.find(p => p.id === "rust"),
+    otherProducts: products.filter(p => p.id !== "rust")
+  }), []);
+
+  // Handle Discord navigation
+  const handleDiscordClick = useCallback(() => {
+    toast({
+      title: "Opening Discord",
+      description: "Redirecting you to our community..."
+    });
+  }, [toast]);
 
   useEffect(() => {
     const isFirstVisit = !localStorage.getItem('visited') && window.history.length <= 2;
@@ -79,6 +94,11 @@ const MainContent = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, loadingTime);
+
+    // Add performance monitoring
+    if ('performance' in window) {
+      window.performance.mark('app-loaded');
+    }
   }, []);
 
   if (showInitialTerminal) {
@@ -92,10 +112,6 @@ const MainContent = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
-  // Find the status product and other products
-  const statusProduct = products.find(p => p.id === "rust");
-  const otherProducts = products.filter(p => p.id !== "rust");
 
   return (
     <>
@@ -116,20 +132,20 @@ const MainContent = () => {
             </div>
           </div>
           
-          <div className="relative w-full h-screen">
-            <MediaCarousel />
-          </div>
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="relative w-full h-screen">
+              <MediaCarousel />
+            </div>
+          </Suspense>
         </div>
 
         <div className="container mx-auto px-4 py-16">
-          {/* Status box centered at the top */}
           {statusProduct && (
             <div className="max-w-md mx-auto mb-12">
               <ProductCard product={statusProduct} />
             </div>
           )}
           
-          {/* Other products in a row below */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {otherProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -141,7 +157,7 @@ const MainContent = () => {
           <PaymentRibbon />
         </div>
 
-        <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4">
+        <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 backdrop-blur-sm bg-background/80">
           <Logo />
           <div className="flex items-center gap-4">
             <Button
@@ -149,6 +165,7 @@ const MainContent = () => {
               size="sm"
               asChild
               className="text-white hover:bg-white/10"
+              onClick={handleDiscordClick}
             >
               <a 
                 href="https://discord.gg/xNxWc96GMr" 
@@ -174,7 +191,13 @@ const MainContent = () => {
 const Index = () => {
   useEffect(() => {
     const cleanup = initScrollOpacity();
-    return cleanup;
+    return () => {
+      cleanup();
+      // Clear performance marks on unmount
+      if ('performance' in window) {
+        performance.clearMarks();
+      }
+    };
   }, []);
 
   return (
