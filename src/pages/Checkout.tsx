@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -8,35 +8,25 @@ import ReturnHomeButton from "@/components/ReturnHomeButton";
 import { toast } from "@/components/ui/use-toast";
 
 const Checkout = () => {
-  const { productId } = useParams();
+  const { id: productId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const plan = searchParams.get('plan');
-  const [showPaymentMethods, setShowPaymentMethods] = useState(false);
-  const [showTerminal, setShowTerminal] = useState(true);
 
   useEffect(() => {
     if (!productId || !plan) {
       toast({
-        title: "Invalid Parameters",
-        description: "Missing required checkout parameters. Redirecting to home...",
+        title: "Error",
+        description: "Missing required checkout parameters",
         variant: "destructive"
       });
       navigate('/');
+      return;
     }
   }, [productId, plan, navigate]);
 
   if (!productId || !plan) {
     return null;
-  }
-
-  if (showTerminal) {
-    return (
-      <div>
-        <ReturnHomeButton />
-        <PaymentTerminal onComplete={() => setShowTerminal(false)} />
-      </div>
-    );
   }
 
   return (
@@ -51,7 +41,7 @@ const Checkout = () => {
             
             <div className="space-y-4 mb-8">
               <div className="flex justify-between items-center p-4 bg-[#111] rounded-lg">
-                <span>Product ID:</span>
+                <span>Product:</span>
                 <span className="font-mono">{productId}</span>
               </div>
               <div className="flex justify-between items-center p-4 bg-[#111] rounded-lg">
@@ -60,20 +50,13 @@ const Checkout = () => {
               </div>
             </div>
 
-            <Button 
-              className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-              onClick={() => setShowPaymentMethods(true)}
-            >
-              Proceed to Payment
-            </Button>
+            <PaymentMethodDialog
+              productId={productId}
+              plan={plan}
+              open={true}
+              onOpenChange={() => {}}
+            />
           </div>
-
-          <PaymentMethodDialog
-            open={showPaymentMethods}
-            onOpenChange={setShowPaymentMethods}
-            productId={productId}
-            plan={plan}
-          />
         </div>
       </div>
     </div>
