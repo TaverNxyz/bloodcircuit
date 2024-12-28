@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import { toast } from "@/hooks/use-toast";
+import ReturnHomeButton from "@/components/ReturnHomeButton";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
+      <ReturnHomeButton />
       <AnimatedBackground />
       
       <div className="container mx-auto px-4 py-16">

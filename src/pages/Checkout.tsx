@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import PaymentMethodDialog from "@/components/PaymentMethodDialog";
 import PaymentTerminal from "@/components/PaymentTerminal";
+import ReturnHomeButton from "@/components/ReturnHomeButton";
 
 const Checkout = () => {
   const { productId } = useParams();
@@ -18,11 +19,17 @@ const Checkout = () => {
   }
 
   if (showTerminal) {
-    return <PaymentTerminal onComplete={() => setShowTerminal(false)} />;
+    return (
+      <div>
+        <ReturnHomeButton />
+        <PaymentTerminal onComplete={() => setShowTerminal(false)} />
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
+      <ReturnHomeButton />
       <AnimatedBackground />
       
       <div className="container mx-auto px-4 py-16 animate-fade-in">

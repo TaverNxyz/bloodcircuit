@@ -5,6 +5,7 @@ import TransactionTracker from "@/components/TransactionTracker";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { PAYMENT_METHODS, CryptoType } from "@/lib/constants";
+import ReturnHomeButton from "@/components/ReturnHomeButton";
 
 const Payment = () => {
   const { productId } = useParams();
@@ -30,6 +31,7 @@ const Payment = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
+      <ReturnHomeButton />
       <ParticlesBackground />
       
       <div className="container mx-auto px-4 py-16 animate-fade-in relative z-10">

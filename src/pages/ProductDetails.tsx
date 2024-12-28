@@ -4,6 +4,7 @@ import ParticlesBackground from '@/components/ParticlesBackground';
 import ProductHero from '@/components/product/ProductHero';
 import ProductFeatures from '@/components/product/ProductFeatures';
 import ProductMedia from '@/components/product/ProductMedia';
+import ReturnHomeButton from "@/components/ReturnHomeButton";
 import { useState } from 'react';
 
 const ProductDetails = () => {
@@ -23,6 +24,7 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
+      <ReturnHomeButton />
       <ParticlesBackground />
       
       <div className="container mx-auto px-4 py-16 space-y-16 relative z-10">
