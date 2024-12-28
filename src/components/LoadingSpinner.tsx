@@ -4,26 +4,37 @@ const LoadingSpinner = () => {
   const [text, setText] = useState('');
   const [currentLine, setCurrentLine] = useState(0);
   const [showTerminal, setShowTerminal] = useState(true);
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
   
+  useEffect(() => {
+    // Check if this is the first visit
+    const visited = sessionStorage.getItem('visited');
+    if (visited) {
+      setIsFirstVisit(false);
+    }
+  }, []);
+
   const terminalLines = [
     'INITIALIZING KERNEL...',
-    'ESTABLISHING SECURE CONNECTION...',
-    'BYPASSING FIREWALL PROTOCOLS...',
-    'ACCESSING MAINFRAME...',
-    'DECRYPTING NEURAL NETWORKS...',
-    'INJECTING QUANTUM ALGORITHMS...',
-    'OVERRIDING SYSTEM ARCHITECTURE...',
-    'IMPLEMENTING ZERO-DAY EXPLOITS...',
-    'EXECUTING KERNEL MANIPULATION...',
-    'BECOMING UNRIVALED...',
-    '[SUCCESS] YOU ARE NOW UNRIVALED'
+    '[SUCCESS] YOU ARE NOW UNRIVALED',
+    'LOADING COMPLETE'
   ];
   
   useEffect(() => {
+    if (!isFirstVisit) {
+      // Show simple loading animation for subsequent visits
+      const timer = setTimeout(() => {
+        setShowTerminal(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+
     if (currentLine >= terminalLines.length) {
       const timer = setTimeout(() => {
         setShowTerminal(false);
-      }, 1500);
+        // Set visited flag in session storage
+        sessionStorage.setItem('visited', 'true');
+      }, 1000);
       return () => clearTimeout(timer);
     }
 
@@ -41,9 +52,17 @@ const LoadingSpinner = () => {
     }, 50);
 
     return () => clearInterval(textInterval);
-  }, [text, currentLine]);
+  }, [text, currentLine, isFirstVisit]);
 
   if (!showTerminal) return null;
+
+  if (!isFirstVisit) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-[#FF6B00]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">

@@ -18,13 +18,13 @@ const MainContent = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 6000); // Increased to 6 seconds to show full terminal sequence
+    }, 2500); // Reduced time for initial load
 
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    throw new Promise((resolve) => setTimeout(resolve, 6000));
+    throw new Promise((resolve) => setTimeout(resolve, 2500));
   }
 
   return (
