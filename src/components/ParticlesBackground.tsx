@@ -1,135 +1,80 @@
 import { useCallback } from "react";
-import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import type { Engine } from "tsparticles-engine";
 
 const ParticlesBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadFull(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Particles loaded:", container);
-  }, []);
-
   return (
     <Particles
       id="tsparticles"
       init={particlesInit}
-      loaded={particlesLoaded}
-      className="fixed inset-0 -z-10"
       options={{
-        fullScreen: false,
+        fullScreen: {
+          enable: true,
+          zIndex: -1
+        },
         particles: {
           number: {
-            value: 104,
+            value: 80,
             density: {
               enable: true,
-              value_area: 473.4885849793636
+              value_area: 800
             }
           },
           color: {
-            value: "#d200ff"
+            value: "#ffffff"
           },
           shape: {
-            type: "circle",
-            stroke: {
-              width: 0,
-              color: "#000000"
-            },
-            polygon: {
-              nb_sides: 5
-            }
+            type: "circle"
           },
           opacity: {
             value: 0.5,
-            random: true,
-            anim: {
-              enable: false,
-              speed: 1,
-              opacity_min: 0.1,
-              sync: false
-            }
+            random: false
           },
           size: {
-            value: 3.945738208161363,
-            random: true,
-            anim: {
-              enable: false,
-              speed: 40,
-              size_min: 0.1,
-              sync: false
-            }
+            value: 3,
+            random: true
           },
           line_linked: {
             enable: true,
             distance: 150,
-            color: "#ff0000",
+            color: "#ffffff",
             opacity: 0.4,
             width: 1
           },
           move: {
             enable: true,
-            speed: 6,
-            direction: "bottom-right",
-            random: true,
+            speed: 2,
+            direction: "none",
+            random: false,
             straight: false,
             out_mode: "out",
             bounce: false,
-            attract: {
-              enable: false,
-              rotateX: 600,
-              rotateY: 1200
-            }
           }
         },
         interactivity: {
-          detect_on: "window",
+          detect_on: "canvas",
           events: {
             onhover: {
               enable: true,
               mode: "repulse"
             },
-            onclick: {
-              enable: true,
-              mode: "push"
-            },
             resize: true
-          },
-          modes: {
-            grab: {
-              distance: 400,
-              line_linked: {
-                opacity: 1
-              }
-            },
-            bubble: {
-              distance: 400,
-              size: 40,
-              duration: 2,
-              opacity: 8,
-              speed: 3
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4
-            },
-            push: {
-              particles_nb: 4
-            },
-            remove: {
-              particles_nb: 2
-            }
           }
         },
         retina_detect: true,
         background: {
-          color: "#050505",
+          color: "#0A0A0A",
           position: "50% 50%",
           repeat: "no-repeat",
           size: "cover"
         }
       }}
+      className="absolute inset-0"
     />
   );
 };
