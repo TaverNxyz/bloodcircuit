@@ -46,7 +46,9 @@ const ProductCard = memo(({ product }: ProductCardProps) => {
       });
       return;
     }
-    navigate(`/checkout/${product.id}?plan=${plan}`);
+    const searchParams = new URLSearchParams();
+    searchParams.append('plan', plan);
+    navigate(`/checkout/${product.id}?${searchParams.toString()}`);
   };
 
   const handleViewDetails = () => {
