@@ -11,15 +11,13 @@ interface ProductContentProps {
     monthly: number;
   };
   onPurchase: (plan: 'daily' | 'weekly' | 'monthly') => void;
-  onViewDetails: () => void;
 }
 
 const ProductContent = ({ 
   name, 
   description, 
   prices, 
-  onPurchase,
-  onViewDetails 
+  onPurchase
 }: ProductContentProps) => {
   return (
     <CardContent className="p-6">
@@ -33,7 +31,6 @@ const ProductContent = ({
         />
         <ProductActions 
           onPurchase={() => onPurchase('monthly')}
-          onViewDetails={onViewDetails}
         />
       </div>
     </CardContent>
