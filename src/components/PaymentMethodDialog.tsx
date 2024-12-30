@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "./ui/dialog";
 import { Button } from "./ui/button";
-import { Bitcoin, CreditCard, Wallet, X } from "lucide-react";
+import { Bitcoin, CreditCard, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "./ui/use-toast";
 import { PAYMENT_METHODS } from "@/lib/constants";
@@ -35,18 +35,8 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#0A0A0A] text-white border-[#222] sm:max-w-md">
-        <DialogHeader className="relative">
+        <DialogHeader>
           <DialogTitle>Select Payment Method</DialogTitle>
-          <DialogClose asChild>
-            <Button
-              variant="ghost"
-              className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-white/10"
-              onClick={() => onOpenChange(false)}
-            >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </Button>
-          </DialogClose>
         </DialogHeader>
         
         <div className="grid gap-4">
