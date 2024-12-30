@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import PricingButtons from './PricingButtons';
-import ProductActions from './ProductActions';
+import { Card, CardContent } from "@/components/ui/card";
+import ProductActions from "@/components/product/ProductActions";
+import PricingButtons from "@/components/product/PricingButtons";
 
 interface ProductContentProps {
   name: string;
@@ -18,27 +18,25 @@ const ProductContent = ({
   name, 
   description, 
   prices, 
-  onPurchase, 
+  onPurchase,
   onViewDetails 
 }: ProductContentProps) => {
-  const [selectedPlan, setSelectedPlan] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
-
   return (
-    <div className="p-6">
-      <h3 className="text-2xl font-bold text-[#1EAEDB] mb-2">{name}</h3>
-      <p className="text-gray-400 mb-4 line-clamp-2">{description}</p>
+    <CardContent className="p-6">
+      <h3 className="text-xl font-semibold mb-2 text-white">{name}</h3>
+      <p className="text-sm text-gray-400 mb-4">{description}</p>
       
-      <PricingButtons
-        prices={prices}
-        selectedPlan={selectedPlan}
-        onPlanSelect={setSelectedPlan}
-      />
-
-      <ProductActions
-        onPurchase={() => onPurchase(selectedPlan)}
-        onViewDetails={onViewDetails}
-      />
-    </div>
+      <div className="space-y-4">
+        <PricingButtons 
+          prices={prices}
+          onSelect={onPurchase}
+        />
+        <ProductActions 
+          onPurchase={() => onPurchase('monthly')}
+          onViewDetails={onViewDetails}
+        />
+      </div>
+    </CardContent>
   );
 };
 
