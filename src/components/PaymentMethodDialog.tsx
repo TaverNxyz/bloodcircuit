@@ -67,6 +67,8 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
             <span>Pay with PayPal</span>
           </Button>
         </div>
+
+        <DialogClose className="sr-only" />
       </DialogContent>
     </Dialog>
   );
