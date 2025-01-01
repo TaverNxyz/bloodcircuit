@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { CreditCard, Paypal } from "lucide-react";
+import { CreditCard, DollarSign } from "lucide-react";
 
 interface PaymentMethodDialogProps {
   open: boolean;
@@ -61,7 +61,7 @@ const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMet
             onClick={() => handlePaymentMethod('paypal')}
             disabled={isProcessing}
           >
-            <Paypal className="h-4 w-4" />
+            <DollarSign className="h-4 w-4" />
             <span>Pay with PayPal</span>
           </Button>
         </div>
