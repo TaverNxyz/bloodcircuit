@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Check, Clock, Copy, ExternalLink } from 'lucide-react';
+import { Check, Clock, Copy, ExternalLink, Bitcoin, Coins } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 import { useToast } from '@/hooks/use-toast';
@@ -19,7 +19,16 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
   const { toast } = useToast();
 
+  // Get crypto details with fallback values
+  const cryptoDetails = CRYPTO_DETAILS[cryptoType] || {
+    name: cryptoType,
+    confirmations: 3,
+    explorer: 'https://blockchair.com',
+    icon: <Bitcoin className="h-6 w-6" />
+  };
+
   useEffect(() => {
+    console.log('Setting up payment channel for address:', address);
     // Subscribe to payment status updates from Supabase
     const channel = supabase
       .channel('payment-updates')
@@ -32,6 +41,7 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
           filter: `address=eq.${address}`
         },
         (payload: any) => {
+          console.log('Received payment update:', payload);
           if (payload.new.status === 'confirming') {
             setStatus('confirming');
             setConfirmations(payload.new.confirmations);
@@ -45,6 +55,7 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
       .subscribe();
 
     return () => {
+      console.log('Cleaning up payment channel');
       supabase.removeChannel(channel);
     };
   }, [address]);
@@ -57,13 +68,20 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
     });
   };
 
+  const getCryptoIcon = () => {
+    if (typeof cryptoDetails.icon === 'string') {
+      return <span className="text-2xl">{cryptoDetails.icon}</span>;
+    }
+    return <Coins className="h-6 w-6" />;
+  };
+
   return (
     <div className="space-y-6 p-6 bg-[#0A0A0A] rounded-lg border border-[#222] animate-fade-in">
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">{CRYPTO_DETAILS[cryptoType].icon}</span>
+          {getCryptoIcon()}
           <h3 className="text-lg font-semibold text-white">
-            {CRYPTO_DETAILS[cryptoType].name} Payment
+            {cryptoDetails.name} Payment
           </h3>
         </div>
         <p className="text-sm text-gray-400">
@@ -88,7 +106,7 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
           <span className="text-gray-400">Transaction Status</span>
           <span className="text-white">
             {status === 'pending' && 'Waiting for payment'}
-            {status === 'confirming' && `${confirmations}/${CRYPTO_DETAILS[cryptoType].confirmations} confirmations`}
+            {status === 'confirming' && `${confirmations}/${cryptoDetails.confirmations} confirmations`}
             {status === 'completed' && 'Payment completed'}
           </span>
         </div>
@@ -115,13 +133,13 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
         asChild
       >
         <a 
-          href={CRYPTO_DETAILS[cryptoType].explorer}
+          href={cryptoDetails.explorer}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2"
         >
           <ExternalLink className="h-4 w-4" />
-          View on {CRYPTO_DETAILS[cryptoType].name} Explorer
+          View on {cryptoDetails.name} Explorer
         </a>
       </Button>
     </div>
