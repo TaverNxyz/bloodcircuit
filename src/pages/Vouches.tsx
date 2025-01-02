@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { VouchHeader } from "@/components/vouch/VouchHeader";
 import { VouchList } from "@/components/vouch/VouchList";
 import { VouchSkeleton } from "@/components/vouch/VouchSkeleton";
+import ReturnHomeButton from "@/components/ReturnHomeButton";
 
 interface Vouch {
   id: string;
@@ -46,13 +47,21 @@ const Vouches = () => {
   });
 
   if (isLoading) {
-    return <VouchSkeleton />;
+    return (
+      <div className="min-h-screen bg-black">
+        <ReturnHomeButton />
+        <VouchSkeleton />
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto p-6">
-      <VouchHeader isAuthenticated={!!user} />
-      <VouchList vouches={vouches} />
+    <div className="min-h-screen bg-black text-white">
+      <ReturnHomeButton />
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <VouchHeader isAuthenticated={!!user} />
+        <VouchList vouches={vouches} />
+      </div>
     </div>
   );
 };
