@@ -8,9 +8,10 @@ import PaymentActions from './payment/PaymentActions';
 interface TransactionTrackerProps {
   address: string;
   cryptoType: string;
+  amount: number;  // Added this prop
 }
 
-const TransactionTracker = ({ address, cryptoType }: TransactionTrackerProps) => {
+const TransactionTracker = ({ address, cryptoType, amount }: TransactionTrackerProps) => {
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
   const [confirmations, setConfirmations] = useState(0);
   const cryptoDetails = getCryptoDetails(cryptoType);
@@ -52,6 +53,7 @@ const TransactionTracker = ({ address, cryptoType }: TransactionTrackerProps) =>
       <PaymentHeader 
         cryptoDetails={cryptoDetails}
         address={address}
+        amount={amount}  // Pass amount to PaymentHeader
       />
       
       <PaymentStatus 

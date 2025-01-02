@@ -6,9 +6,10 @@ interface PaymentHeaderProps {
     icon: React.ReactNode;
   };
   address: string;
+  amount: number;
 }
 
-const PaymentHeader = ({ cryptoDetails, address }: PaymentHeaderProps) => {
+const PaymentHeader = ({ cryptoDetails, address, amount }: PaymentHeaderProps) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2">
@@ -18,7 +19,7 @@ const PaymentHeader = ({ cryptoDetails, address }: PaymentHeaderProps) => {
         </h3>
       </div>
       <p className="text-sm text-gray-400">
-        Please send the exact amount to the following address
+        Please send {amount} {cryptoDetails.name} to the following address
       </p>
     </div>
   );
