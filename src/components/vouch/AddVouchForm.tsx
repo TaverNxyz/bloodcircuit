@@ -6,24 +6,17 @@ import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/components/auth/AuthProvider";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { VouchRatingSelect } from "./VouchRatingSelect";
+import { VouchContentTextarea } from "./VouchContentTextarea";
 
 const vouchFormSchema = z.object({
   content: z.string().min(10, "Vouch must be at least 10 characters long"),
@@ -32,7 +25,7 @@ const vouchFormSchema = z.object({
   }),
 });
 
-type VouchFormValues = z.infer<typeof vouchFormSchema>;
+export type VouchFormValues = z.infer<typeof vouchFormSchema>;
 
 export const AddVouchForm = () => {
   const [open, setOpen] = useState(false);
@@ -72,17 +65,16 @@ export const AddVouchForm = () => {
         description: "Your vouch has been added successfully!",
       });
 
-      // Reset form and close dialog
       form.reset();
       setOpen(false);
 
       // Invalidate and refetch vouches
       queryClient.invalidateQueries({ queryKey: ["vouches"] });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error adding vouch:", error);
       toast({
         title: "Error",
-        description: "Failed to add your vouch. Please try again.",
+        description: error.message || "Failed to add your vouch. Please try again.",
         variant: "destructive",
       });
     }
@@ -101,47 +93,8 @@ export const AddVouchForm = () => {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="rating"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Rating</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="bg-gray-800 border-gray-700">
-                        <SelectValue placeholder="Select a rating" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent className="bg-gray-800 border-gray-700">
-                      {[1, 2, 3, 4, 5].map((rating) => (
-                        <SelectItem key={rating} value={rating.toString()}>
-                          {rating} Star{rating !== 1 ? "s" : ""}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="content"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Your Vouch</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Share your experience..."
-                      className="bg-gray-800 border-gray-700 min-h-[100px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <VouchRatingSelect form={form} />
+            <VouchContentTextarea form={form} />
             <Button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
