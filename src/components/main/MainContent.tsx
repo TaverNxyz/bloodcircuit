@@ -107,6 +107,14 @@ const MainContent = () => {
             <Button
               variant="ghost"
               size="sm"
+              onClick={() => navigate('/vouches')}
+              className="text-white hover:bg-white/10"
+            >
+              Vouches
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               asChild
               className="text-white hover:bg-white/10"
               onClick={handleDiscordClick}
