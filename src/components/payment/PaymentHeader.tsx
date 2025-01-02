@@ -1,9 +1,12 @@
+import React from 'react';
 import { getCryptoIcon } from '@/utils/crypto';
 
 interface PaymentHeaderProps {
   cryptoDetails: {
     name: string;
     icon: React.ReactNode;
+    confirmations: number;
+    explorer: string;
   };
   address: string;
   amount: number;
