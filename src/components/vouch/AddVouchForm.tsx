@@ -52,13 +52,21 @@ export const AddVouchForm = () => {
     }
 
     try {
-      const { error } = await supabase.from("vouches").insert({
+      console.log("Submitting vouch with values:", values);
+      console.log("User ID:", user.id);
+      
+      const { data, error } = await supabase.from("vouches").insert({
         content: values.content,
         rating: parseInt(values.rating),
         user_id: user.id,
-      });
+      }).select();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
+
+      console.log("Vouch submitted successfully:", data);
 
       toast({
         title: "Success",
