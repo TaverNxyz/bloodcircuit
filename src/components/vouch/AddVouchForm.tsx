@@ -5,6 +5,7 @@ import * as z from "zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/components/auth/AuthProvider";
 import {
   Form,
   FormControl,
@@ -37,6 +38,7 @@ export const AddVouchForm = () => {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const form = useForm<VouchFormValues>({
     resolver: zodResolver(vouchFormSchema),
@@ -47,10 +49,20 @@ export const AddVouchForm = () => {
   });
 
   const onSubmit = async (values: VouchFormValues) => {
+    if (!user) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to add a vouch.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase.from("vouches").insert({
         content: values.content,
         rating: parseInt(values.rating),
+        user_id: user.id,
       });
 
       if (error) throw error;
