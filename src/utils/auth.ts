@@ -1,7 +1,9 @@
 import { supabase } from '@/integrations/supabase/client';
-import { ToastProps } from '@/components/ui/toast';
+import { toast } from '@/hooks/use-toast';
 
-export const handleSignInWithDiscord = async (showToast: (props: ToastProps) => void) => {
+type ToastFunction = typeof toast;
+
+export const handleSignInWithDiscord = async (showToast: ToastFunction) => {
   try {
     console.log('Starting Discord sign in...');
     const { error } = await supabase.auth.signInWithOAuth({
@@ -21,13 +23,12 @@ export const handleSignInWithDiscord = async (showToast: (props: ToastProps) => 
     console.error('Error signing in with Discord:', error);
     showToast({
       title: "Error",
-      description: "Failed to sign in with Discord. Please try again.",
       variant: "destructive"
     });
   }
 };
 
-export const handleSignOut = async (showToast: (props: ToastProps) => void) => {
+export const handleSignOut = async (showToast: ToastFunction) => {
   try {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
@@ -35,7 +36,6 @@ export const handleSignOut = async (showToast: (props: ToastProps) => void) => {
     console.error('Error signing out:', error);
     showToast({
       title: "Error",
-      description: "Failed to sign out. Please try again.",
       variant: "destructive"
     });
   }
