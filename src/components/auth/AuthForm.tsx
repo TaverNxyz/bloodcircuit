@@ -69,8 +69,9 @@ const AuthForm = () => {
             message: 'auth-message',
           },
         }}
-        magicLink={true}
-        view="magic_link"
+        providers={['discord']}
+        view="sign_in"
+        showLinks={true}
       />
     </div>
   );
