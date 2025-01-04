@@ -1,5 +1,3 @@
-import { Json } from './json';
-
 export interface OrdersTable {
   Row: {
     id: string;
@@ -41,3 +39,5 @@ export interface OrdersTable {
     }
   ];
 }
+
+export type Order = OrdersTable['Row'];

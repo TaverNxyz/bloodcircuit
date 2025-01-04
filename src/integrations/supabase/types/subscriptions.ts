@@ -1,5 +1,3 @@
-import { Json } from './json';
-
 export interface SubscriptionsTable {
   Row: {
     id: string;
@@ -41,3 +39,5 @@ export interface SubscriptionsTable {
     }
   ];
 }
+
+export type Subscription = SubscriptionsTable['Row'];

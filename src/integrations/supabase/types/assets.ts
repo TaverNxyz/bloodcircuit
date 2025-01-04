@@ -1,5 +1,3 @@
-import { Json } from './json';
-
 export interface AssetsTable {
   Row: {
     id: string;
@@ -53,3 +51,5 @@ export interface AssetsTable {
     }
   ];
 }
+
+export type Asset = AssetsTable['Row'];

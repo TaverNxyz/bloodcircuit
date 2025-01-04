@@ -27,3 +27,5 @@ export interface ProfilesTable {
   };
   Relationships: [];
 }
+
+export type Profile = ProfilesTable['Row'];
