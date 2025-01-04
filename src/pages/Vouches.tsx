@@ -6,14 +6,7 @@ import { VouchHeader } from "@/components/vouch/VouchHeader";
 import { VouchList } from "@/components/vouch/VouchList";
 import { VouchSkeleton } from "@/components/vouch/VouchSkeleton";
 import ReturnHomeButton from "@/components/ReturnHomeButton";
-import type { Vouch } from "@/integrations/supabase/types";
-
-interface VouchWithProfile extends Vouch {
-  profiles: {
-    username: string;
-    avatar_url: string;
-  };
-}
+import type { VouchWithProfile } from "@/integrations/supabase/types";
 
 const Vouches = () => {
   const { toast } = useToast();
@@ -26,7 +19,7 @@ const Vouches = () => {
         .from("vouches")
         .select(`
           *,
-          profiles(username, avatar_url)
+          profiles (username, avatar_url)
         `)
         .order("created_at", { ascending: false });
 

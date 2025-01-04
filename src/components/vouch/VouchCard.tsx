@@ -7,18 +7,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { VouchWithProfile } from "@/integrations/supabase/types";
 
 interface VouchCardProps {
-  vouch: {
-    id: string;
-    content: string;
-    rating: number;
-    created_at: string;
-    profiles: {
-      username: string | null;
-      avatar_url: string | null;
-    } | null;
-  };
+  vouch: VouchWithProfile;
 }
 
 export const VouchCard = ({ vouch }: VouchCardProps) => {

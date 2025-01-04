@@ -1,29 +1,27 @@
-import { Json } from './json';
-
 export interface ProfilesTable {
   Row: {
     id: string;
     avatar_url: string | null;
-    discord_id: string | null;
-    is_creator: boolean | null;
     username: string | null;
-    created_at: string;
+    full_name: string | null;
+    website: string | null;
+    updated_at: string | null;
   };
   Insert: {
     id: string;
     avatar_url?: string | null;
-    discord_id?: string | null;
-    is_creator?: boolean | null;
     username?: string | null;
-    created_at?: string;
+    full_name?: string | null;
+    website?: string | null;
+    updated_at?: string | null;
   };
   Update: {
     id?: string;
     avatar_url?: string | null;
-    discord_id?: string | null;
-    is_creator?: boolean | null;
     username?: string | null;
-    created_at?: string;
+    full_name?: string | null;
+    website?: string | null;
+    updated_at?: string | null;
   };
   Relationships: [];
 }

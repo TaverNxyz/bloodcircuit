@@ -1,19 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { VouchCard } from "./VouchCard";
-
-interface Vouch {
-  id: string;
-  content: string;
-  rating: number;
-  created_at: string;
-  profiles: {
-    username: string;
-    avatar_url: string;
-  };
-}
+import type { VouchWithProfile } from "@/integrations/supabase/types";
 
 interface VouchListProps {
-  vouches: Vouch[] | undefined;
+  vouches: VouchWithProfile[] | undefined;
 }
 
 export const VouchList = ({ vouches }: VouchListProps) => {

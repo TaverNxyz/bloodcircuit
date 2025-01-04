@@ -20,15 +20,7 @@ export interface OrdersTable {
     amount?: number;
     created_at?: string;
   };
-  Relationships: [
-    {
-      foreignKeyName: "orders_user_id_fkey";
-      columns: ["user_id"];
-      isOneToOne: false;
-      referencedRelation: "users";
-      referencedColumns: ["id"];
-    }
-  ];
+  Relationships: [];
 }
 
 export type Order = OrdersTable['Row'];
