@@ -1,24 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const Logo = () => {
   const ref = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    const element = ref.current;
+    if (!element) return;
+
+    const { left, top, width, height } = element.getBoundingClientRect();
+    const x = (e.clientX - left) / width;
+    const y = (e.clientY - top) / height;
+    
+    element.style.setProperty('--x', `${x * 100}%`);
+    element.style.setProperty('--y', `${y * 100}%`);
+  }, []);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const { left, top, width, height } = element.getBoundingClientRect();
-      const x = (e.clientX - left) / width;
-      const y = (e.clientY - top) / height;
-      
-      element.style.setProperty('--x', `${x * 100}%`);
-      element.style.setProperty('--y', `${y * 100}%`);
-    };
-
     element.addEventListener('mousemove', handleMouseMove);
     return () => element.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <div 
