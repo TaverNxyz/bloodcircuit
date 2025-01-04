@@ -3,7 +3,7 @@ export const CRYPTO_DETAILS = {
     name: 'Bitcoin',
     icon: '₿',
     confirmations: 3,
-    explorer: 'https://blockchain.info/address/',
+    explorer: 'https://blockchair.com/bitcoin/address/',
   },
   LTC: {
     name: 'Litecoin',
@@ -16,8 +16,6 @@ export const CRYPTO_DETAILS = {
 export type CryptoType = keyof typeof CRYPTO_DETAILS;
 
 export const PAYMENT_METHODS = [
-  { text: 'BTC: Bitcoin' },
-  { text: 'LTC: Litecoin' },
+  { text: 'BTC: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
+  { text: 'LTC: ltc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
 ];
-
-export const BTCPAY_SERVER_URL = 'https://btcpay.yourdomain.com';

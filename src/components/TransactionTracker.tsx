@@ -3,7 +3,7 @@ import { Check, Clock, Copy, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { CRYPTO_DETAILS, CryptoType, BTCPAY_SERVER_URL } from '@/lib/constants';
+import { CRYPTO_DETAILS, CryptoType } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 interface TransactionTrackerProps {
@@ -18,40 +18,24 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
   const { toast } = useToast();
 
+  // Mock payment progress for demo purposes
   useEffect(() => {
-    // Convert HTTP URL to WSS URL for WebSocket connection
-    const wsUrl = BTCPAY_SERVER_URL.replace('https://', 'wss://');
-    const ws = new WebSocket(`${wsUrl}/payment-updates/${address}`);
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.status === 'confirming') {
-        setStatus('confirming');
-        setConfirmations(data.confirmations);
-        setProgress(60);
-      } else if (data.status === 'completed') {
-        setStatus('completed');
-        setProgress(100);
-        toast({
-          title: "Payment Confirmed",
-          description: "Your payment has been confirmed on the blockchain"
-        });
-      }
-    };
-
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-      toast({
-        title: "Connection Error",
-        description: "Unable to connect to payment server",
-        variant: "destructive"
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          return 100;
+        }
+        if (prev >= 60) {
+          setStatus('confirming');
+          setConfirmations(Math.floor((prev - 60) / 8));
+        }
+        return prev + 1;
       });
-    };
+    }, 1000);
 
-    return () => {
-      ws.close();
-    };
-  }, [address, toast]);
+    return () => clearInterval(timer);
+  }, []);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
