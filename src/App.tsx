@@ -31,6 +31,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route path="/auth/discord/callback" element={<AuthCallback />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/payment/:id" element={<Payment />} />
             <Route path="/cart" element={<Cart />} />
