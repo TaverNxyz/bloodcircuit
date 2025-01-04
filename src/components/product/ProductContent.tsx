@@ -16,9 +16,12 @@ interface ProductContentProps {
 const ProductContent = ({ 
   name, 
   description, 
-  prices, 
-  onPurchase
+  prices
 }: ProductContentProps) => {
+  const handlePurchase = () => {
+    window.open('https://checkout.plentifulpower.xyz/', '_blank');
+  };
+
   return (
     <CardContent className="p-6">
       <h3 className="text-xl font-semibold mb-2 text-white">{name}</h3>
@@ -27,10 +30,10 @@ const ProductContent = ({
       <div className="space-y-4">
         <PricingButtons 
           prices={prices}
-          onSelect={onPurchase}
+          onSelect={() => handlePurchase()}
         />
         <ProductActions 
-          onPurchase={() => onPurchase('monthly')}
+          onPurchase={handlePurchase}
         />
       </div>
     </CardContent>

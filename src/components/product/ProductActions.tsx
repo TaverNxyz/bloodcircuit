@@ -10,8 +10,15 @@ const ProductActions = ({ onPurchase }: ProductActionsProps) => {
       <Button 
         className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
         onClick={onPurchase}
+        asChild
       >
-        Purchase
+        <a 
+          href="https://checkout.plentifulpower.xyz/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Purchase
+        </a>
       </Button>
     </div>
   );
