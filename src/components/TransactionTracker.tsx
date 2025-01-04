@@ -5,6 +5,7 @@ import { Progress } from './ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { CRYPTO_DETAILS, CryptoType } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
 
 interface TransactionTrackerProps {
   address: string;
@@ -18,24 +19,26 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
   const { toast } = useToast();
 
-  // Mock payment progress for demo purposes
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        if (prev >= 60) {
-          setStatus('confirming');
-          setConfirmations(Math.floor((prev - 60) / 8));
-        }
-        return prev + 1;
-      });
-    }, 1000);
+    const checkPaymentStatus = async () => {
+      try {
+        const { data } = await supabase.functions.invoke('payment-tracker', {
+          body: { address }
+        });
 
-    return () => clearInterval(timer);
-  }, []);
+        if (data.status) {
+          setStatus(data.status);
+          setConfirmations(data.confirmations || 0);
+          setProgress(data.status === 'completed' ? 100 : Math.min((data.confirmations || 0) * 20, 80));
+        }
+      } catch (error) {
+        console.error('Error checking payment status:', error);
+      }
+    };
+
+    const interval = setInterval(checkPaymentStatus, 5000);
+    return () => clearInterval(interval);
+  }, [address]);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
