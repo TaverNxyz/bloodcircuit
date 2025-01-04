@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, LogOut } from "lucide-react";
+import { MessageCircle, LogOut, UserRound } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import PaymentRibbon from "@/components/PaymentRibbon";
@@ -113,6 +113,16 @@ const MainContent = () => {
             >
               Vouches
             </Button>
+            {user && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/account')}
+                className="text-white hover:bg-white/10"
+              >
+                <UserRound className="h-5 w-5" />
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="sm"
