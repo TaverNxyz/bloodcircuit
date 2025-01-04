@@ -64,7 +64,7 @@ const MainContent = () => {
   const { user, signOut } = useAuth();
 
   const handleSellixClick = () => {
-    window.open('YOUR_SELLIX_STORE_URL', '_blank');
+    window.open('https://plentipowered.mysellix.io/', '_blank');
     toast({
       title: "Opening Sellix Store",
       description: "Redirecting you to our Sellix store..."
@@ -107,7 +107,7 @@ const MainContent = () => {
               onClick={handleSellixClick}
               className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
             >
-              Sellix Store
+              Purchase Here
             </Button>
             <Button 
               onClick={() => navigate('/cart')}
