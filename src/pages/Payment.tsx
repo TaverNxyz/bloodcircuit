@@ -6,70 +6,56 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { PAYMENT_METHODS, CryptoType } from "@/lib/constants";
 import ReturnHomeButton from "@/components/ReturnHomeButton";
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
-import { useAuth } from '@/components/auth/AuthProvider';
+
+const PRODUCT_PRICES = {
+  apex: {
+    daily: 7,
+    weekly: 25,
+    monthly: 65
+  },
+  rust: {
+    daily: 7,
+    weekly: 25,
+    monthly: 65
+  },
+  hwid: {
+    daily: 7,
+    weekly: 25,
+    monthly: 35
+  },
+  fortnite: {
+    daily: 7,
+    weekly: 25,
+    monthly: 65
+  }
+};
 
 const Payment = () => {
   const { id: productId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const { user } = useAuth(); // Get the authenticated user
-  const [paymentAddress, setPaymentAddress] = useState<string>('');
-  const plan = searchParams.get('plan');
+  const plan = searchParams.get('plan') as 'daily' | 'weekly' | 'monthly';
   const method = searchParams.get('method') as CryptoType;
+  const [amount, setAmount] = useState<number>(0);
 
   useEffect(() => {
-    // Redirect if not authenticated
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-
     if (!productId || !plan || !method || !['BTC', 'LTC'].includes(method)) {
       navigate('/');
       return;
     }
 
-    const initializePayment = async () => {
-      try {
-        const address = getAddress(method);
-        const { error } = await supabase
-          .from('payments')
-          .insert({
-            product_id: productId,
-            amount: 0.5, // This should come from your product pricing
-            crypto_type: method,
-            address,
-            user_id: user.id // Explicitly set the user_id
-          });
-
-        if (error) {
-          console.error('Error creating payment:', error);
-          throw error;
-        }
-        setPaymentAddress(address);
-      } catch (error) {
-        console.error('Error creating payment:', error);
-        toast({
-          title: "Error",
-          description: "Failed to initialize payment. Please try again.",
-          variant: "destructive"
-        });
-        navigate('/');
-      }
-    };
-
-    initializePayment();
-  }, [productId, plan, method, navigate, toast, user]);
+    // Set the correct amount based on product and plan
+    if (productId && plan && PRODUCT_PRICES[productId as keyof typeof PRODUCT_PRICES]) {
+      setAmount(PRODUCT_PRICES[productId as keyof typeof PRODUCT_PRICES][plan]);
+    }
+  }, [productId, plan, method, navigate]);
 
   const getAddress = (crypto: CryptoType) => {
     const methodText = PAYMENT_METHODS.find(m => m.text.startsWith(crypto))?.text;
     return methodText ? methodText.split(': ')[1] : '';
   };
 
-  if (!productId || !plan || !method || !paymentAddress || !user) {
+  if (!productId || !plan || !method) {
     return null;
   }
 
@@ -90,8 +76,8 @@ const Payment = () => {
           </Button>
 
           <TransactionTracker 
-            address={paymentAddress}
-            amount={0.5}
+            address={getAddress(method)}
+            amount={amount}
             cryptoType={method}
           />
         </div>

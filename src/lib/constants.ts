@@ -1,21 +1,22 @@
+export const PAYMENT_METHODS = [
+  { text: "BTC: bc1qe7zzyk3264fwya3y0wj4x4wy6tvd86cf46e39u" },
+  { text: "LTC: ltc1quu6df4vvum7640sfywjsxvvcsh5ax9pwq4dsu9" },
+  { text: "PayPal: paypal.me/Undetexodus" }
+] as const;
+
+export type CryptoType = "BTC" | "LTC";
+
 export const CRYPTO_DETAILS = {
   BTC: {
-    name: 'Bitcoin',
-    icon: '₿',
+    name: "Bitcoin",
     confirmations: 3,
-    explorer: 'https://blockchair.com/bitcoin/address/',
+    explorer: "https://blockchair.com/bitcoin",
+    icon: "₿"
   },
   LTC: {
-    name: 'Litecoin',
-    icon: 'Ł',
+    name: "Litecoin",
     confirmations: 6,
-    explorer: 'https://blockchair.com/litecoin/address/',
-  },
+    explorer: "https://blockchair.com/litecoin",
+    icon: "Ł"
+  }
 } as const;
-
-export type CryptoType = keyof typeof CRYPTO_DETAILS;
-
-export const PAYMENT_METHODS = [
-  { text: 'BTC: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
-  { text: 'LTC: ltc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
-];

@@ -2,10 +2,9 @@ import { Button } from '../ui/button';
 
 interface ProductActionsProps {
   onPurchase: () => void;
-  onViewDetails: () => void;
 }
 
-const ProductActions = ({ onPurchase, onViewDetails }: ProductActionsProps) => {
+const ProductActions = ({ onPurchase }: ProductActionsProps) => {
   return (
     <div className="space-y-2">
       <Button 
@@ -13,13 +12,6 @@ const ProductActions = ({ onPurchase, onViewDetails }: ProductActionsProps) => {
         onClick={onPurchase}
       >
         Purchase
-      </Button>
-      <Button 
-        variant="outline"
-        className="w-full border-[#1EAEDB] text-[#1EAEDB] hover:bg-[#1EAEDB]/10"
-        onClick={onViewDetails}
-      >
-        View Details
       </Button>
     </div>
   );

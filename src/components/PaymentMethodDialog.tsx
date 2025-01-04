@@ -1,79 +1,67 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Bitcoin, CreditCard, Wallet, X } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "./ui/use-toast";
-import { PAYMENT_METHODS } from "@/lib/constants";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { CreditCard, DollarSign } from "lucide-react";
 
 interface PaymentMethodDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   productId: string;
-  plan: string;
+  plan?: string;
 }
 
 const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMethodDialogProps) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handlePayPalPayment = () => {
-    const paypalLink = PAYMENT_METHODS.find(m => m.text.startsWith("PayPal"))?.text.split(": ")[1];
-    if (paypalLink) {
-      window.open(`https://${paypalLink}`, '_blank');
-      toast({
-        title: "PayPal Payment",
-        description: "Please complete your payment through PayPal and contact support with your transaction ID."
-      });
+  const handlePaymentMethod = async (method: 'card' | 'paypal') => {
+    try {
+      setIsProcessing(true);
+      
+      // Close the dialog first
       onOpenChange(false);
+      
+      // Navigate to payment page with method
+      navigate(`/payment/${productId}?method=${method}${plan ? `&plan=${plan}` : ''}`);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to process payment method selection",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
     }
-  };
-
-  const handleCryptoPayment = (type: "BTC" | "LTC") => {
-    navigate(`/payment/${productId}?plan=${plan}&method=${type}`);
-    onOpenChange(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-[#0A0A0A] text-white border-[#222] sm:max-w-md">
-        <DialogHeader className="relative">
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
           <DialogTitle>Select Payment Method</DialogTitle>
-          <DialogClose asChild>
-            <Button
-              variant="ghost"
-              className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-white/10"
-              onClick={() => onOpenChange(false)}
-            >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </Button>
-          </DialogClose>
         </DialogHeader>
         
-        <div className="grid gap-4">
+        <div className="flex flex-col gap-4 mt-4">
           <Button
             variant="outline"
-            className="flex items-center gap-2 h-16 hover:bg-white/10"
-            onClick={() => handleCryptoPayment("BTC")}
+            className="w-full justify-start gap-2"
+            onClick={() => handlePaymentMethod('card')}
+            disabled={isProcessing}
           >
-            <Bitcoin className="h-5 w-5" />
-            <span>Pay with Bitcoin</span>
+            <CreditCard className="h-4 w-4" />
+            <span>Pay with Card</span>
           </Button>
           
           <Button
             variant="outline"
-            className="flex items-center gap-2 h-16 hover:bg-white/10"
-            onClick={() => handleCryptoPayment("LTC")}
+            className="w-full justify-start gap-2"
+            onClick={() => handlePaymentMethod('paypal')}
+            disabled={isProcessing}
           >
-            <Wallet className="h-5 w-5" />
-            <span>Pay with Litecoin</span>
-          </Button>
-
-          <Button
-            variant="outline"
-            className="flex items-center gap-2 h-16 hover:bg-white/10"
-            onClick={handlePayPalPayment}
-          >
-            <CreditCard className="h-5 w-5" />
+            <DollarSign className="h-4 w-4" />
             <span>Pay with PayPal</span>
           </Button>
         </div>
