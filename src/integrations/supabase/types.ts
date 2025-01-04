@@ -214,6 +214,7 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          created_at: string
           discord_id: string | null
           id: string
           is_creator: boolean | null
@@ -221,6 +222,7 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          created_at?: string
           discord_id?: string | null
           id: string
           is_creator?: boolean | null
@@ -228,6 +230,7 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          created_at?: string
           discord_id?: string | null
           id?: string
           is_creator?: boolean | null
