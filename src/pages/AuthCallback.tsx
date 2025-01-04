@@ -16,9 +16,26 @@ const AuthCallback = () => {
         if (error) throw error;
         
         if (session) {
+          // Update profile with Discord data if available
+          const { user } = session;
+          if (user?.app_metadata?.provider === 'discord') {
+            const { error: updateError } = await supabase
+              .from('profiles')
+              .update({
+                discord_id: user.user_metadata.provider_id,
+                avatar_url: user.user_metadata.avatar_url,
+                username: user.user_metadata.full_name || user.user_metadata.name
+              })
+              .eq('id', user.id);
+
+            if (updateError) {
+              console.error('Error updating profile:', updateError);
+            }
+          }
+
           toast({
             title: "Successfully authenticated",
-            description: "Welcome to BloodCircuit!"
+            description: "Welcome back!"
           });
           navigate('/');
         }
