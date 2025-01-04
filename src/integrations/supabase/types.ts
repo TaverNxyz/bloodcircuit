@@ -213,43 +213,16 @@ export type Database = {
       }
       profiles: {
         Row: {
-          avatar_url: string | null
-          created_at: string
-          creator_bio: string | null
-          creator_website: string | null
-          discord_id: string | null
           id: string
           is_creator: boolean | null
-          total_earnings: number | null
-          total_sales: number | null
-          updated_at: string
-          username: string | null
         }
         Insert: {
-          avatar_url?: string | null
-          created_at?: string
-          creator_bio?: string | null
-          creator_website?: string | null
-          discord_id?: string | null
           id: string
           is_creator?: boolean | null
-          total_earnings?: number | null
-          total_sales?: number | null
-          updated_at?: string
-          username?: string | null
         }
         Update: {
-          avatar_url?: string | null
-          created_at?: string
-          creator_bio?: string | null
-          creator_website?: string | null
-          discord_id?: string | null
           id?: string
           is_creator?: boolean | null
-          total_earnings?: number | null
-          total_sales?: number | null
-          updated_at?: string
-          username?: string | null
         }
         Relationships: []
       }
