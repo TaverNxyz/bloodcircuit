@@ -63,7 +63,7 @@ const products = [
 const MainContent = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, signOut } = useAuth();
+  const { user, signOut, signInWithDiscord } = useAuth();
 
   const handleDiscordClick = () => {
     toast({
@@ -72,11 +72,11 @@ const MainContent = () => {
     });
   };
 
-  const handleAuthClick = () => {
+  const handleAuthClick = async () => {
     if (user) {
-      signOut();
+      await signOut();
     } else {
-      navigate('/auth');
+      await signInWithDiscord();
     }
   };
 
@@ -143,7 +143,7 @@ const MainContent = () => {
                   Sign Out
                 </>
               ) : (
-                'Sign In'
+                'Sign In with Discord'
               )}
             </Button>
           </div>
