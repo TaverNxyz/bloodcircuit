@@ -12,125 +12,111 @@ export type Database = {
       orders: {
         Row: {
           amount: number
+          billgang_order_id: string | null
           created_at: string
           id: string
+          product_id: string
           status: string
+          updated_at: string
           user_id: string
         }
         Insert: {
           amount: number
+          billgang_order_id?: string | null
           created_at?: string
           id?: string
+          product_id: string
           status: string
+          updated_at?: string
           user_id: string
         }
         Update: {
           amount?: number
+          billgang_order_id?: string | null
           created_at?: string
           id?: string
+          product_id?: string
           status?: string
+          updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "orders_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
           avatar_url: string | null
-          full_name: string | null
+          created_at: string
+          discord_id: string | null
           id: string
-          updated_at: string | null
+          updated_at: string
           username: string | null
-          website: string | null
         }
         Insert: {
           avatar_url?: string | null
-          full_name?: string | null
+          created_at?: string
+          discord_id?: string | null
           id: string
-          updated_at?: string | null
+          updated_at?: string
           username?: string | null
-          website?: string | null
         }
         Update: {
           avatar_url?: string | null
-          full_name?: string | null
+          created_at?: string
+          discord_id?: string | null
           id?: string
-          updated_at?: string | null
+          updated_at?: string
           username?: string | null
-          website?: string | null
         }
         Relationships: []
       }
       subscriptions: {
         Row: {
+          billgang_subscription_id: string | null
           created_at: string
           current_period_end: string | null
           id: string
+          product_id: string
           status: string
+          updated_at: string
           user_id: string
         }
         Insert: {
+          billgang_subscription_id?: string | null
           created_at?: string
           current_period_end?: string | null
           id?: string
+          product_id: string
           status: string
+          updated_at?: string
           user_id: string
         }
         Update: {
+          billgang_subscription_id?: string | null
           created_at?: string
           current_period_end?: string | null
           id?: string
+          product_id?: string
           status?: string
+          updated_at?: string
           user_id?: string
         }
-        Relationships: []
-      }
-      todos: {
-        Row: {
-          id: number
-          inserted_at: string
-          is_complete: boolean | null
-          task: string | null
-          user_id: string
-        }
-        Insert: {
-          id?: number
-          inserted_at?: string
-          is_complete?: boolean | null
-          task?: string | null
-          user_id: string
-        }
-        Update: {
-          id?: number
-          inserted_at?: string
-          is_complete?: boolean | null
-          task?: string | null
-          user_id?: string
-        }
-        Relationships: []
-      }
-      vouches: {
-        Row: {
-          content: string
-          created_at: string
-          id: string
-          rating: number
-          user_id: string
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          id?: string
-          rating: number
-          user_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          id?: string
-          rating?: number
-          user_id?: string
-        }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

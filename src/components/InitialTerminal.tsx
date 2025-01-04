@@ -1,33 +1,43 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TerminalWindow from './terminal/TerminalWindow';
 import TerminalLine from './terminal/TerminalLine';
 import EvolveButton from './terminal/EvolveButton';
 import ParticlesBackground from './ParticlesBackground';
 
-const LINES = [
-  'INITIALIZING SYSTEM...',
-  'INITIALIZING KERNEL...',
-  'LOADING COMPLETE'
-] as const;
-
 const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
   const [currentLine, setCurrentLine] = useState(0);
   const [showButton, setShowButton] = useState(false);
 
-  const handleEvolve = useCallback(() => {
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      setCurrentLine(1);
+    }, 1000);
+
+    const timer2 = setTimeout(() => {
+      setCurrentLine(2);
+    }, 4000);
+
+    const timer3 = setTimeout(() => {
+      setShowButton(true);
+    }, 7000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, []);
+
+  const handleEvolve = () => {
     sessionStorage.setItem('visited', 'true');
     onComplete();
-  }, [onComplete]);
+  };
 
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setCurrentLine(1), 1000),
-      setTimeout(() => setCurrentLine(2), 4000),
-      setTimeout(() => setShowButton(true), 7000)
-    ];
-
-    return () => timers.forEach(clearTimeout);
-  }, []);
+  const lines = [
+    'INITIALIZING SYSTEM...',
+    'INITIALIZING KERNEL...',
+    'LOADING COMPLETE'
+  ];
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-transparent">
@@ -36,7 +46,7 @@ const InitialTerminal = ({ onComplete }: { onComplete: () => void }) => {
       </div>
       <div className="w-full max-w-3xl p-8 font-mono relative z-10">
         <TerminalWindow>
-          {LINES.slice(0, currentLine + 1).map((line, index) => (
+          {lines.slice(0, currentLine + 1).map((line, index) => (
             <div key={index} className="mb-2">
               <TerminalLine text={line} />
             </div>

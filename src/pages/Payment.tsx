@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import ParticlesBackground from "@/components/ParticlesBackground";
 import TransactionTracker from "@/components/TransactionTracker";
@@ -7,46 +7,16 @@ import { ArrowLeft } from "lucide-react";
 import { PAYMENT_METHODS, CryptoType } from "@/lib/constants";
 import ReturnHomeButton from "@/components/ReturnHomeButton";
 
-const PRODUCT_PRICES = {
-  apex: {
-    daily: 7,
-    weekly: 25,
-    monthly: 65
-  },
-  rust: {
-    daily: 7,
-    weekly: 25,
-    monthly: 65
-  },
-  hwid: {
-    daily: 7,
-    weekly: 25,
-    monthly: 35
-  },
-  fortnite: {
-    daily: 7,
-    weekly: 25,
-    monthly: 65
-  }
-};
-
 const Payment = () => {
   const { id: productId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const plan = searchParams.get('plan') as 'daily' | 'weekly' | 'monthly';
+  const plan = searchParams.get('plan');
   const method = searchParams.get('method') as CryptoType;
-  const [amount, setAmount] = useState<number>(0);
 
   useEffect(() => {
     if (!productId || !plan || !method || !['BTC', 'LTC'].includes(method)) {
       navigate('/');
-      return;
-    }
-
-    // Set the correct amount based on product and plan
-    if (productId && plan && PRODUCT_PRICES[productId as keyof typeof PRODUCT_PRICES]) {
-      setAmount(PRODUCT_PRICES[productId as keyof typeof PRODUCT_PRICES][plan]);
     }
   }, [productId, plan, method, navigate]);
 
@@ -77,7 +47,7 @@ const Payment = () => {
 
           <TransactionTracker 
             address={getAddress(method)}
-            amount={amount}
+            amount={0.5}
             cryptoType={method}
           />
         </div>

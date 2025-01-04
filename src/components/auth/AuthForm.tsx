@@ -1,46 +1,10 @@
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { useEffect } from 'react';
 
 const AuthForm = () => {
-  const { toast } = useToast();
-
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN') {
-        console.log('Discord auth success:', session?.user?.user_metadata);
-        toast({
-          title: "Successfully signed in",
-          description: `Welcome${session?.user?.user_metadata?.full_name ? ` ${session.user.user_metadata.full_name}` : ''}!`,
-          variant: "default"
-        });
-      } else if (event === 'SIGNED_OUT') {
-        toast({
-          title: "Signed out",
-          description: "Come back soon!",
-          variant: "default"
-        });
-      } else if (event === 'USER_UPDATED') {
-        toast({
-          title: "Profile updated",
-          description: "Your profile has been updated successfully",
-          variant: "default"
-        });
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [toast]);
-
   return (
-    <div className="max-w-md w-full mx-auto p-8 bg-card/80 backdrop-blur-sm border border-border rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] bg-clip-text text-transparent">
-        Welcome Back
-      </h2>
+    <div className="max-w-md w-full mx-auto p-6 bg-[#0A0A0A]/80 border border-[#222] rounded-lg">
       <Auth
         supabaseClient={supabase}
         appearance={{
@@ -48,31 +12,14 @@ const AuthForm = () => {
           variables: {
             default: {
               colors: {
-                brand: '#5865F2', // Discord brand color
-                brandAccent: '#4752C4',
-                messageText: 'white',
-                messageTextDanger: '#ff4b4b',
-              },
-              borderWidths: {
-                buttonBorderWidth: '1px',
-                inputBorderWidth: '1px',
-              },
-              radii: {
-                borderRadiusButton: '0.5rem',
-                buttonBorderRadius: '0.5rem',
-                inputBorderRadius: '0.5rem',
+                brand: '#1EAEDB',
+                brandAccent: '#0FA0CE',
               },
             },
           },
-          className: {
-            container: 'auth-container',
-            button: 'auth-button',
-            message: 'auth-message',
-          },
         }}
         providers={['discord']}
-        view="sign_in"
-        showLinks={true}
+        redirectTo={`${window.location.origin}/`}
       />
     </div>
   );

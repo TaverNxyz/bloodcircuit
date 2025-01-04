@@ -66,7 +66,7 @@ const products = [
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const [showVideo, setShowVideo] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
   
   const product = products.find(p => p.id === productId);
   
@@ -79,6 +79,11 @@ const ProductDetails = () => {
   if (!product) {
     return null;
   }
+
+  const productMedia = [
+    ...(product.imageUrl ? [product.imageUrl] : []),
+    '/lovable-uploads/46a28158-90ea-447e-a139-3e0903d35c88.png'
+  ];
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
@@ -121,18 +126,13 @@ const ProductDetails = () => {
           </TabsContent>
         </Tabs>
 
-        {product.category !== 'status' && product.videoUrl && (
-          <div className="mt-16">
-            <h3 className="text-2xl font-bold mb-8 text-center">Product Demo</h3>
-            <div className="aspect-video w-full max-w-4xl mx-auto">
-              <iframe 
-                src={product.videoUrl}
-                className="w-full h-full rounded-lg"
-                allow="autoplay; fullscreen"
-                frameBorder="0"
-              />
-            </div>
-          </div>
+        {product.category !== 'status' && (
+          <ProductMedia 
+            media={productMedia}
+            videoUrl={product.videoUrl}
+            showVideo={showVideo}
+            onShowVideo={setShowVideo}
+          />
         )}
       </div>
     </div>

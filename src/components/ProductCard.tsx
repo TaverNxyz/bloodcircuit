@@ -49,6 +49,10 @@ const ProductCard = memo(({ product }: ProductCardProps) => {
     navigate(`/checkout/${product.id}?plan=${plan}`);
   };
 
+  const handleViewDetails = () => {
+    navigate(`/product/${product.id}`);
+  };
+
   return (
     <Card className="relative overflow-hidden group bg-[#0A0A0A]/80 border-[#222] hover:border-[#1EAEDB] transition-all duration-300">
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -74,6 +78,7 @@ const ProductCard = memo(({ product }: ProductCardProps) => {
         description={product.description}
         prices={product.prices}
         onPurchase={handlePurchase}
+        onViewDetails={handleViewDetails}
       />
     </Card>
   );

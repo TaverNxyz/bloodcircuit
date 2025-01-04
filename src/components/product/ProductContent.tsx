@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import ProductActions from "@/components/product/ProductActions";
-import PricingButtons from "@/components/product/PricingButtons";
+import { useState } from 'react';
+import PricingButtons from './PricingButtons';
+import ProductActions from './ProductActions';
 
 interface ProductContentProps {
   name: string;
@@ -11,32 +11,34 @@ interface ProductContentProps {
     monthly: number;
   };
   onPurchase: (plan: 'daily' | 'weekly' | 'monthly') => void;
+  onViewDetails: () => void;
 }
 
 const ProductContent = ({ 
   name, 
   description, 
-  prices
+  prices, 
+  onPurchase, 
+  onViewDetails 
 }: ProductContentProps) => {
-  const handlePurchase = () => {
-    window.open('https://checkout.plentifulpower.xyz/', '_blank');
-  };
+  const [selectedPlan, setSelectedPlan] = useState<'daily' | 'weekly' | 'monthly'>('monthly');
 
   return (
-    <CardContent className="p-6">
-      <h3 className="text-xl font-semibold mb-2 text-white">{name}</h3>
-      <p className="text-sm text-gray-400 mb-4">{description}</p>
+    <div className="p-6">
+      <h3 className="text-2xl font-bold text-[#1EAEDB] mb-2">{name}</h3>
+      <p className="text-gray-400 mb-4 line-clamp-2">{description}</p>
       
-      <div className="space-y-4">
-        <PricingButtons 
-          prices={prices}
-          onSelect={() => handlePurchase()}
-        />
-        <ProductActions 
-          onPurchase={handlePurchase}
-        />
-      </div>
-    </CardContent>
+      <PricingButtons
+        prices={prices}
+        selectedPlan={selectedPlan}
+        onPlanSelect={setSelectedPlan}
+      />
+
+      <ProductActions
+        onPurchase={() => onPurchase(selectedPlan)}
+        onViewDetails={onViewDetails}
+      />
+    </div>
   );
 };
 

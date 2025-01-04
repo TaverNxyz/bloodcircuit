@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from './ui/button';
@@ -7,34 +7,44 @@ const videos = [
   { id: 1, url: 'https://streamable.com/e/yd3tbf?autoplay=1&loop=0' },
   { id: 2, url: 'https://streamable.com/e/lwokde?autoplay=0' },
   { id: 3, url: 'https://streamable.com/e/apex' }
-] as const;
+];
 
 const MediaCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const videoRefs = useRef<Array<HTMLIFrameElement | null>>([]);
 
-  const handleVideoEnd = useCallback((index: number) => {
-    if (index < videos.length - 1 && emblaApi) {
-      emblaApi.scrollNext();
-      const nextVideo = videoRefs.current[index + 1];
-      if (nextVideo?.src) {
-        nextVideo.src = nextVideo.src.replace('autoplay=0', 'autoplay=1');
-      }
-    }
-  }, [emblaApi]);
-
   useEffect(() => {
+    const handleVideoEnd = (index: number) => {
+      if (index < videos.length - 1) {
+        emblaApi?.scrollNext();
+        // Start the next video
+        if (videoRefs.current[index + 1]) {
+          const nextVideo = videoRefs.current[index + 1];
+          if (nextVideo && nextVideo.src) {
+            nextVideo.src = nextVideo.src.replace('autoplay=0', 'autoplay=1');
+          }
+        }
+      }
+    };
+
+    // Set up video event listeners
     videoRefs.current.forEach((videoRef, index) => {
       if (videoRef) {
-        const handler = () => handleVideoEnd(index);
-        videoRef.addEventListener('ended', handler);
-        return () => videoRef.removeEventListener('ended', handler);
+        videoRef.addEventListener('ended', () => handleVideoEnd(index));
       }
     });
-  }, [handleVideoEnd]);
 
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+    return () => {
+      videoRefs.current.forEach((videoRef, index) => {
+        if (videoRef) {
+          videoRef.removeEventListener('ended', () => handleVideoEnd(index));
+        }
+      });
+    };
+  }, [emblaApi]);
+
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
 
   return (
     <div className="relative w-full h-[80vh] mx-auto">
