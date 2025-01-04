@@ -9,7 +9,7 @@ export const handleSignInWithDiscord = async (showToast: ToastFunction) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
       options: {
-        redirectTo: 'https://discord.com/oauth2/authorize?client_id=1325030111124393985&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fdiscord%2Fcallback&scope=identify+email',
+        redirectTo: `${window.location.origin}/auth/discord/callback`,
         scopes: 'identify email',
       }
     });

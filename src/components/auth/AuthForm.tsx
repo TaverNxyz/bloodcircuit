@@ -8,7 +8,6 @@ const AuthForm = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Handle auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
         toast({
@@ -64,7 +63,7 @@ const AuthForm = () => {
             message: 'auth-message',
           },
         }}
-        providers={[]}
+        providers={['discord']}
         redirectTo={`${window.location.origin}/auth/callback`}
       />
     </div>

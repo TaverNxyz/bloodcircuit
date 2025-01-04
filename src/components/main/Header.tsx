@@ -12,12 +12,11 @@ export const Header = () => {
     console.log('Discord link clicked');
   };
 
-  const handleAuthClick = async () => {
-    console.log('Auth action triggered:', user ? 'signing out' : 'signing in with Discord');
+  const handleAuthClick = () => {
     if (user) {
-      await signOut();
+      signOut();
     } else {
-      await signInWithDiscord();
+      navigate('/auth');
     }
   };
 
@@ -83,7 +82,7 @@ export const Header = () => {
               Sign Out
             </>
           ) : (
-            'Sign In with Discord'
+            'Sign In'
           )}
         </Button>
       </div>
