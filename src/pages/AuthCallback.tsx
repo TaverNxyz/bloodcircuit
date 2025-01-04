@@ -16,15 +16,16 @@ const AuthCallback = () => {
         if (error) throw error;
         
         if (session) {
-          // Update profile with Discord data if available
           const { user } = session;
+          console.log('User metadata:', user.user_metadata); // Debug log
+
           if (user?.app_metadata?.provider === 'discord') {
             const { error: updateError } = await supabase
               .from('profiles')
               .update({
-                discord_id: user.user_metadata.provider_id,
+                discord_id: user.user_metadata.custom_claims?.global_name || user.user_metadata.name,
                 avatar_url: user.user_metadata.avatar_url,
-                username: user.user_metadata.full_name || user.user_metadata.name
+                username: user.user_metadata.custom_claims?.global_name || user.user_metadata.name || user.user_metadata.email
               })
               .eq('id', user.id);
 
