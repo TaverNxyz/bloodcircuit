@@ -11,7 +11,6 @@ const AuthCallback = () => {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        // Get the URL parameters
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
 
@@ -19,38 +18,52 @@ const AuthCallback = () => {
           throw new Error('No code provided');
         }
 
-        // Exchange the code for a session
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         
         if (error) throw error;
         
         if (data.session) {
           const { user } = data.session;
-          console.log('Full user object:', user); // Debug log
-          console.log('User metadata:', user.user_metadata); // Debug log
-          console.log('App metadata:', user.app_metadata); // Debug log
-
+          console.log('Full user object:', user);
+          console.log('Raw user metadata:', user.user_metadata);
+          
           if (user?.app_metadata?.provider === 'discord') {
-            // Get the Discord ID from the raw user metadata
-            const discordId = user.user_metadata.provider_id || user.user_metadata.sub;
-            const username = user.user_metadata.full_name || user.user_metadata.name || user.user_metadata.email;
+            // Discord ID is stored in different places depending on the OAuth response
+            const discordId = user.user_metadata.provider_id || 
+                            user.user_metadata.sub || 
+                            user.user_metadata.custom_claims?.discord_id ||
+                            user.user_metadata.discord_id;
+                            
+            const username = user.user_metadata.custom_claims?.global_name || 
+                           user.user_metadata.global_name ||
+                           user.user_metadata.full_name || 
+                           user.user_metadata.name || 
+                           user.user_metadata.email;
+                           
             const avatarUrl = user.user_metadata.avatar_url;
 
-            console.log('Discord ID:', discordId); // Debug log
-            console.log('Username:', username); // Debug log
-            console.log('Avatar URL:', avatarUrl); // Debug log
+            console.log('Extracted Discord data:', {
+              discordId,
+              username,
+              avatarUrl
+            });
 
-            const { error: updateError } = await supabase
-              .from('profiles')
-              .update({
-                discord_id: discordId,
-                avatar_url: avatarUrl,
-                username: username
-              })
-              .eq('id', user.id);
+            if (discordId) {
+              const { error: updateError } = await supabase
+                .from('profiles')
+                .update({
+                  discord_id: discordId,
+                  avatar_url: avatarUrl,
+                  username: username
+                })
+                .eq('id', user.id);
 
-            if (updateError) {
-              console.error('Error updating profile:', updateError);
+              if (updateError) {
+                console.error('Error updating profile:', updateError);
+                throw updateError;
+              }
+            } else {
+              console.error('Could not extract Discord ID from user metadata');
             }
           }
 
