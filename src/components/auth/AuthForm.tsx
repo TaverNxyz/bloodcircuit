@@ -70,6 +70,7 @@ const AuthForm = () => {
           },
         }}
         magicLink={true}
+        view="magic_link"
       />
     </div>
   );
