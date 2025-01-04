@@ -9,7 +9,6 @@ import ProductDetails from '@/pages/ProductDetails';
 import Payment from '@/pages/Payment';
 import Cart from '@/pages/Cart';
 import Checkout from '@/pages/Checkout';
-import Vouches from '@/pages/Vouches';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -34,7 +33,6 @@ const App = () => {
             <Route path="/payment/:id" element={<Payment />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout/:id" element={<Checkout />} />
-            <Route path="/vouches" element={<Vouches />} />
           </Routes>
           <Toaster />
         </Router>
