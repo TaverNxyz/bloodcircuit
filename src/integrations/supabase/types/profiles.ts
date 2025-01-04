@@ -23,7 +23,14 @@ export interface ProfilesTable {
     website?: string | null;
     updated_at?: string | null;
   };
-  Relationships: [];
+  Relationships: [
+    {
+      foreignKeyName: "profiles_id_fkey"
+      columns: ["id"]
+      referencedRelation: "users"
+      referencedColumns: ["id"]
+    }
+  ];
 }
 
 export type Profile = ProfilesTable['Row'];

@@ -20,7 +20,14 @@ export interface SubscriptionsTable {
     current_period_end?: string | null;
     created_at?: string;
   };
-  Relationships: [];
+  Relationships: [
+    {
+      foreignKeyName: "subscriptions_user_id_fkey"
+      columns: ["user_id"]
+      referencedRelation: "users"
+      referencedColumns: ["id"]
+    }
+  ];
 }
 
 export type Subscription = SubscriptionsTable['Row'];

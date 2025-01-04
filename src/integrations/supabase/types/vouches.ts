@@ -20,14 +20,21 @@ export interface VouchesTable {
     rating?: number;
     created_at?: string;
   };
-  Relationships: [];
+  Relationships: [
+    {
+      foreignKeyName: "vouches_user_id_fkey"
+      columns: ["user_id"]
+      referencedRelation: "users"
+      referencedColumns: ["id"]
+    }
+  ];
 }
 
 export type Vouch = VouchesTable['Row'];
 
 export interface VouchWithProfile extends Vouch {
   profiles: {
-    username: string;
-    avatar_url: string;
+    username: string | null;
+    avatar_url: string | null;
   };
 }
