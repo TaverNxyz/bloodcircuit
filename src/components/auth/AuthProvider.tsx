@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state changed:', event);
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -65,15 +66,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signInWithDiscord = async () => {
     try {
+      console.log('Starting Discord sign in...');
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'discord',
         options: {
           redirectTo: `${window.location.origin}/auth/discord/callback`,
-          scopes: 'identify email'
+          scopes: 'identify email',
         }
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Discord sign in error:', error);
+        throw error;
+      }
+      console.log('Discord sign in initiated successfully');
     } catch (error) {
       console.error('Error signing in with Discord:', error);
       toast({
