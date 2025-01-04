@@ -22,11 +22,23 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   useEffect(() => {
     const checkPaymentStatus = async () => {
       try {
-        const { data } = await supabase.functions.invoke('payment-tracker', {
+        const { data, error } = await supabase.functions.invoke('payment-tracker', {
           body: { address }
         });
 
-        if (data.status) {
+        if (error) {
+          console.error('Payment tracker error:', error);
+          return;
+        }
+
+        // Check if data contains an error message
+        if (data.error) {
+          console.error('Payment tracker returned error:', data.error);
+          return;
+        }
+
+        // Only update state if we have valid status data
+        if (data && data.status) {
           setStatus(data.status);
           setConfirmations(data.confirmations || 0);
           setProgress(data.status === 'completed' ? 100 : Math.min((data.confirmations || 0) * 20, 80));
