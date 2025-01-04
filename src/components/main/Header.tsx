@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, LogOut, UserRound } from "lucide-react";
+import { MessageCircle, LogOut, UserRound, LogIn } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import Logo from "@/components/Logo";
 import { useAuth } from "@/components/auth/AuthProvider";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const { user, signOut, signInWithDiscord } = useAuth();
+  const { user, signOut } = useAuth();
 
   const handleDiscordClick = () => {
     console.log('Discord link clicked');
@@ -74,15 +74,18 @@ export const Header = () => {
         </Button>
         <Button
           onClick={handleAuthClick}
-          className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
+          className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white flex items-center gap-2"
         >
           {user ? (
             <>
-              <LogOut className="h-4 w-4 mr-2" />
+              <LogOut className="h-4 w-4" />
               Sign Out
             </>
           ) : (
-            'Sign In'
+            <>
+              <LogIn className="h-4 w-4" />
+              Sign In
+            </>
           )}
         </Button>
       </div>

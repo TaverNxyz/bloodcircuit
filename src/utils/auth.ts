@@ -23,6 +23,7 @@ export const handleSignInWithDiscord = async (showToast: ToastFunction) => {
     console.error('Error signing in with Discord:', error);
     showToast({
       title: "Error signing in with Discord",
+      description: "Please try again later",
       variant: "destructive"
     });
   }
@@ -32,10 +33,16 @@ export const handleSignOut = async (showToast: ToastFunction) => {
   try {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
+    showToast({
+      title: "Signed out successfully",
+      description: "Come back soon!",
+      variant: "default"
+    });
   } catch (error) {
     console.error('Error signing out:', error);
     showToast({
       title: "Error signing out",
+      description: "Please try again later",
       variant: "destructive"
     });
   }

@@ -12,16 +12,19 @@ const AuthForm = () => {
       if (event === 'SIGNED_IN') {
         toast({
           title: "Successfully signed in",
+          description: "Welcome back!",
           variant: "default"
         });
       } else if (event === 'SIGNED_OUT') {
         toast({
           title: "Signed out",
+          description: "Come back soon!",
           variant: "default"
         });
       } else if (event === 'USER_UPDATED') {
         toast({
           title: "Profile updated",
+          description: "Your profile has been updated successfully",
           variant: "default"
         });
       }
@@ -33,7 +36,10 @@ const AuthForm = () => {
   }, [toast]);
 
   return (
-    <div className="max-w-md w-full mx-auto p-6 bg-[#0A0A0A]/80 border border-[#222] rounded-lg">
+    <div className="max-w-md w-full mx-auto p-8 bg-card/80 backdrop-blur-sm border border-border rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] bg-clip-text text-transparent">
+        Welcome Back
+      </h2>
       <Auth
         supabaseClient={supabase}
         appearance={{
@@ -65,6 +71,7 @@ const AuthForm = () => {
         }}
         providers={['discord']}
         redirectTo={`${window.location.origin}/auth/callback`}
+        magicLink={true}
       />
     </div>
   );
