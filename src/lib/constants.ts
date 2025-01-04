@@ -11,7 +11,9 @@ export const CRYPTO_DETAILS = {
     confirmations: 6,
     explorer: 'https://blockchair.com/litecoin/address/',
   },
-};
+} as const;
+
+export type CryptoType = keyof typeof CRYPTO_DETAILS;
 
 export const PAYMENT_METHODS = [
   { text: 'BTC: Bitcoin' },
