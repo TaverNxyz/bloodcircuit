@@ -1,10 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
-import PaymentRibbon from "@/components/PaymentRibbon";
 import ProductCard from "@/components/ProductCard";
-import MediaCarousel from "@/components/MediaCarousel";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -65,10 +63,11 @@ const MainContent = () => {
   const { toast } = useToast();
   const { user, signOut } = useAuth();
 
-  const handleDiscordClick = () => {
+  const handleSellixClick = () => {
+    window.open('YOUR_SELLIX_STORE_URL', '_blank');
     toast({
-      title: "Opening Discord",
-      description: "Redirecting you to our community..."
+      title: "Opening Sellix Store",
+      description: "Redirecting you to our Sellix store..."
     });
   };
 
@@ -104,20 +103,11 @@ const MainContent = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className="text-white hover:bg-white/10"
-              onClick={handleDiscordClick}
+            <Button 
+              onClick={handleSellixClick}
+              className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
             >
-              <a 
-                href="https://discord.gg/xNxWc96GMr" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </a>
+              Sellix Store
             </Button>
             <Button 
               onClick={() => navigate('/cart')}
@@ -148,28 +138,20 @@ const MainContent = () => {
             </p>
           </div>
         </div>
-        
-        <div className="relative w-full h-screen">
-          <MediaCarousel />
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-16">
-        {statusProduct && (
-          <div className="max-w-md mx-auto mb-12">
-            <ProductCard product={statusProduct} />
+        <div className="container mx-auto px-4 py-16">
+          {statusProduct && (
+            <div className="max-w-md mx-auto mb-12">
+              <ProductCard product={statusProduct} />
+            </div>
+          )}
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {otherProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
-        )}
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {otherProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
         </div>
-      </div>
-
-      <div className="fixed bottom-0 left-0 right-0">
-        <PaymentRibbon />
       </div>
     </div>
   );
