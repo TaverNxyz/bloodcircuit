@@ -3,9 +3,8 @@ import { Check, Clock, Copy, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { CRYPTO_DETAILS, CryptoType } from '@/lib/constants';
+import { CRYPTO_DETAILS, CryptoType, BTCPAY_SERVER_URL } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { supabase } from '@/integrations/supabase/client';
 
 interface TransactionTrackerProps {
   address: string;
@@ -20,34 +19,29 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const { toast } = useToast();
 
   useEffect(() => {
-    // Subscribe to payment status updates from Supabase
-    const channel = supabase
-      .channel('payment-updates')
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'orders',
-          filter: `address=eq.${address}`
-        },
-        (payload: any) => {
-          if (payload.new.status === 'confirming') {
-            setStatus('confirming');
-            setConfirmations(payload.new.confirmations);
-            setProgress(60);
-          } else if (payload.new.status === 'completed') {
-            setStatus('completed');
-            setProgress(100);
-          }
-        }
-      )
-      .subscribe();
+    // Connect to BTCPay Server websocket
+    const ws = new WebSocket(`${BTCPAY_SERVER_URL}/payment-updates/${address}`);
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.status === 'confirming') {
+        setStatus('confirming');
+        setConfirmations(data.confirmations);
+        setProgress(60);
+      } else if (data.status === 'completed') {
+        setStatus('completed');
+        setProgress(100);
+        toast({
+          title: "Payment Confirmed",
+          description: "Your payment has been confirmed on the blockchain"
+        });
+      }
+    };
 
     return () => {
-      supabase.removeChannel(channel);
+      ws.close();
     };
-  }, [address]);
+  }, [address, toast]);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
@@ -115,7 +109,7 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
         asChild
       >
         <a 
-          href={CRYPTO_DETAILS[cryptoType].explorer}
+          href={`${CRYPTO_DETAILS[cryptoType].explorer}${address}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2"
