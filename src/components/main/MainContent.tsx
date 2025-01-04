@@ -73,6 +73,7 @@ const MainContent = () => {
   };
 
   const handleAuthClick = async () => {
+    console.log('Auth action triggered:', user ? 'signing out' : 'signing in with Discord');
     if (user) {
       await signOut();
     } else {
