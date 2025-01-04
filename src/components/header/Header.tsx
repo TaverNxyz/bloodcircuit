@@ -36,17 +36,10 @@ const Header = () => {
         <Button
           variant="ghost"
           size="sm"
-          asChild
           className="text-white hover:bg-white/10"
           onClick={handleDiscordClick}
         >
-          <a 
-            href="https://discord.gg/xNxWc96GMr" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <MessageCircle className="h-5 w-5" />
-          </a>
+          <MessageCircle className="h-5 w-5" />
         </Button>
         <Button 
           onClick={() => navigate('/cart')}

@@ -10,11 +10,10 @@ import Payment from '@/pages/Payment';
 import Cart from '@/pages/Cart';
 import Checkout from '@/pages/Checkout';
 
-// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000, // 1 minute
+      staleTime: 60 * 1000,
       retry: 1,
     },
   },

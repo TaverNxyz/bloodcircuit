@@ -1,9 +1,23 @@
-import PaymentRibbon from "@/components/PaymentRibbon";
-import MediaCarousel from "@/components/MediaCarousel";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import Header from "@/components/header/Header";
 import AffiliationBanner from "@/components/header/AffiliationBanner";
 import ProductGrid from "@/components/products/ProductGrid";
+
+const MainContent = () => {
+  return (
+    <div className="relative min-h-screen bg-transparent">
+      <div className="animated-bg">
+        <ParticlesBackground />
+      </div>
+
+      <div className="relative pt-20">
+        <Header />
+        <AffiliationBanner />
+        <ProductGrid products={products} />
+      </div>
+    </div>
+  );
+};
 
 const products = [
   {
@@ -14,9 +28,9 @@ const products = [
       weekly: 25,
       monthly: 65
     },
-    description: "Advanced external cheat for Rust",
-    features: ["Aimbot", "ESP", "Item ESP"],
-    videoUrl: "https://www.youtube.com/embed/YUvGjdWVCrw"
+    description: "Real-time status checker for Exodus and UDP applications",
+    features: ["Status Check", "Real-time Updates"],
+    category: "status"
   },
   {
     id: "apex",
@@ -55,30 +69,5 @@ const products = [
     videoUrl: "https://streamable.com/e/lwokde"
   }
 ];
-
-const MainContent = () => {
-  return (
-    <div className="relative min-h-screen bg-transparent">
-      <div className="animated-bg">
-        <ParticlesBackground />
-      </div>
-
-      <div className="relative pt-20">
-        <Header />
-        <AffiliationBanner />
-        
-        <div className="relative w-full h-screen">
-          <MediaCarousel />
-        </div>
-      </div>
-
-      <ProductGrid products={products} />
-
-      <div className="fixed bottom-0 left-0 right-0">
-        <PaymentRibbon />
-      </div>
-    </div>
-  );
-};
 
 export default MainContent;
