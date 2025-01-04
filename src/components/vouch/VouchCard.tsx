@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface VouchCardProps {
   vouch: {
@@ -14,9 +15,9 @@ interface VouchCardProps {
     rating: number;
     created_at: string;
     profiles: {
-      username: string;
-      avatar_url: string;
-    };
+      username: string | null;
+      avatar_url: string | null;
+    } | null;
   };
 }
 
@@ -32,25 +33,24 @@ export const VouchCard = ({ vouch }: VouchCardProps) => {
     ));
   };
 
+  // Safely get profile information with fallbacks
+  const username = vouch.profiles?.username || "Anonymous User";
+  const avatarUrl = vouch.profiles?.avatar_url || null;
+
   return (
     <Card className="bg-gray-900 border-gray-800">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center">
-              {vouch.profiles.avatar_url ? (
-                <img
-                  src={vouch.profiles.avatar_url}
-                  alt={vouch.profiles.username}
-                  className="h-10 w-10 rounded-full"
-                />
-              ) : (
+            <Avatar>
+              <AvatarImage src={avatarUrl || undefined} alt={username} />
+              <AvatarFallback>
                 <User className="h-6 w-6 text-gray-400" />
-              )}
-            </div>
+              </AvatarFallback>
+            </Avatar>
             <div>
               <CardTitle className="text-lg text-white">
-                {vouch.profiles.username}
+                {username}
               </CardTitle>
               <CardDescription className="text-gray-400">
                 {new Date(vouch.created_at).toLocaleDateString()}
@@ -58,7 +58,7 @@ export const VouchCard = ({ vouch }: VouchCardProps) => {
             </div>
           </div>
           <div className="flex items-center space-x-1">
-            {renderStars(vouch.rating)}
+            {renderStars(vouch.rating || 0)}
           </div>
         </div>
       </CardHeader>
