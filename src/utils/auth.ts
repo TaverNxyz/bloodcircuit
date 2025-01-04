@@ -22,7 +22,7 @@ export const handleSignInWithDiscord = async (showToast: ToastFunction) => {
   } catch (error) {
     console.error('Error signing in with Discord:', error);
     showToast({
-      title: "Error",
+      title: "Error signing in with Discord",
       variant: "destructive"
     });
   }
@@ -35,7 +35,7 @@ export const handleSignOut = async (showToast: ToastFunction) => {
   } catch (error) {
     console.error('Error signing out:', error);
     showToast({
-      title: "Error",
+      title: "Error signing out",
       variant: "destructive"
     });
   }

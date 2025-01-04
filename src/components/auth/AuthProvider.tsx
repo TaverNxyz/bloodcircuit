@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { handleSignInWithDiscord, handleSignOut } from '@/utils/auth';
 
 interface AuthContextType {
@@ -52,12 +52,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (event === 'SIGNED_IN') {
         toast({
           title: "Welcome!",
-          description: "You have successfully signed in."
+          variant: "default"
         });
       } else if (event === 'SIGNED_OUT') {
         toast({
-          title: "Signed out",
-          description: "You have been successfully signed out."
+          title: "Signed out successfully",
+          variant: "default"
         });
       }
     });

@@ -1,7 +1,7 @@
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useEffect } from 'react';
 
 const AuthForm = () => {
@@ -13,17 +13,17 @@ const AuthForm = () => {
       if (event === 'SIGNED_IN') {
         toast({
           title: "Successfully signed in",
-          description: "Welcome back!"
+          variant: "default"
         });
       } else if (event === 'SIGNED_OUT') {
         toast({
           title: "Signed out",
-          description: "Successfully signed out"
+          variant: "default"
         });
       } else if (event === 'USER_UPDATED') {
         toast({
           title: "Profile updated",
-          description: "Your profile has been updated"
+          variant: "default"
         });
       }
     });
