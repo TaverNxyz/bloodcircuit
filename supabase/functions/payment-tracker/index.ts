@@ -23,10 +23,20 @@ Deno.serve(async (req) => {
       .from('payments')
       .select('*')
       .eq('address', address)
-      .single()
+      .maybeSingle() // Changed from .single() to .maybeSingle()
 
     if (fetchError) {
       throw fetchError
+    }
+
+    if (!payment) {
+      return new Response(
+        JSON.stringify({ error: 'Payment not found' }),
+        { 
+          status: 404,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      )
     }
 
     // Simulate checking blockchain for transaction
@@ -47,6 +57,7 @@ Deno.serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   } catch (error) {
+    console.error('Error in payment-tracker:', error)
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
