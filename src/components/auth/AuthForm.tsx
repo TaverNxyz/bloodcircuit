@@ -10,9 +10,10 @@ const AuthForm = () => {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
+        console.log('Discord auth success:', session?.user?.user_metadata);
         toast({
           title: "Successfully signed in",
-          description: "Welcome back!",
+          description: `Welcome${session?.user?.user_metadata?.full_name ? ` ${session.user.user_metadata.full_name}` : ''}!`,
           variant: "default"
         });
       } else if (event === 'SIGNED_OUT') {
@@ -47,8 +48,8 @@ const AuthForm = () => {
           variables: {
             default: {
               colors: {
-                brand: '#1EAEDB',
-                brandAccent: '#0FA0CE',
+                brand: '#5865F2', // Discord brand color
+                brandAccent: '#4752C4',
                 messageText: 'white',
                 messageTextDanger: '#ff4b4b',
               },
