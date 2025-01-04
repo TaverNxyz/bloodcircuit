@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import ReturnHomeButton from '@/components/ReturnHomeButton';
+import type { Profile, Order, Subscription } from '@/integrations/supabase/types';
 
 const Account = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Account = () => {
         .single();
       
       if (error) throw error;
-      return data;
+      return data as Profile;
     },
     enabled: !!user,
   });
@@ -45,7 +46,7 @@ const Account = () => {
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data;
+      return data as Order[];
     },
     enabled: !!user,
   });
@@ -60,7 +61,7 @@ const Account = () => {
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data;
+      return data as Subscription[];
     },
     enabled: !!user,
   });
@@ -75,12 +76,12 @@ const Account = () => {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
           <Avatar className="h-20 w-20">
-            <AvatarImage src={profile?.avatar_url} />
+            <AvatarImage src={profile?.avatar_url || undefined} />
             <AvatarFallback>{profile?.username?.[0]?.toUpperCase()}</AvatarFallback>
           </Avatar>
           <div>
             <h1 className="text-3xl font-bold">{profile?.username || 'User'}</h1>
-            <p className="text-gray-400">Member since {new Date(profile?.created_at).toLocaleDateString()}</p>
+            <p className="text-gray-400">Member since {new Date(profile?.updated_at || '').toLocaleDateString()}</p>
           </div>
         </div>
 
@@ -105,7 +106,7 @@ const Account = () => {
                     {orders?.map((order) => (
                       <div key={order.id} className="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
                         <div>
-                          <p className="font-medium">Order #{order.id.slice(0, 8)}</p>
+                          <p className="font-medium">Order #{typeof order.id === 'string' ? order.id.slice(0, 8) : order.id}</p>
                           <p className="text-sm text-gray-400">{new Date(order.created_at).toLocaleDateString()}</p>
                         </div>
                         <div className="text-right">
@@ -134,7 +135,7 @@ const Account = () => {
                     {subscriptions?.map((sub) => (
                       <div key={sub.id} className="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
                         <div>
-                          <p className="font-medium">Subscription #{sub.id.slice(0, 8)}</p>
+                          <p className="font-medium">Subscription #{typeof sub.id === 'string' ? sub.id.slice(0, 8) : sub.id}</p>
                           <p className="text-sm text-gray-400">
                             Expires: {sub.current_period_end ? new Date(sub.current_period_end).toLocaleDateString() : 'N/A'}
                           </p>
@@ -162,8 +163,8 @@ const Account = () => {
                   <p className="text-gray-400">{profile?.username || 'Not set'}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium">Discord ID</label>
-                  <p className="text-gray-400">{profile?.discord_id || 'Not connected'}</p>
+                  <label className="text-sm font-medium">Website</label>
+                  <p className="text-gray-400">{profile?.website || 'Not connected'}</p>
                 </div>
                 <div className="pt-4">
                   <Button onClick={() => navigate('/')} variant="outline">

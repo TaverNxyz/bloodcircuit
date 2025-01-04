@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { VouchRatingSelect } from "./VouchRatingSelect";
 import { VouchContentTextarea } from "./VouchContentTextarea";
+import type { Vouch } from "@/integrations/supabase/types";
 
 const vouchFormSchema = z.object({
   content: z.string().min(10, "Vouch must be at least 10 characters long"),
@@ -55,11 +56,14 @@ export const AddVouchForm = () => {
       console.log("Submitting vouch with values:", values);
       console.log("User ID:", user.id);
       
-      const { data, error } = await supabase.from("vouches").insert({
-        content: values.content,
-        rating: parseInt(values.rating),
-        user_id: user.id,
-      }).select();
+      const { data, error } = await supabase
+        .from("vouches")
+        .insert({
+          content: values.content,
+          rating: parseInt(values.rating),
+          user_id: user.id,
+        })
+        .select() as { data: Vouch[] | null; error: any };
 
       if (error) {
         console.error("Supabase error:", error);

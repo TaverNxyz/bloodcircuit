@@ -1,28 +1,28 @@
-export interface SubscriptionsTable {
+export interface VouchesTable {
   Row: {
     id: string;
     user_id: string;
-    status: string;
-    current_period_end: string | null;
+    content: string;
+    rating: number;
     created_at: string;
   };
   Insert: {
     id?: string;
     user_id: string;
-    status: string;
-    current_period_end?: string | null;
+    content: string;
+    rating: number;
     created_at?: string;
   };
   Update: {
     id?: string;
     user_id?: string;
-    status?: string;
-    current_period_end?: string | null;
+    content?: string;
+    rating?: number;
     created_at?: string;
   };
   Relationships: [
     {
-      foreignKeyName: "subscriptions_user_id_fkey";
+      foreignKeyName: "vouches_user_id_fkey";
       columns: ["user_id"];
       isOneToOne: false;
       referencedRelation: "users";
@@ -31,4 +31,4 @@ export interface SubscriptionsTable {
   ];
 }
 
-export type Subscription = SubscriptionsTable['Row'];
+export type Vouch = VouchesTable['Row'];
