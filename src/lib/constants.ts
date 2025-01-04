@@ -3,22 +3,19 @@ export const CRYPTO_DETAILS = {
     name: 'Bitcoin',
     icon: '₿',
     confirmations: 3,
-    explorer: 'https://mempool.space/tx/',
+    explorer: 'https://blockchain.info/address/',
   },
   LTC: {
     name: 'Litecoin',
     icon: 'Ł',
     confirmations: 6,
-    explorer: 'https://litecoinspace.org/tx/',
-  }
-} as const;
-
-export type CryptoType = keyof typeof CRYPTO_DETAILS;
+    explorer: 'https://blockchair.com/litecoin/address/',
+  },
+};
 
 export const PAYMENT_METHODS = [
-  { text: 'BTC: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
-  { text: 'LTC: ltc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
-  { text: 'PayPal: support@domain.com' }
+  { text: 'BTC: Bitcoin' },
+  { text: 'LTC: Litecoin' },
 ];
 
-export const BTCPAY_SERVER_URL = 'http://your-btcpay-server-url';
+export const BTCPAY_SERVER_URL = 'https://btcpay.yourdomain.com';

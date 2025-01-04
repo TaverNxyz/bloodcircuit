@@ -19,8 +19,9 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const { toast } = useToast();
 
   useEffect(() => {
-    // Connect to BTCPay Server websocket
-    const ws = new WebSocket(`${BTCPAY_SERVER_URL}/payment-updates/${address}`);
+    // Convert HTTP URL to WSS URL for WebSocket connection
+    const wsUrl = BTCPAY_SERVER_URL.replace('https://', 'wss://');
+    const ws = new WebSocket(`${wsUrl}/payment-updates/${address}`);
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -36,6 +37,15 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
           description: "Your payment has been confirmed on the blockchain"
         });
       }
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+      toast({
+        title: "Connection Error",
+        description: "Unable to connect to payment server",
+        variant: "destructive"
+      });
     };
 
     return () => {
