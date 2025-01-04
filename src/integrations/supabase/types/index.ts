@@ -1,31 +1,10 @@
-import { Json } from './json';
-import { ProfilesTable } from './profiles';
-import { AssetsTable } from './assets';
-import { OrdersTable } from './orders';
-import { SubscriptionsTable } from './subscriptions';
-
-export type Database = {
-  public: {
-    Tables: {
-      profiles: ProfilesTable
-      assets: AssetsTable
-      orders: OrdersTable
-      subscriptions: SubscriptionsTable
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      [_ in never]: never
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+import { Database } from './database';
+export type { Database } from './database';
+export type { Json } from './json';
+export type { ProfilesTable } from './profiles';
+export type { AssetsTable } from './assets';
+export type { OrdersTable } from './orders';
+export type { SubscriptionsTable } from './subscriptions';
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -50,7 +29,7 @@ export type Tables<
     }
     ? R
     : never
-  : never
+  : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -71,7 +50,7 @@ export type TablesInsert<
     }
     ? I
     : never
-  : never
+  : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -92,10 +71,4 @@ export type TablesUpdate<
     }
     ? U
     : never
-  : never
-
-export { Json } from './json';
-export type { ProfilesTable } from './profiles';
-export type { AssetsTable } from './assets';
-export type { OrdersTable } from './orders';
-export type { SubscriptionsTable } from './subscriptions';
+  : never;
