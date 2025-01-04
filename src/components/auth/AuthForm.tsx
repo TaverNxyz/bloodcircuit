@@ -69,8 +69,6 @@ const AuthForm = () => {
             message: 'auth-message',
           },
         }}
-        providers={['discord']}
-        redirectTo={`${window.location.origin}/auth/callback`}
         magicLink={true}
       />
     </div>

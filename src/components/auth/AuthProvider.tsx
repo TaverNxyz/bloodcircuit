@@ -2,14 +2,12 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { handleSignInWithDiscord, handleSignOut } from '@/utils/auth';
 
 interface AuthContextType {
   session: Session | null;
   user: User | null;
   loading: boolean;
   signOut: () => Promise<void>;
-  signInWithDiscord: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -17,7 +15,6 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   signOut: async () => {},
-  signInWithDiscord: async () => {},
 });
 
 export const useAuth = () => {
@@ -67,16 +64,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, [toast]);
 
-  const signInWithDiscord = async () => {
-    await handleSignInWithDiscord(toast);
-  };
-
   const signOut = async () => {
-    await handleSignOut(toast);
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Signed out successfully",
+        variant: "default"
+      });
+    } catch (error) {
+      console.error('Error signing out:', error);
+      toast({
+        title: "Error signing out",
+        description: "Please try again",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, signOut, signInWithDiscord }}>
+    <AuthContext.Provider value={{ session, user, loading, signOut }}>
       {children}
     </AuthContext.Provider>
   );
