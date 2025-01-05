@@ -51,7 +51,7 @@ const products: Product[] = [
       weekly: 25,
       monthly: 65
     },
-    description: "Premium external cheat for Fortnite",
+    description: "Premium external cheat for Tarkov",
     features: ["Aimbot", "ESP", "Radar"],
     videoUrl: "https://streamable.com/e/lwokde"
   }
