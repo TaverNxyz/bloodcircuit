@@ -70,8 +70,17 @@ const MainContent = () => {
         
         <div className="container mx-auto px-4 py-24">
           <div className="flex flex-col gap-6">
-            <div className="max-w-md">
-              <ProductGrid products={[products[0]]} />
+            <div className="flex gap-6">
+              <div className="max-w-md">
+                <ProductGrid products={[products[0]]} />
+              </div>
+              <div className="flex-1">
+                <img 
+                  src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
+                  alt="Blood Circuit"
+                  className="w-full h-auto rounded-lg shadow-xl border border-red-600/30"
+                />
+              </div>
             </div>
             
             <div className="w-full">
