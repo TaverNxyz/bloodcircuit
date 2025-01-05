@@ -1,11 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import ProductCard from "@/components/ProductCard";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
-import { useAuth } from "@/components/auth/AuthProvider";
 
 const products = [
   {
@@ -61,15 +58,6 @@ const products = [
 const MainContent = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, signOut } = useAuth();
-
-  const handleAuthClick = () => {
-    if (user) {
-      signOut();
-    } else {
-      navigate('/auth');
-    }
-  };
 
   const { statusProduct, otherProducts } = {
     statusProduct: products.find(p => p.id === "rust"),
@@ -92,22 +80,6 @@ const MainContent = () => {
             <span className="text-3xl font-bold font-['Exo_2'] bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] text-transparent bg-clip-text animate-pulse">
               Uneven The Odds
             </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <Button
-              onClick={handleAuthClick}
-              className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-            >
-              {user ? (
-                <>
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Sign Out
-                </>
-              ) : (
-                'Sign In'
-              )}
-            </Button>
           </div>
         </header>
 
