@@ -110,10 +110,11 @@ const MainContent = () => {
             )}
             
             <div 
+              className="absolute" 
               style={{ 
-                position: 'fixed',
-                top: '106px',
-                right: '20px',
+                top: '106px', 
+                left: '1109px', 
+                transform: 'translate(-50%, 0)', 
                 zIndex: 20,
                 width: '300px',
                 height: '200px'
