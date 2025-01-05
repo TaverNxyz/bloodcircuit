@@ -65,10 +65,16 @@ const MainContent = () => {
       <div className="relative pt-20">
         <Header />
         <AffiliationBanner />
-        <DiscordWidget />
-
+        
         <div className="container mx-auto px-4 py-24">
-          <ProductGrid products={products} />
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              <ProductGrid products={products} />
+            </div>
+            <div className="md:w-[300px] mt-6 md:mt-0">
+              <DiscordWidget />
+            </div>
+          </div>
         </div>
       </div>
     </div>
