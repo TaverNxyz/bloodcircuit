@@ -69,15 +69,22 @@ const MainContent = () => {
         <AffiliationBanner />
         
         <div className="container mx-auto px-4 py-24">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              <ProductGrid products={products} />
-              <div className="mt-6">
-                <DualVideoCarousel />
-              </div>
+          <div className="flex flex-col gap-6">
+            <div className="max-w-md">
+              <ProductGrid products={[products[0]]} />
             </div>
-            <div className="md:w-[300px] mt-6 md:mt-0">
-              <DiscordWidget />
+            
+            <div className="w-full">
+              <DualVideoCarousel />
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex-1">
+                <ProductGrid products={products.slice(1)} />
+              </div>
+              <div className="md:w-[300px]">
+                <DiscordWidget />
+              </div>
             </div>
           </div>
         </div>
