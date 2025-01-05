@@ -3,9 +3,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
-// Placeholder videos - replace these with your actual video URLs
 const defaultVideos = [
-  { id: 1, url: 'about:blank' },
+  { id: 1, url: 'https://streamable.com/e/yd3tbf?autoplay=1&loop=0' },
   { id: 2, url: 'about:blank' }
 ];
 
