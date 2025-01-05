@@ -1,15 +1,25 @@
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
-import VideoPlayer from './VideoPlayer';
+import { Card } from '../ui/card';
 import ProductImage from './ProductImage';
 import ProductContent from './ProductContent';
 import StatusCard from './StatusCard';
-import { toast } from '@/components/ui/use-toast';
-import { Product } from '@/types/product';
+import { toast } from '../ui/use-toast';
 
 interface ProductCardProps {
-  product: Product;
+  product: {
+    id: string;
+    name: string;
+    prices: {
+      daily: number;
+      weekly: number;
+      monthly: number;
+    };
+    description: string;
+    features: string[];
+    imageUrl?: string;
+    videoUrl?: string;
+  }
 }
 
 const ProductCard = memo(({ product }: ProductCardProps) => {
