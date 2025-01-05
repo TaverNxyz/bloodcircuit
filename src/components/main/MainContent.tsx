@@ -63,14 +63,6 @@ const MainContent = () => {
   const { toast } = useToast();
   const { user, signOut } = useAuth();
 
-  const handleSellixClick = () => {
-    window.open('https://plentipowered.mysellix.io/', '_blank');
-    toast({
-      title: "Opening Sellix Store",
-      description: "Redirecting you to our Sellix store..."
-    });
-  };
-
   const handleAuthClick = () => {
     if (user) {
       signOut();
@@ -103,18 +95,6 @@ const MainContent = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button 
-              onClick={handleSellixClick}
-              className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-            >
-              Purchase Here
-            </Button>
-            <Button 
-              onClick={() => navigate('/cart')}
-              className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-            >
-              Cart
-            </Button>
             <Button
               onClick={handleAuthClick}
               className="bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
@@ -158,7 +138,7 @@ const MainContent = () => {
           <iframe 
             src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
             width="350" 
-            height="300" 
+            height="200" 
             allowTransparency={true} 
             frameBorder="0" 
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
