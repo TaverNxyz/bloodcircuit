@@ -112,7 +112,7 @@ const MainContent = () => {
             <div 
               className="absolute" 
               style={{ 
-                top: '206px', 
+                top: '106px', 
                 left: '1109px', 
                 transform: 'translate(-50%, 0)', 
                 zIndex: 20,
