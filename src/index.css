@@ -79,6 +79,29 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.5) 25%,
+    rgba(255, 0, 0, 0.8) 50%,
+    rgba(255, 0, 0, 0.5) 75%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
 .glow-effect {
   animation: glow 2s infinite;
 }

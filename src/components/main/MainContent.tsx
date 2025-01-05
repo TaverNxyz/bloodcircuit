@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import ProductCard from "@/components/ProductCard";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import Logo from "@/components/Logo";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const products = [
   {
@@ -58,6 +61,17 @@ const products = [
 const MainContent = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [websiteUrl, setWebsiteUrl] = useState("");
+
+  const handleUrlSubmit = () => {
+    if (websiteUrl) {
+      window.open(websiteUrl, '_blank');
+      toast({
+        title: "Opening website",
+        description: "Redirecting to the provided URL",
+      });
+    }
+  };
 
   const { statusProduct, otherProducts } = {
     statusProduct: products.find(p => p.id === "rust"),
@@ -81,11 +95,29 @@ const MainContent = () => {
               Uneven The Odds
             </span>
           </div>
+
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2">
+              <Input
+                type="url"
+                placeholder="Enter website URL"
+                value={websiteUrl}
+                onChange={(e) => setWebsiteUrl(e.target.value)}
+                className="bg-black/50 border-red-600/30 text-white placeholder:text-gray-400"
+              />
+              <Button
+                onClick={handleUrlSubmit}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                Go
+              </Button>
+            </div>
+          </div>
         </header>
 
         <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none">
           <div className="text-center p-8">
-            <p className="text-xl text-red-500 font-['ROG_Fonts']">
+            <p className="text-xl text-red-500 font-['ROG_Fonts'] animate-shimmer">
               Exclusive Affiliation with Exodus and Undetect.net Projects
             </p>
           </div>
@@ -105,7 +137,7 @@ const MainContent = () => {
           </div>
         </div>
 
-        <div className="fixed right-4 top-24 z-50">
+        <div className="fixed right-4 bottom-4 z-50">
           <iframe 
             src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
             width="350" 
