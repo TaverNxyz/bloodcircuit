@@ -115,17 +115,17 @@ const MainContent = () => {
           </div>
         </header>
 
-        <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-x-0 top-32 z-10 flex items-center justify-center pointer-events-none mb-12">
           <div className="text-center p-8">
-            <p className="text-xl text-red-500 font-['ROG_Fonts'] animate-shimmer">
+            <p className="text-xl text-red-600 font-['ROG_Fonts'] animate-shimmer">
               Exclusive Affiliation with Exodus and Undetect.net Projects
             </p>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-24">
           {statusProduct && (
-            <div className="max-w-md mx-auto mb-12">
+            <div className="max-w-md mx-auto mb-16">
               <ProductCard product={statusProduct} />
             </div>
           )}
