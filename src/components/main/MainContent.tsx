@@ -44,7 +44,7 @@ const products: Product[] = [
     videoUrl: "https://www.youtube.com/embed/pBkpHgDdcps"
   },
   {
-    id: "fortnite",
+    id: "tarkov",
     name: "UDP EFT External",
     prices: {
       daily: 7,
