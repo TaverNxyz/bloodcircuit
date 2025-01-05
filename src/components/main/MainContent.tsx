@@ -158,7 +158,7 @@ const MainContent = () => {
           <iframe 
             src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
             width="350" 
-            height="300" 
+            height="200" 
             allowTransparency={true} 
             frameBorder="0" 
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
