@@ -109,7 +109,7 @@ const MainContent = () => {
               </div>
             )}
             
-            <div className="absolute" style={{ left: '1136px', top: '303px' }}>
+            <div className="absolute" style={{ left: '1136px', top: '303px', transform: 'translate(-50%, -50%)' }}>
               <iframe 
                 src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
                 width="300" 
