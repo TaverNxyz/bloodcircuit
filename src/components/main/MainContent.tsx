@@ -152,6 +152,19 @@ const MainContent = () => {
             ))}
           </div>
         </div>
+
+        {/* Discord Widget */}
+        <div className="fixed right-4 top-24 z-50">
+          <iframe 
+            src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
+            width="350" 
+            height="500" 
+            allowTransparency={true} 
+            frameBorder="0" 
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            className="rounded-lg shadow-lg"
+          />
+        </div>
       </div>
     </div>
   );
