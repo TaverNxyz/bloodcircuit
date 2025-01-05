@@ -1,4 +1,4 @@
-import { Card, CardContent } from "../ui/card";
+import { CardContent } from "../ui/card";
 import ProductActions from "./ProductActions";
 import PricingButtons from "./PricingButtons";
 
