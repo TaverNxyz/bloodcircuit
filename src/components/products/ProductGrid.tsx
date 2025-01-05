@@ -1,17 +1,5 @@
-import ProductCard from "@/components/ProductCard";
-
-interface Product {
-  id: string;
-  name: string;
-  prices: {
-    daily: number;
-    weekly: number;
-    monthly: number;
-  };
-  description: string;
-  features: string[];
-  videoUrl?: string;
-}
+import ProductCard from "@/components/products/ProductCard";
+import { Product } from "@/types/product";
 
 interface ProductGridProps {
   products: Product[];

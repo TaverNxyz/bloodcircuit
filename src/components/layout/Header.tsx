@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 backdrop-blur-sm bg-black/80 border-b border-red-600/30">
       <div className="flex items-center">

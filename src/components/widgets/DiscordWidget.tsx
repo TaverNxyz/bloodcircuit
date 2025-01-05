@@ -1,8 +1,6 @@
 const DiscordWidget = () => {
   return (
-    <div 
-      className="w-[300px] h-[200px]"
-    >
+    <div className="w-[300px] h-[200px]">
       <iframe 
         src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
         width="300" 

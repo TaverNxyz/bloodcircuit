@@ -20,3 +20,6 @@ export const CRYPTO_DETAILS = {
     icon: "Ł"
   }
 } as const;
+
+export const DISCORD_WIDGET_ID = "1325470956658888774";
+export const STORE_URL = "https://plentipowered.mysellix.io/";

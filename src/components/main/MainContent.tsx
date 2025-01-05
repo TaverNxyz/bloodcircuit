@@ -3,8 +3,9 @@ import Header from "@/components/layout/Header";
 import AffiliationBanner from "@/components/layout/AffiliationBanner";
 import DiscordWidget from "@/components/widgets/DiscordWidget";
 import ProductGrid from "@/components/products/ProductGrid";
+import { Product } from "@/types/product";
 
-const products = [
+const products: Product[] = [
   {
     id: "rust",
     name: "Application Status",

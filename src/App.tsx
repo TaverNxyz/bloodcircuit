@@ -7,7 +7,6 @@ import Auth from '@/pages/Auth';
 import AuthCallback from '@/pages/AuthCallback';
 import ProductDetails from '@/pages/ProductDetails';
 
-// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
