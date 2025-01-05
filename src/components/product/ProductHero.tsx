@@ -25,7 +25,7 @@ const ProductHero = ({ title, description }: ProductHeroProps) => {
       window.open('https://www.youtube.com/embed/YUvGjdWVCrw', '_blank');
     } else if (productId === "hwid") {
       window.open('https://www.youtube.com/embed/pBkpHgDdcps', '_blank');
-    } else if (productId === "fortnite") {
+    } else if (productId === "tarkov") {
       window.open('https://streamable.com/e/lwokde', '_blank');
     }
   };
