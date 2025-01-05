@@ -8,8 +8,8 @@ const ProductActions = ({ onPurchase }: ProductActionsProps) => {
   return (
     <div className="space-y-2">
       <Button 
-        className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white"
-        onClick={onPurchase}
+        onClick={() => window.open('https://plentipowered.mysellix.io/', '_blank')}
+        className="w-full bg-red-600 hover:bg-red-700 text-white"
       >
         Purchase
       </Button>
