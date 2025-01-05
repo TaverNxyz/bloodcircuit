@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 
 const defaultVideos = [
   { id: 1, url: 'https://streamable.com/e/yd3tbf' },
-  { id: 2, url: 'about:blank' }
+  { id: 2, url: 'https://streamable.com/e/lwokde' }
 ];
 
 const DualVideoCarousel = () => {
