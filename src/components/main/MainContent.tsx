@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import AffiliationBanner from "@/components/layout/AffiliationBanner";
 import DiscordWidget from "@/components/widgets/DiscordWidget";
 import ProductGrid from "@/components/products/ProductGrid";
+import DualVideoCarousel from "@/components/carousel/DualVideoCarousel";
 import { Product } from "@/types/product";
 
 const products: Product[] = [
@@ -71,6 +72,9 @@ const MainContent = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1">
               <ProductGrid products={products} />
+              <div className="mt-6">
+                <DualVideoCarousel />
+              </div>
             </div>
             <div className="md:w-[300px] mt-6 md:mt-0">
               <DiscordWidget />
