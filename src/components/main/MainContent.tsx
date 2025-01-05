@@ -102,18 +102,18 @@ const MainContent = () => {
         </div>
 
         <div className="container mx-auto px-4 py-24">
-          <div className="flex items-start gap-6">
+          <div className="relative">
             {statusProduct && (
               <div className="max-w-md">
                 <ProductCard product={statusProduct} />
               </div>
             )}
             
-            <div className="flex-shrink-0">
+            <div className="absolute" style={{ left: '1136px', top: '303px' }}>
               <iframe 
                 src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
-                width="350" 
-                height="500" 
+                width="300" 
+                height="300" 
                 allowTransparency={true} 
                 frameBorder="0" 
                 sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
