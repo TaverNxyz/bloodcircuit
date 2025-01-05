@@ -110,20 +110,20 @@ const MainContent = () => {
             )}
             
             <div 
-              className="absolute" 
+              className="fixed" 
               style={{ 
                 top: '206px', 
                 left: '1109px', 
                 transform: 'translate(-50%, 0)', 
                 zIndex: 20,
                 width: '300px',
-                height: '200px'
+                height: '200px'  // Decreased from 300px to 200px
               }}
             >
               <iframe 
                 src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
                 width="300" 
-                height="200"
+                height="200"  // Decreased from 300px to 200px
                 allowTransparency={true} 
                 frameBorder="0" 
                 sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
