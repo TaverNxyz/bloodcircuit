@@ -71,13 +71,13 @@ const MainContent = () => {
       </div>
 
       <div className="relative pt-20">
-        <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 backdrop-blur-sm bg-background/80">
+        <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 backdrop-blur-sm bg-black/80 border-b border-red-600/30">
           <div className="flex items-center">
             <Logo />
           </div>
           
           <div className="absolute left-1/2 transform -translate-x-1/2">
-            <span className="text-3xl font-bold font-['Exo_2'] bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] text-transparent bg-clip-text animate-pulse">
+            <span className="text-3xl font-bold font-['ROG_Fonts'] bg-gradient-to-r from-red-600 via-red-500 to-red-600 text-transparent bg-clip-text animate-pulse glow-effect">
               Uneven The Odds
             </span>
           </div>
@@ -85,7 +85,7 @@ const MainContent = () => {
 
         <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none">
           <div className="text-center p-8">
-            <p className="text-xl text-[#9b87f5] font-['JetBrains_Mono']">
+            <p className="text-xl text-red-500 font-['ROG_Fonts']">
               Exclusive Affiliation with Exodus and Undetect.net Projects
             </p>
           </div>
@@ -105,7 +105,6 @@ const MainContent = () => {
           </div>
         </div>
 
-        {/* Discord Widget */}
         <div className="fixed right-4 top-24 z-50">
           <iframe 
             src="https://discord.com/widget?id=1325470956658888774&theme=dark" 
@@ -114,7 +113,7 @@ const MainContent = () => {
             allowTransparency={true} 
             frameBorder="0" 
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-            className="rounded-lg shadow-lg"
+            className="rounded-lg shadow-lg border border-red-600/30"
           />
         </div>
       </div>

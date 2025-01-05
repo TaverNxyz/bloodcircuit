@@ -27,7 +27,7 @@ const ParticlesBackground = () => {
             }
           },
           color: {
-            value: "#1EAEDB"
+            value: "#ff0000"
           },
           shape: {
             type: "circle"
@@ -43,7 +43,7 @@ const ParticlesBackground = () => {
           line_linked: {
             enable: true,
             distance: 150,
-            color: "#1EAEDB",
+            color: "#ff0000",
             opacity: 0.4,
             width: 1
           },

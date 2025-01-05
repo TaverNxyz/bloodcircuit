@@ -6,14 +6,14 @@ interface TerminalWindowProps {
 
 const TerminalWindow = ({ children }: TerminalWindowProps) => {
   return (
-    <div className="w-full bg-black rounded-lg shadow-xl overflow-hidden border border-[#FF6B00]">
-      <div className="bg-[#1A1A1A] px-4 py-2 flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-        <span className="ml-2 text-sm text-[#FF6B00]">Terminal</span>
+    <div className="terminal-window">
+      <div className="terminal-header">
+        <div className="w-3 h-3 rounded-full bg-red-500 opacity-75"></div>
+        <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+        <div className="w-3 h-3 rounded-full bg-red-500/30"></div>
+        <span className="ml-2 text-sm text-red-500 font-['ROG_Fonts']">Terminal</span>
       </div>
-      <div className="p-6 bg-black text-[#FF6B00] font-mono">
+      <div className="terminal-content">
         {children}
       </div>
     </div>
