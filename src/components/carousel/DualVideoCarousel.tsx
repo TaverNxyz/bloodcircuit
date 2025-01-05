@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 const defaultVideos = [
-  { id: 1, url: 'https://streamable.com/e/yd3tbf?autoplay=1&loop=0' },
+  { id: 1, url: 'https://streamable.com/e/yd3tbf' },
   { id: 2, url: 'about:blank' }
 ];
 
@@ -28,6 +28,7 @@ const DualVideoCarousel = () => {
           className="w-full h-full"
           allow="autoplay; fullscreen"
           frameBorder="0"
+          title={`Video ${currentIndex + 1}`}
         />
         
         <Button 
