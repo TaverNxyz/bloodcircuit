@@ -93,7 +93,7 @@ const MainContent = () => {
           </div>
         </header>
 
-        <div className="absolute inset-x-0 top-32 z-10 flex items-center justify-center pointer-events-none mb-12">
+        <div className="absolute inset-x-0 top-24 z-10 flex items-center justify-center pointer-events-none mb-12">
           <div className="text-center p-8">
             <p className="text-xl text-red-600 font-['ROG_Fonts'] animate-shimmer">
               Exclusive Affiliation with Exodus and Undetect.net Projects
@@ -110,11 +110,10 @@ const MainContent = () => {
             )}
             
             <div 
-              className="absolute" 
+              className="fixed" 
               style={{ 
                 top: '106px', 
-                left: '1109px', 
-                transform: 'translate(-50%, 0)', 
+                right: '20px',
                 zIndex: 20,
                 width: '300px',
                 height: '200px'
