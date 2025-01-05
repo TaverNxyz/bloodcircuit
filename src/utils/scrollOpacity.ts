@@ -1,16 +1,15 @@
 export const initScrollOpacity = () => {
   const handleScroll = () => {
-    const scrolled = window.scrollY;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const opacity = Math.min(scrolled / (maxScroll * 0.2), 1);
-    
-    document.documentElement.style.setProperty('--scroll-opacity', opacity.toString());
+    const scrollPercentage = Math.min(window.scrollY / 500, 1);
+    document.documentElement.style.setProperty('--scroll-opacity', `${1 - (scrollPercentage * 0.9)}`);
   };
 
+  // Initial call to set the initial opacity
+  handleScroll();
+
+  // Add scroll event listener
   window.addEventListener('scroll', handleScroll);
-  handleScroll(); // Initial call
 
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
-  };
+  // Cleanup function
+  return () => window.removeEventListener('scroll', handleScroll);
 };

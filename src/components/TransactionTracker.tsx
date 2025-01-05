@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Check, Clock, Copy, ExternalLink, Bitcoin, Coins } from 'lucide-react';
+import { Check, Clock, Copy, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from './ui/use-toast';
 import { CRYPTO_DETAILS, CryptoType } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { supabase } from '@/integrations/supabase/client';
 
 interface TransactionTrackerProps {
   address: string;
@@ -17,48 +16,29 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
   const [progress, setProgress] = useState(0);
   const [confirmations, setConfirmations] = useState(0);
   const [status, setStatus] = useState<'pending' | 'confirming' | 'completed'>('pending');
-  const { toast } = useToast();
-
-  // Get crypto details with fallback values
-  const cryptoDetails = CRYPTO_DETAILS[cryptoType] || {
-    name: cryptoType,
-    confirmations: 3,
-    explorer: 'https://blockchair.com',
-    icon: <Bitcoin className="h-6 w-6" />
-  };
 
   useEffect(() => {
-    console.log('Setting up payment channel for address:', address);
-    // Subscribe to payment status updates from Supabase
-    const channel = supabase
-      .channel('payment-updates')
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'orders',
-          filter: `address=eq.${address}`
-        },
-        (payload: any) => {
-          console.log('Received payment update:', payload);
-          if (payload.new.status === 'confirming') {
-            setStatus('confirming');
-            setConfirmations(payload.new.confirmations);
-            setProgress(60);
-          } else if (payload.new.status === 'completed') {
-            setStatus('completed');
-            setProgress(100);
-          }
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          clearInterval(timer);
+          setStatus('completed');
+          return 100;
         }
-      )
-      .subscribe();
+        const newProgress = oldProgress + 10;
+        if (newProgress === 60) {
+          setStatus('confirming');
+          setConfirmations(Math.floor(CRYPTO_DETAILS[cryptoType].confirmations / 2));
+        }
+        if (newProgress === 80) {
+          setConfirmations(CRYPTO_DETAILS[cryptoType].confirmations);
+        }
+        return newProgress;
+      });
+    }, 1000);
 
-    return () => {
-      console.log('Cleaning up payment channel');
-      supabase.removeChannel(channel);
-    };
-  }, [address]);
+    return () => clearInterval(timer);
+  }, [cryptoType]);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
@@ -68,20 +48,13 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
     });
   };
 
-  const getCryptoIcon = () => {
-    if (typeof cryptoDetails.icon === 'string') {
-      return <span className="text-2xl">{cryptoDetails.icon}</span>;
-    }
-    return <Coins className="h-6 w-6" />;
-  };
-
   return (
     <div className="space-y-6 p-6 bg-[#0A0A0A] rounded-lg border border-[#222] animate-fade-in">
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          {getCryptoIcon()}
+          <span className="text-2xl">{CRYPTO_DETAILS[cryptoType].icon}</span>
           <h3 className="text-lg font-semibold text-white">
-            {cryptoDetails.name} Payment
+            {CRYPTO_DETAILS[cryptoType].name} Payment
           </h3>
         </div>
         <p className="text-sm text-gray-400">
@@ -106,7 +79,7 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
           <span className="text-gray-400">Transaction Status</span>
           <span className="text-white">
             {status === 'pending' && 'Waiting for payment'}
-            {status === 'confirming' && `${confirmations}/${cryptoDetails.confirmations} confirmations`}
+            {status === 'confirming' && `${confirmations}/${CRYPTO_DETAILS[cryptoType].confirmations} confirmations`}
             {status === 'completed' && 'Payment completed'}
           </span>
         </div>
@@ -133,13 +106,13 @@ const TransactionTracker = ({ address, amount, cryptoType }: TransactionTrackerP
         asChild
       >
         <a 
-          href={cryptoDetails.explorer}
+          href={CRYPTO_DETAILS[cryptoType].explorer}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2"
         >
           <ExternalLink className="h-4 w-4" />
-          View on {cryptoDetails.name} Explorer
+          View on {CRYPTO_DETAILS[cryptoType].name} Explorer
         </a>
       </Button>
     </div>

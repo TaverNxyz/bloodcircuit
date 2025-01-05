@@ -2,16 +2,13 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import ReturnHomeButton from "@/components/ReturnHomeButton";
-import PaymentMethodDialog from "@/components/PaymentMethodDialog";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [orderNumber] = useState(() => Math.floor(Math.random() * 1000000));
   const [receiptNumber] = useState(() => Math.floor(Math.random() * 1000000));
-  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -43,20 +40,18 @@ const Cart = () => {
             </Button>
             <Button
               className="w-full bg-[#1EAEDB] hover:bg-[#0FA0CE]"
-              onClick={() => setShowPaymentDialog(true)}
+              onClick={() => {
+                toast({
+                  title: "Order Placed",
+                  description: `Your order #${orderNumber} has been placed successfully.`
+                });
+              }}
             >
               Checkout
             </Button>
           </div>
         </div>
       </div>
-
-      <PaymentMethodDialog
-        open={showPaymentDialog}
-        onOpenChange={setShowPaymentDialog}
-        productId="cart"
-        plan="one-time"
-      />
     </div>
   );
 };

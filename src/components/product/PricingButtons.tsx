@@ -6,29 +6,30 @@ interface PricingButtonsProps {
     weekly: number;
     monthly: number;
   };
-  onSelect: (plan: 'daily' | 'weekly' | 'monthly') => void;
+  selectedPlan: 'daily' | 'weekly' | 'monthly';
+  onPlanSelect: (plan: 'daily' | 'weekly' | 'monthly') => void;
 }
 
-const PricingButtons = ({ prices, onSelect }: PricingButtonsProps) => {
+const PricingButtons = ({ prices, selectedPlan, onPlanSelect }: PricingButtonsProps) => {
   return (
     <div className="grid grid-cols-3 gap-2 mb-4">
       <Button
-        variant="outline"
-        onClick={() => onSelect('daily')}
+        variant={selectedPlan === 'daily' ? 'default' : 'outline'}
+        onClick={() => onPlanSelect('daily')}
         className="w-full"
       >
         ${prices.daily}/day
       </Button>
       <Button
-        variant="outline"
-        onClick={() => onSelect('weekly')}
+        variant={selectedPlan === 'weekly' ? 'default' : 'outline'}
+        onClick={() => onPlanSelect('weekly')}
         className="w-full"
       >
         ${prices.weekly}/week
       </Button>
       <Button
-        variant="outline"
-        onClick={() => onSelect('monthly')}
+        variant={selectedPlan === 'monthly' ? 'default' : 'outline'}
+        onClick={() => onPlanSelect('monthly')}
         className="w-full"
       >
         ${prices.monthly}/month

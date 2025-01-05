@@ -1,7 +1,0 @@
-project_id = "clfftquiayfvqwsfwsxr"
-
-[functions.billgang-payment]
-verify_jwt = true
-
-[functions.billgang-webhook]
-verify_jwt = false

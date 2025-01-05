@@ -1,68 +1,55 @@
-import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Button } from "./ui/button";
+import { Bitcoin, CreditCard, Wallet } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { CreditCard, DollarSign } from "lucide-react";
 
 interface PaymentMethodDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   productId: string;
-  plan?: string;
+  plan: string;
 }
 
 const PaymentMethodDialog = ({ open, onOpenChange, productId, plan }: PaymentMethodDialogProps) => {
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handlePaymentMethod = async (method: 'card' | 'paypal') => {
-    try {
-      setIsProcessing(true);
-      
-      // Close the dialog first
-      onOpenChange(false);
-      
-      // Navigate to payment page with method
-      navigate(`/payment/${productId}?method=${method}${plan ? `&plan=${plan}` : ''}`);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to process payment method selection",
-        variant: "destructive",
-      });
-    } finally {
-      setIsProcessing(false);
-    }
+  const handleCryptoPayment = (type: "BTC" | "LTC") => {
+    navigate(`/payment/${productId}?plan=${plan}&method=${type}`);
+    onOpenChange(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="bg-[#0A0A0A] text-white border-[#222] sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Select Payment Method</DialogTitle>
         </DialogHeader>
-        
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="grid gap-4">
           <Button
             variant="outline"
-            className="w-full justify-start gap-2"
-            onClick={() => handlePaymentMethod('card')}
-            disabled={isProcessing}
+            className="flex items-center gap-2 h-16"
+            onClick={() => handleCryptoPayment("BTC")}
           >
-            <CreditCard className="h-4 w-4" />
-            <span>Pay with Card</span>
+            <Bitcoin className="h-5 w-5" />
+            <span>Pay with Bitcoin</span>
           </Button>
           
           <Button
             variant="outline"
-            className="w-full justify-start gap-2"
-            onClick={() => handlePaymentMethod('paypal')}
-            disabled={isProcessing}
+            className="flex items-center gap-2 h-16"
+            onClick={() => handleCryptoPayment("LTC")}
           >
-            <DollarSign className="h-4 w-4" />
-            <span>Pay with PayPal</span>
+            <Wallet className="h-5 w-5" />
+            <span>Pay with Litecoin</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 h-16"
+            disabled
+          >
+            <CreditCard className="h-5 w-5" />
+            <span>Credit Card (Coming Soon)</span>
           </Button>
         </div>
       </DialogContent>
