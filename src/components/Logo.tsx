@@ -23,7 +23,7 @@ const Logo = () => {
   return (
     <div 
       ref={ref}
-      className="relative text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#F97316] via-[#9b87f5] to-[#F97316] animate-pulse hover:animate-none transition-all duration-300 font-['Exo_2']"
+      className="relative text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ea384c] via-[#403E43] to-[#ea384c] animate-pulse hover:animate-none transition-all duration-300 font-['Exo_2']"
       style={{ '--x': '50%', '--y': '50%' } as React.CSSProperties}
     >
       BloodCircuit
