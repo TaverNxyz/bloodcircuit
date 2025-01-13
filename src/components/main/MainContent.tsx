@@ -4,6 +4,7 @@ import AffiliationBanner from "@/components/layout/AffiliationBanner";
 import DiscordWidget from "@/components/widgets/DiscordWidget";
 import ProductGrid from "@/components/products/ProductGrid";
 import DualVideoCarousel from "@/components/carousel/DualVideoCarousel";
+import SellixEmbed from "@/components/widgets/SellixEmbed";
 import { Product } from "@/types/product";
 
 const products: Product[] = [
@@ -73,6 +74,7 @@ const MainContent = () => {
             <div className="flex gap-6">
               <div className="max-w-md">
                 <ProductGrid products={[products[0]]} />
+                <SellixEmbed />
               </div>
               <div className="flex-1">
                 <img 
