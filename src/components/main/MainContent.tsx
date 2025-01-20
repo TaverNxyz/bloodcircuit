@@ -77,11 +77,32 @@ const MainContent = () => {
                 <SellixEmbed />
               </div>
               <div className="flex-1">
-                <img 
-                  src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
-                  alt="Blood Circuit"
-                  className="w-full h-auto rounded-lg shadow-xl border border-red-600/30"
-                />
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Top Left - Keep existing blood circuit image */}
+                  <img 
+                    src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
+                    alt="Blood Circuit"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                  />
+                  {/* Top Right */}
+                  <img 
+                    src="https://images.unsplash.com/photo-1518770660439-4636190af475"
+                    alt="Tech Abstract 1"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                  />
+                  {/* Bottom Left */}
+                  <img 
+                    src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+                    alt="Tech Abstract 2"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                  />
+                  {/* Bottom Right */}
+                  <img 
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+                    alt="Tech Abstract 3"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                  />
+                </div>
               </div>
             </div>
             
