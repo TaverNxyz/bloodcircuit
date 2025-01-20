@@ -85,25 +85,22 @@ const MainContent = () => {
                     className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                   {/* Top Right */}
-                  <iframe 
-                    src="https://streamable.com/e/lrrhe8"
-                    className="w-full aspect-video rounded-lg shadow-xl border border-red-600/30"
-                    frameBorder="0"
-                    allowFullScreen
+                  <img 
+                    src="https://streamable.com/lrrhe8"
+                    alt="Image 1"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                   {/* Bottom Left */}
-                  <iframe 
-                    src="https://streamable.com/e/ea6nxf"
-                    className="w-full aspect-video rounded-lg shadow-xl border border-red-600/30"
-                    frameBorder="0"
-                    allowFullScreen
+                  <img 
+                    src="https://streamable.com/ea6nxf"
+                    alt="Image 2"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                   {/* Bottom Right */}
-                  <iframe 
-                    src="https://streamable.com/e/5lwx1c"
-                    className="w-full aspect-video rounded-lg shadow-xl border border-red-600/30"
-                    frameBorder="0"
-                    allowFullScreen
+                  <img 
+                    src="https://streamable.com/5lwx1c"
+                    alt="Image 3"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                 </div>
               </div>
