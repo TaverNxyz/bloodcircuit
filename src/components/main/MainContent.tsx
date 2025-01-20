@@ -76,31 +76,36 @@ const MainContent = () => {
                 <ProductGrid products={[products[0]]} />
                 <SellixEmbed />
               </div>
-              <div className="flex-1 grid grid-cols-2 gap-4">
-                {/* Top Left */}
-                <img 
-                  src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
-                  alt="Blood Circuit"
-                  className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                />
-                {/* Top Right */}
-                <img 
-                  src="https://streamable.com/lrrhe8"
-                  alt="Feature Image 1"
-                  className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                />
-                {/* Bottom Left */}
-                <img 
-                  src="https://streamable.com/ea6nxf"
-                  alt="Feature Image 2"
-                  className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                />
-                {/* Bottom Right */}
-                <img 
-                  src="https://streamable.com/5lwx1c"
-                  alt="Feature Image 3"
-                  className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                />
+              <div className="flex-1">
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Top Left - Keep existing blood circuit image */}
+                  <img 
+                    src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
+                    alt="Blood Circuit"
+                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                  />
+                  {/* Top Right */}
+                  <iframe 
+                    src="https://streamable.com/e/lrrhe8"
+                    className="w-full aspect-video rounded-lg shadow-xl border border-red-600/30"
+                    frameBorder="0"
+                    allowFullScreen
+                  />
+                  {/* Bottom Left */}
+                  <iframe 
+                    src="https://streamable.com/e/ea6nxf"
+                    className="w-full aspect-video rounded-lg shadow-xl border border-red-600/30"
+                    frameBorder="0"
+                    allowFullScreen
+                  />
+                  {/* Bottom Right */}
+                  <iframe 
+                    src="https://streamable.com/e/5lwx1c"
+                    className="w-full aspect-video rounded-lg shadow-xl border border-red-600/30"
+                    frameBorder="0"
+                    allowFullScreen
+                  />
+                </div>
               </div>
             </div>
             
