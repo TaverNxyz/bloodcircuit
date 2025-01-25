@@ -86,19 +86,19 @@ const MainContent = () => {
                   />
                   {/* Top Right */}
                   <img 
-                    src="https://postimg.cc/sG3sv2xZ"
+                    src="/lovable-uploads/51ab9cf1-0a87-4789-a2f7-2d87492183db.png"
                     alt="Tech Abstract 1"
                     className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                   {/* Bottom Left */}
                   <img 
-                    src="https://postimg.cc/hzLKDmDB"
+                    src="/lovable-uploads/e6c750b2-9557-4caf-8b4f-bf0a31c9591b.png"
                     alt="Tech Abstract 2"
                     className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                   {/* Bottom Right */}
                   <img 
-                    src="https://postimg.cc/y3hxb5g0"
+                    src="/lovable-uploads/9b8ea255-6bc4-4d24-a781-999f5ecd1497.png"
                     alt="Tech Abstract 3"
                     className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
