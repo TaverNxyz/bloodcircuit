@@ -72,10 +72,6 @@ const MainContent = () => {
         <div className="container mx-auto px-4 py-24">
           <div className="flex flex-col gap-6">
             <div className="flex gap-6">
-              <div className="max-w-md">
-                <ProductGrid products={[products[0]]} />
-                <SellixEmbed />
-              </div>
               <div className="flex-1">
                 <div className="grid grid-cols-2 gap-4">
                   {/* Top Left - Keep existing blood circuit image */}
