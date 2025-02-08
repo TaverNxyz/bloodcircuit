@@ -100,18 +100,18 @@ const MainContent = () => {
                         <div>
                           <h4 className="text-lg font-semibold text-white mb-2">Unassisted</h4>
                           <div className="space-y-1">
-                            <a href="https://voee.gumroad.com/l/noassist3hr" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">3 Hour</a>
-                            <a href="https://voee.gumroad.com/l/noassist8hr" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">8 Hour</a>
-                            <a href="https://voee.gumroad.com/l/noassistweek" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Weekly</a>
+                            <a href="https://voee.gumroad.com/l/noassist3hr?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">3 Hour</a>
+                            <a href="https://voee.gumroad.com/l/noassist8hr?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">8 Hour</a>
+                            <a href="https://voee.gumroad.com/l/noassistweek?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Weekly</a>
                           </div>
                         </div>
                         
                         <div>
                           <h4 className="text-lg font-semibold text-white mb-2">Assisted</h4>
                           <div className="space-y-1">
-                            <a href="https://voee.gumroad.com/l/assisted3hr" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">3 Hour</a>
-                            <a href="https://voee.gumroad.com/l/assistedday" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Daily</a>
-                            <a href="https://voee.gumroad.com/l/assistedweekly" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Weekly</a>
+                            <a href="https://voee.gumroad.com/l/assisted3hr?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">3 Hour</a>
+                            <a href="https://voee.gumroad.com/l/assistedday?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Daily</a>
+                            <a href="https://voee.gumroad.com/l/assistedweekly?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Weekly</a>
                           </div>
                         </div>
                       </div>
