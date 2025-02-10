@@ -39,11 +39,14 @@ const MainContent = () => {
                       title="Rage Live Embed"
                     />
                   </div>
-                  <img 
-                    src="/lovable-uploads/e6c750b2-9557-4caf-8b4f-bf0a31c9591b.png"
-                    alt="Tech Abstract 2"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                  />
+                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 overflow-hidden">
+                    <iframe 
+                      src="https://kappa.plentifulpower.xyz"
+                      className="w-full h-full"
+                      style={{ border: 'none' }}
+                      title="Kappa Embed"
+                    />
+                  </div>
                   <img 
                     src="/lovable-uploads/9b8ea255-6bc4-4d24-a781-999f5ecd1497.png"
                     alt="Tech Abstract 3"
