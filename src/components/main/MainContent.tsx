@@ -4,7 +4,8 @@ import Header from "@/components/layout/Header";
 import AffiliationBanner from "@/components/layout/AffiliationBanner";
 import DiscordWidget from "@/components/widgets/DiscordWidget";
 import DualVideoCarousel from "@/components/carousel/DualVideoCarousel";
-import { Product } from "@/types/product";
+import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 
 const MainContent = () => {
   return (
@@ -31,21 +32,21 @@ const MainContent = () => {
                     alt="Blood Circuit"
                     className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
-                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 overflow-hidden">
-                    <iframe 
-                      src="https://ragelive.netlify.app/"
-                      className="w-full h-full"
-                      style={{ border: 'none' }}
-                      title="Rage Live Embed"
-                    />
+                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 flex items-center justify-center bg-black/50">
+                    <Button
+                      onClick={() => window.open('https://ragelive.netlify.app/', '_blank')}
+                      className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-2"
+                    >
+                      Visit Rage Live <ExternalLink className="w-4 h-4" />
+                    </Button>
                   </div>
-                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 overflow-hidden">
-                    <iframe 
-                      src="https://kappa.plentifulpower.xyz"
-                      className="w-full h-full"
-                      style={{ border: 'none' }}
-                      title="Kappa Embed"
-                    />
+                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 flex items-center justify-center bg-black/50">
+                    <Button
+                      onClick={() => window.open('https://kappa.plentifulpower.xyz', '_blank')}
+                      className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-2"
+                    >
+                      Visit Kappa <ExternalLink className="w-4 h-4" />
+                    </Button>
                   </div>
                   <img 
                     src="/lovable-uploads/9b8ea255-6bc4-4d24-a781-999f5ecd1497.png"
