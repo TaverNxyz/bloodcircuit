@@ -70,63 +70,7 @@ const MainContent = () => {
         <AffiliationBanner />
         
         <div className="container mx-auto px-4 py-24">
-          <div className="flex flex-col gap-6">
-            <div className="flex gap-6">
-              <div className="flex-1">
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Top Left - Keep existing blood circuit image */}
-                  <img 
-                    src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
-                    alt="Blood Circuit"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                  />
-                  {/* Top Right */}
-                  <img 
-                    src="/lovable-uploads/51ab9cf1-0a87-4789-a2f7-2d87492183db.png"
-                    alt="Tech Abstract 1"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                  />
-                  {/* Bottom Left - Radar image with text overlay */}
-                  <div className="relative">
-                    <img 
-                      src="/lovable-uploads/e6c750b2-9557-4caf-8b4f-bf0a31c9591b.png"
-                      alt="Tech Abstract 2"
-                      className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                    />
-                    <div className="absolute inset-0 bg-black/70 rounded-lg p-4">
-                      <h3 className="text-xl font-bold text-white mb-4">Radar Carries</h3>
-                      
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-lg font-semibold text-white mb-2">Unassisted</h4>
-                          <div className="space-y-1">
-                            <a href="https://voee.gumroad.com/l/noassist3hr?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">3 Hour</a>
-                            <a href="https://voee.gumroad.com/l/noassist8hr?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">8 Hour</a>
-                            <a href="https://voee.gumroad.com/l/noassistweek?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Weekly</a>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h4 className="text-lg font-semibold text-white mb-2">Assisted</h4>
-                          <div className="space-y-1">
-                            <a href="https://voee.gumroad.com/l/assisted3hr?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">3 Hour</a>
-                            <a href="https://voee.gumroad.com/l/assistedday?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Daily</a>
-                            <a href="https://voee.gumroad.com/l/assistedweekly?" className="text-blue-400 hover:text-blue-300 block text-sm" target="_blank" rel="noopener noreferrer">Weekly</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Bottom Right */}
-                  <img 
-                    src="/lovable-uploads/9b8ea255-6bc4-4d24-a781-999f5ecd1497.png"
-                    alt="Tech Abstract 3"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                  />
-                </div>
-              </div>
-            </div>
-            
+          <div className="flex flex-col gap-6">            
             <div className="w-full">
               <DualVideoCarousel />
             </div>
@@ -147,3 +91,4 @@ const MainContent = () => {
 };
 
 export default MainContent;
+
