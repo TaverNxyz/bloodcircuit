@@ -43,7 +43,7 @@ const MainContent = () => {
                   <div 
                     className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 flex items-center justify-center relative"
                     style={{
-                      backgroundImage: 'url(/lovable-uploads/38bfd2df-ad07-4544-a1e1-8b9b786d2ce2.png)',
+                      backgroundImage: 'url(/lovable-uploads/51ab9cf1-0a87-4789-a2f7-2d87492183db.png)',
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
