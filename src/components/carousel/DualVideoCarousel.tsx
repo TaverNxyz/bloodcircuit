@@ -1,10 +1,11 @@
+
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 const defaultVideos = [
-  { id: 1, url: 'https://streamable.com/e/yd3tbf' },
+  { id: 1, url: 'https://streamable.com/e/s914j7' },
   { id: 2, url: 'https://streamable.com/e/lwokde' }
 ];
 
