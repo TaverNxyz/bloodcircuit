@@ -31,11 +31,14 @@ const MainContent = () => {
                     alt="Blood Circuit"
                     className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
-                  <img 
-                    src="/lovable-uploads/51ab9cf1-0a87-4789-a2f7-2d87492183db.png"
-                    alt="Tech Abstract 1"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
-                  />
+                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 overflow-hidden">
+                    <iframe 
+                      src="https://ragelive.netlify.app/"
+                      className="w-full h-full"
+                      style={{ border: 'none' }}
+                      title="Rage Live Embed"
+                    />
+                  </div>
                   <img 
                     src="/lovable-uploads/e6c750b2-9557-4caf-8b4f-bf0a31c9591b.png"
                     alt="Tech Abstract 2"
