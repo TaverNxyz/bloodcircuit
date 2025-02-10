@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +20,7 @@ const Header = () => {
 
       <div className="flex items-center gap-4">
         <Button
-          onClick={() => window.open('https://plentipowered.mysellix.io/', '_blank')}
+          onClick={() => window.open('https://escoesco.gumroad.com/?_gl=1*6gbr0i*_ga*ODEyMDgxMTM3LjE3Mzg5NzI4NTg.*_ga_6LJN6D94N6*MTczOTE4OTk2Ni4zLjEuMTczOTE5MjUyMy4wLjAuMA..&section=ZG3ymjQGG_rk9iv7_kDNvw%3D%3D', '_blank')}
           className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md transition-colors duration-200"
         >
           Store
