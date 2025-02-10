@@ -30,7 +30,7 @@ const MainContent = () => {
                   <img 
                     src="/lovable-uploads/3a833e2c-65fc-4554-a8e8-93a8caf24820.png"
                     alt="Blood Circuit"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                    className="w-full h-[300px] object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                   <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 flex items-center justify-center bg-black/50">
                     <Button
@@ -40,7 +40,14 @@ const MainContent = () => {
                       Visit Rage Live <ExternalLink className="w-4 h-4" />
                     </Button>
                   </div>
-                  <div className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 flex items-center justify-center bg-black/50">
+                  <div 
+                    className="w-full h-[300px] rounded-lg shadow-xl border border-red-600/30 flex items-center justify-center relative"
+                    style={{
+                      backgroundImage: 'url(/lovable-uploads/46a28158-90ea-447e-a139-3e0903d35c88.png)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  >
                     <Button
                       onClick={() => window.open('https://kappa.plentifulpower.xyz', '_blank')}
                       className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-2"
@@ -51,7 +58,7 @@ const MainContent = () => {
                   <img 
                     src="/lovable-uploads/9b8ea255-6bc4-4d24-a781-999f5ecd1497.png"
                     alt="Tech Abstract 3"
-                    className="w-full h-full object-cover rounded-lg shadow-xl border border-red-600/30"
+                    className="w-full h-[300px] object-cover rounded-lg shadow-xl border border-red-600/30"
                   />
                 </div>
               </div>
